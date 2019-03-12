@@ -70,18 +70,16 @@ app.get('/authenticate',function(request, response)
    // Identify what was sent
 
       /* Array we receive
-      *  {
-      *    "type" : {
-      *       0: PIN,
-      *       1: CID,
-      *       ...
-      *       },
-      *     "data" : {
-      *        0: 123,
-      *        1: 456,
-      *        ...
-      *        }
-      *   }
+//       *  {
+//     "type": [
+//         "PIN",
+//         "CID"
+//     ],
+//     "data": [
+//         123,
+//       456
+//     ]
+// }
       */
 
    let pinFound = false;
