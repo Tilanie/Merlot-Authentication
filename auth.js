@@ -1,9 +1,20 @@
-ar express = require("express");
+var express = require("express");
+var bodyParser = require("body-parser");
 var app = express();
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: false }));
+
 
 var PORT = 3000;
 
-app.listen(PORT, function () {
-  console.log("Server is running on "+ PORT +" port");
+app.post('/authenticate',function(request,response){
+	var val1 = request.body.var1;
+	var val1 = request.body.var1;
+	console.log("Authenticate on post");
 });
+
+
+app.listen(PORT);
+console.log("Server is running on "+ PORT +" port");
+
 
