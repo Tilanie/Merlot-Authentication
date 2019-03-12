@@ -7,6 +7,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 var PORT = 3000;
 
+
 // 3 authentication options, for Facial, NFC and OTP
 var AuthOptions = [
     {
@@ -54,6 +55,7 @@ app.get('/authenticate',function(request, response)
 {
    console.log("Authenticate on GET");
 
+
    var data = JSON.parse(request.body);
 
    /* Can receive:
@@ -98,6 +100,7 @@ app.get('/authenticate',function(request, response)
       if(data["type"][i] == "PIN")
          pinFound = true;
    }
+
 
    if(!pinFound || diffTypes != 2)
    {
@@ -199,3 +202,4 @@ function sendAuthenticationRequest(response)
 
 app.listen(PORT);
 console.log("Server is running on "+ PORT +" port");
+
