@@ -1,5 +1,7 @@
+
 var express = require("express");
-var bodyParser = require("body-parser");
+var bodyParser = require("body-parser"); lines (6 sloc)  164 Bytes
+
 var app = express();
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -16,5 +18,4 @@ app.post('/authenticate',function(request,response){
 
 app.listen(PORT);
 console.log("Server is running on "+ PORT +" port");
-
 
