@@ -65,6 +65,7 @@ app.get('/authenticate',function(request, response)
     * CID -- 0
     */
 
+<<<<<<< HEAD
    // Didn't send through the two items needed, so authenticate one and prompt for a pin
 
    // Identify what was sent
@@ -201,3 +202,5 @@ function sendAuthenticationRequest(response)
 
 app.listen(PORT);
 console.log("Server is running on "+ PORT +" port");
+=======
+>>>>>>> d50872961f5fa500481e07b709dcbc055ba399ed
