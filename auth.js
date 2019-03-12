@@ -56,7 +56,7 @@ app.get('/authenticate',function(request, response)
 {
    console.log("Authenticate on GET");
 
-   var data = JSON.parse(request.body);
+   var data = request.body;
 
    /* Can receive:
     * PIN -- 3
@@ -70,28 +70,25 @@ app.get('/authenticate',function(request, response)
    // Identify what was sent
 
       /* Array we receive
-      *  {
-      *    "type" : {
-      *       0: PIN,
-      *       1: CID,
-      *       ...
-      *       },
-      *     "data" : {
-      *        0: 123,
-      *        1: 456,
-      *        ...
-      *        }
-      *   }
+//       *  {
+//     "type": [
+//         "PIN",
+//         "CID"
+//     ],
+//     "data": [
+//         123,
+//       456
+//     ]
+// }
       */
 
    let pinFound = false;
 
    let diffTypes = 0;
    let foundTypes = [];
-
-   for(let i = 0; i < data.length; i++)
+   for(let i = 0; i < data["type"].length; i++)
    {
-      if(prevType == "" || foundTypes.indexOf(data["type"][i]) > -1)
+      if(foundTypes.length == 0 || foundTypes.indexOf(data["type"][i]) == -1)
       {
          diffTypes++;
          foundTypes[foundTypes.length] = data["type"][i];
@@ -100,11 +97,12 @@ app.get('/authenticate',function(request, response)
       if(data["type"][i] == "PIN")
          pinFound = true;
    }
-
+console.log(pinFound);
+console.log(diffTypes);
    if(!pinFound || diffTypes != 2)
    {
       // No pin given which was required so throow notAuthenticatedException error
-      req.on('error', (error) => {
+      request.on('error', (error) => {
          console.error('notAuthenticatedException' + error);
       });
 
@@ -142,7 +140,7 @@ app.get('/authenticate',function(request, response)
           "        <div class='alert' style='margin-top: 40px' id='alert'>\n" +
           "            <span id='alertText'>Sending data to -> ");
 
-      for(let i = 0; i < data.length; i++)
+      for(let i = 0; i < data["type"].length; i++)
       {
          if(data["type"][i] == "PIN" && PINCount < 3)
          {
@@ -153,19 +151,24 @@ app.get('/authenticate',function(request, response)
          {
             PICCount++;
             options = AuthOptions[0];
+
+            sendAuthenticationRequest(response);
          }
          else if(data["type"][i] == "NFC" && NFCCount < 3)
          {
             NFCCount++;
             options = AuthOptions[1];
+
+            sendAuthenticationRequest(response);
          }
          else if(data["type"][i] == "CID" && CIDCount < 3)
          {
             CIDCount++;
-            options = AuthOptions[2];
-         }
+            options = "CID";
+            // options = AuthOptions[2];
 
-         sendAuthenticationRequest(response);
+            sendAuthenticationRequest(response);
+         }
       }
 
       response.write("</span>\n" +
@@ -195,8 +198,8 @@ function sendAuthenticationRequest(response)
    req.send(data);
    req.end();
    */
-
-   response.write(options["hostname"] + "<br>");
+   console.log(options);
+   response.write(options + "<br>");
 }
 
 app.listen(PORT);
