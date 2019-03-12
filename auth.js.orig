@@ -7,20 +7,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 var PORT = 3000;
 
-<<<<<<< HEAD
-app.post('/authenticate',function(request,response){
-	var val1 = request.body.type;
-	var val2 = request.body.data;
-	console.log("Authenticate on post");
-});
-
-app.get('/authenticate',function(request,response){
-	var val1 = request.body.type;
-	var val2 = request.body.data;
-	console.log("Authenticate on get");
-});
-=======
 // 3 authentication options, for Facial, NFC and OTP
+/*
 var AuthOptions = [
     {
       hostname: 'facial-path',
@@ -53,6 +41,7 @@ var AuthOptions = [
       }
    }
 ];
+*/
 var options = [];
 
 app.post('/authenticate',function(request,response)
@@ -66,7 +55,6 @@ app.post('/authenticate',function(request,response)
 app.get('/authenticate',function(request, response)
 {
    console.log("Authenticate on GET");
->>>>>>> develop
 
    var data = JSON.parse(request.body);
 
@@ -77,6 +65,7 @@ app.get('/authenticate',function(request, response)
     * CID -- 0
     */
 
+<<<<<<< HEAD
    // Didn't send through the two items needed, so authenticate one and prompt for a pin
 
    // Identify what was sent
@@ -113,40 +102,6 @@ app.get('/authenticate',function(request, response)
          pinFound = true;
    }
 
-<<<<<<< HEAD
-
-
-
-const data = JSON.stringify({
-  todo: 'Buy the milk'
-})
-
-const options = {
-  hostname: 'flaviocopes.com',
-  port: 443,
-  path: '/todos',
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'Content-Length': data.length
-  }
-}
-
-const req = https.request(options, (res) => {
-  console.log(`statusCode: ${res.statusCode}`)
-
-  res.on('data', (d) => {
-    process.stdout.write(d)
-  })
-})
-
-req.on('error', (error) => {
-  console.error(error)
-})
-
-req.write(data)
-req.end()
-=======
    if(!pinFound || diffTypes != 2)
    {
       // No pin given which was required so throow notAuthenticatedException error
@@ -247,4 +202,5 @@ function sendAuthenticationRequest(response)
 
 app.listen(PORT);
 console.log("Server is running on "+ PORT +" port");
->>>>>>> develop
+=======
+>>>>>>> d50872961f5fa500481e07b709dcbc055ba399ed
