@@ -1,7 +1,8 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-const https = require('https')
-var app = express();
+const express = require("express");
+const bodyParser = require("body-parser");
+const https = require('https');
+
+const app = express();
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: false }));
 
