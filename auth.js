@@ -44,7 +44,7 @@ var AuthOptions = [
 */
 var options = [];
 
-app.post('/',function(request,response)
+app.post('/authenticate',function(request,response)
 {
    console.log("Authenticate on POST");
    var type = request.body.type;
@@ -52,7 +52,7 @@ app.post('/',function(request,response)
 
 });
 
-app.get('/',function(request, response)
+app.get('/authenticate',function(request, response)
 {
    console.log("Authenticate on GET");
 
