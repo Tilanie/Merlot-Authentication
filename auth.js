@@ -1,5 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
+var fs = require("fs");
 const https = require('https')
 var app = express();
 app.use(bodyParser.json()); // support json encoded bodies
@@ -11,37 +12,38 @@ var PORT = 3000;
 /*
 var AuthOptions = [
     {
-      hostname: 'facial-path',
-      port: 443,
-      path: '/todos',
-      method: 'POST',
-      headers: {
+      "hostname": 'facial-path',
+      "port": 443,
+      "path": '/todos',
+      "method": 'POST',
+      "headers": {
          'Content-Type': 'application/json',
          'Content-Length': data.length
       }
    },
    {
-      hostname: 'NFC-path',
-      port: 443,
-      path: '/todos',
-      method: 'POST',
-      headers: {
+      "hostname": 'NFC-path',
+      "port": 443,
+      "path": '/todos',
+      "method": 'POST',
+      "headers": {
          'Content-Type': 'application/json',
          'Content-Length': data.length
       }
    },
    {
-      hostname: 'OTP-path',
-      port: 443,
-      path: '/todos',
-      method: 'POST',
-      headers: {
+      "hostname": 'OTP-path',
+      "port": 443,
+      "path": '/todos',
+      "method": 'POST',
+      "headers": {
          'Content-Type': 'application/json',
          'Content-Length': data.length
       }
    }
 ];
 */
+
 var options = [];
 
 app.post('/authenticate',function(request,response)
@@ -81,6 +83,38 @@ app.get('/authenticate',function(request, response)
 //     ]
 // }
       */
+	var AuthOptions = [
+    {
+      "hostname": 'facial-path',
+      "port": 443,
+      "path": '/todos',
+      "method": 'POST',
+      "headers": {
+         'Content-Type': 'application/json',
+         'Content-Length': data.length
+      }
+   },
+   {
+      "hostname": 'NFC-path',
+      "port": 443,
+      "path": '/todos',
+      "method": 'POST',
+      "headers": {
+         'Content-Type': 'application/json',
+         'Content-Length': data.length
+      }
+   },
+   {
+      "hostname": 'OTP-path',
+      "port": 443,
+      "path": '/todos',
+      "method": 'POST',
+      "headers": {
+         'Content-Type': 'application/json',
+         'Content-Length': data.length
+      }
+   }
+];
 
    let pinFound = false;
 
@@ -150,22 +184,22 @@ console.log(diffTypes);
          else if(data["type"][i] == "PIC" && PICCount < 3)
          {
             PICCount++;
-            options = AuthOptions[0];
+            options = AuthOptions[0]["hostname"];
 
             sendAuthenticationRequest(response);
          }
          else if(data["type"][i] == "NFC" && NFCCount < 3)
          {
             NFCCount++;
-            options = AuthOptions[1];
+            options = AuthOptions[1]["hostname"];
 
             sendAuthenticationRequest(response);
          }
          else if(data["type"][i] == "CID" && CIDCount < 3)
          {
             CIDCount++;
-            options = "CID";
-            // options = AuthOptions[2];
+            //options = "CID";
+            options = AuthOptions[2]["hostname"];
 
             sendAuthenticationRequest(response);
          }
@@ -185,22 +219,41 @@ function sendAuthenticationRequest(response)
    /*
    const req = https.request(options, (res) => {
       console.log(`statusCode: ${res.statusCode}`)
-
       res.on('data', (d) => {
          //Send data to ATM
       });
-
       req.on('error', (error) => {
          //Throow that shit back to ATM, not our problem
       });
    });
-
    req.send(data);
    req.end();
    */
    console.log(options);
+
+   //Log to file
+   writeLog(options);
+
    response.write(options + "<br>");
 }
 
+function writeLog(message)
+{
+	if (!fs.existsSync("Logs"))
+	{
+    		fs.mkdirSync("Logs");
+	}	
+	fs.writeFile("Logs/log.txt"
+		    ,new Date() + " " + message + "\n"
+		    ,{'flag':'a'}
+		    ,function(err) 
+		     {
+    			if(err) 
+			{
+        			return console.log(err);
+    		     	}
+		     }); 
+}
+
 app.listen(PORT);
-console.log("Server is running on "+ PORT +" port");
+console.log("Server is running on port " + PORT);
