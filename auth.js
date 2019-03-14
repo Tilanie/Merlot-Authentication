@@ -8,42 +8,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 var PORT = 3000;
 
-// 3 authentication options, for Facial, NFC and OTP
-/*
-var AuthOptions = [
-    {
-      "hostname": 'facial-path',
-      "port": 443,
-      "path": '/todos',
-      "method": 'POST',
-      "headers": {
-         'Content-Type': 'application/json',
-         'Content-Length': data.length
-      }
-   },
-   {
-      "hostname": 'NFC-path',
-      "port": 443,
-      "path": '/todos',
-      "method": 'POST',
-      "headers": {
-         'Content-Type': 'application/json',
-         'Content-Length': data.length
-      }
-   },
-   {
-      "hostname": 'OTP-path',
-      "port": 443,
-      "path": '/todos',
-      "method": 'POST',
-      "headers": {
-         'Content-Type': 'application/json',
-         'Content-Length': data.length
-      }
-   }
-];
-*/
-
 var options = [];
 
 app.post('/authenticate',function(request,response)
@@ -83,38 +47,39 @@ app.get('/authenticate',function(request, response)
 //     ]
 // }
       */
-	var AuthOptions = [
-    {
-      "hostname": 'facial-path',
-      "port": 443,
-      "path": '/todos',
-      "method": 'POST',
-      "headers": {
-         'Content-Type': 'application/json',
-         'Content-Length': data.length
+   // 3 authentication options, for Facial, NFC and OTP
+   let AuthOptions = [
+         {
+         "hostname": 'facial-path',
+         "port": 443,
+         "path": '/todos',
+         "method": 'POST',
+         "headers": {
+            'Content-Type': 'application/json',
+            'Content-Length': data.length
+            }
+      },
+         {
+         "hostname": 'NFC-path',
+         "port": 443,
+         "path": '/todos',
+         "method": 'POST',
+         "headers": {
+            'Content-Type': 'application/json',
+            'Content-Length': data.length
+            }
+      },
+         {
+         "hostname": 'OTP-path',
+         "port": 443,
+         "path": '/todos',
+         "method": 'POST',
+         "headers": {
+            'Content-Type': 'application/json',
+            'Content-Length': data.length
+            }
       }
-   },
-   {
-      "hostname": 'NFC-path',
-      "port": 443,
-      "path": '/todos',
-      "method": 'POST',
-      "headers": {
-         'Content-Type': 'application/json',
-         'Content-Length': data.length
-      }
-   },
-   {
-      "hostname": 'OTP-path',
-      "port": 443,
-      "path": '/todos',
-      "method": 'POST',
-      "headers": {
-         'Content-Type': 'application/json',
-         'Content-Length': data.length
-      }
-   }
-];
+   ];
 
    let pinFound = false;
 
@@ -122,18 +87,20 @@ app.get('/authenticate',function(request, response)
    let foundTypes = [];
    for(let i = 0; i < data["type"].length; i++)
    {
-      if(foundTypes.length == 0 || foundTypes.indexOf(data["type"][i]) == -1)
+      if(foundTypes.length === 0 || foundTypes.indexOf(data["type"][i]) === -1)
       {
          diffTypes++;
          foundTypes[foundTypes.length] = data["type"][i];
       }
 
-      if(data["type"][i] == "PIN")
+      if(data["type"][i] === "PIN")
          pinFound = true;
    }
-console.log(pinFound);
-console.log(diffTypes);
-   if(!pinFound || diffTypes != 2)
+
+   console.log(pinFound);
+   console.log(diffTypes);
+
+   if(!pinFound || diffTypes !== 2)
    {
       // No pin given which was required so throow notAuthenticatedException error
       request.on('error', (error) => {
@@ -176,26 +143,26 @@ console.log(diffTypes);
 
       for(let i = 0; i < data["type"].length; i++)
       {
-         if(data["type"][i] == "PIN" && PINCount < 3)
+         if(data["type"][i] === "PIN" && PINCount < 3)
          {
             PINCount++;
             //Handle it here
          }
-         else if(data["type"][i] == "PIC" && PICCount < 3)
+         else if(data["type"][i] === "PIC" && PICCount < 3)
          {
             PICCount++;
             options = AuthOptions[0]["hostname"];
 
             sendAuthenticationRequest(response);
          }
-         else if(data["type"][i] == "NFC" && NFCCount < 3)
+         else if(data["type"][i] === "NFC" && NFCCount < 3)
          {
             NFCCount++;
             options = AuthOptions[1]["hostname"];
 
             sendAuthenticationRequest(response);
          }
-         else if(data["type"][i] == "CID" && CIDCount < 3)
+         else if(data["type"][i] === "CID" && CIDCount < 3)
          {
             CIDCount++;
             //options = "CID";
