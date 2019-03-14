@@ -2,7 +2,9 @@
   "name": "Merlot-Authentication",
   "version": "1.0.0",
   "dependencies": {
-    "express": "^4.16.4",
-    "body-parser": "latest"
+    "body-parser": "latest",
+    "cors": "^2.8.5",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4"
   }
 }
