@@ -5,6 +5,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const https = require("https");
+const fs = require("fs");
 
 // start express application
 const app = express();
@@ -134,7 +135,20 @@ let otp = new OTP(
         req.end();
         */
         console.log(options);
+        writeLog("Sent Auth Request - " + options)
         response.write(options + "<br>");
+    }
+
+    function writeLog(logMessage)
+    {
+        if (!fs.existsSync(__dirname + '/logs')) {
+            fs.mkdirSync(__dirname + '/logs', 0744);
+        }
+
+        fs.appendFile('logs/log.txt', new Date() + ' ' + logMessage + '\n', function (err) 
+        {
+            if (err) throw err;
+        });
     }
 
     module.exports = 
@@ -181,6 +195,7 @@ app.get('/authenticate', function(request, response){
             // add new type to the array
             diffTypes++;
             foundTypes[foundTypes.length] = data["type"][i];
+            writeLog("Recieved " + data["type"][i] + " data");
         }
 
         if(data["type"][i] === "PIN"){
