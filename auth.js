@@ -38,7 +38,7 @@ class NFC extends Authentication{
 }
 
 let nfc = new NFC(
-    "NFC-path",
+    "NFC",
     443,
     "/todo",
     "POST",
@@ -56,7 +56,7 @@ class PIC extends Authentication{
 }
 
 let pic = new PIC(
-    "facial-path",
+    "facial-recognition",
     443,
     "/todo",
     "POST",
@@ -74,7 +74,7 @@ class CID extends Authentication{
 }
 
 let cid = new CID(
-    "CID-path",
+    "CID",
     443,
     "/todo",
     "POST",
@@ -92,7 +92,7 @@ class OTP extends Authentication{
 }
 
 let otp = new OTP(
-    "OTP-path",
+    "OTP",
     443,
     "/todo",
     "POST",
@@ -129,20 +129,25 @@ app.post('/authenticate',function(request,response)
 // --------------------------------------------------------------------------------------
 // Get method
 // --------------------------------------------------------------------------------------
-app.get('/authenticate', function(request, response){
+app.get('/authenticate', function(request, response)
+{
+    response.header("Access-Control-Allow-Origin", "*");
 
     console.log("Authenticate on GET");
 
-    let data = request.body;
+    console.log(request.query);
+    let data = request.query;
 
     let pinFound = false;
     let diffTypes = 0;
     let foundTypes = [];
 
-    for(let i=0; i<data["type"].length; i++){
+    for(let i=0; i<data["type"].length; i++)
+    {
 
         // if found array is empty or type received is not in the array
-        if(foundTypes.length === 0 || foundTypes.indexOf(data["type"][i]) === -1){
+        if(foundTypes.length === 0 || foundTypes.indexOf(data["type"][i]) === -1)
+        {
 
             // add new type to the array
             diffTypes++;
@@ -173,6 +178,7 @@ app.get('/authenticate', function(request, response){
         let PINCount = 0;
         let OTPCount = 0;
 
+        /*
         response.write("<!DOCTYPE html>" +
             "<html lang='en'>" +
             "<head>\n" +
@@ -180,10 +186,10 @@ app.get('/authenticate', function(request, response){
             "        <title>Response</title>\n" +
             "\n" +
             "        <style>\n" +
-            "            /* The alert message box */\n" +
+            "           \n" +
             "            .alert {\n" +
             "                padding: 20px;\n" +
-            "                background-color: #f4ed47; /* Red */\n" +
+            "                background-color: #f4ed47;\n" +
             "                color: #000000;\n" +
             "                margin-bottom: 15px;\n" +
             "                transition: opacity 0.6s;\n" +
@@ -196,7 +202,7 @@ app.get('/authenticate', function(request, response){
             "    <body>\n<!-- Alert box -->\n" +
             "        <div class='alert' style='margin-top: 40px' id='alert'>\n" +
             "            <span id='alertText'>Sending data to -> ");
-
+        */
 
         for(let i = 0; i < data["type"].length; i++)
         {
@@ -209,40 +215,41 @@ app.get('/authenticate', function(request, response){
             else if(data["type"][i] === "PIC" && PICCount < 3)
             {
                 PICCount++;
-                options = pic.path;
+                options = pic.hostname;
 
                 sendAuthenticationRequest(response);
             }
             else if(data["type"][i] === "NFC" && NFCCount < 3)
             {
                 NFCCount++;
-                options= nfc.path;
+                options= nfc.hostname;
 
                 sendAuthenticationRequest(response);
             }
             else if(data["type"][i] === "CID" && CIDCount < 3)
             {
                 CIDCount++;
-                options = cid.path;
+                options = cid.hostname;
 
                 sendAuthenticationRequest(response);
             }
             else if(data["type"][i] === "OTP" && OTPCount < 3)
             {
                 OTPCount++;
-                options = otp.path;
+                options = otp.hostname;
 
                 sendAuthenticationRequest(response);
             }
         }
 
+        /*
         response.write("</span>\n" +
             "        </div>" +
             "    </body>" +
             "</html>");
-
-        response.end();
+        */
     }
+
 });
 
 
@@ -265,7 +272,8 @@ function sendAuthenticationRequest(response)
     req.end();
     */
     console.log(options);
-    response.write(options + "<br>");
+    response.write("Data will be sent to -> " + options);
+    response.end();
 }
 
 // ======================================================================================
