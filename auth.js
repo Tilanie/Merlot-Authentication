@@ -10,9 +10,11 @@ const https = require("https");
 const app = express();
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({extended: false}));
+app.use("/public", express.static(__dirname + "/public"));
 
 // set view engine to ejs
 app.set('view engine', 'ejs');
+
 
 // ======================================================================================
 // Define the different classes
@@ -119,30 +121,33 @@ let otp = new OTP(
 let options = [];
 
 // --------------------------------------------------------------------------------------
+// Enable CORS on ExpressJS
+// --------------------------------------------------------------------------------------
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+
+// --------------------------------------------------------------------------------------
 // Get index page
 // --------------------------------------------------------------------------------------
-app.get('/', function (req, res) {
+app.get('/', function (req, res, next) {
     res.render('index');
 });
 
 // --------------------------------------------------------------------------------------
 // Get readme page
 // --------------------------------------------------------------------------------------
-app.get('/readme', function (req, res) {
+app.get('/readme', function (req, res, next) {
     res.render('readme');
 });
 
 // --------------------------------------------------------------------------------------
-// Get error
+// Post authenticate
 // --------------------------------------------------------------------------------------
-app.get('*', function(req, res) {
-    res.render('error');
-});
-
-// --------------------------------------------------------------------------------------
-// Post method
-// --------------------------------------------------------------------------------------
-app.post('/authenticate',function(request,response)
+app.post('/authenticate',function(request,response, next)
 {
     response.header("Access-Control-Allow-Origin", "*");
 
@@ -154,11 +159,11 @@ app.post('/authenticate',function(request,response)
 });
 
 // --------------------------------------------------------------------------------------
-// Get method
+// Get authenticate
 // --------------------------------------------------------------------------------------
-app.get('/authenticate', function(request, response)
+app.get('/authenticate', function(request, response, next)
 {
-    response.header("Access-Control-Allow-Origin", "*");
+    // response.header("Access-Control-Allow-Origin", "*");
 
     console.log("Authenticate on GET");
 
@@ -277,6 +282,13 @@ app.get('/authenticate', function(request, response)
         */
     }
 
+});
+
+// --------------------------------------------------------------------------------------
+// Get error
+// --------------------------------------------------------------------------------------
+app.get('*', function(req, res, next) {
+    res.render('error');
 });
 
 
