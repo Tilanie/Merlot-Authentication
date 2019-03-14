@@ -110,6 +110,40 @@ let otp = new OTP(
 // }
 
 // ======================================================================================
+// Function Definitions
+// ======================================================================================
+
+    function sayHello()
+    {
+        return 'hello';
+    }
+
+    function sendAuthenticationRequest(response)
+    {
+        /*
+        const req = https.request(options, (res) => {
+        console.log(`statusCode: ${res.statusCode}`)
+        res.on('data', (d) => {
+            //Send data to ATM
+        });
+        req.on('error', (error) => {
+            //Throow that shit back to ATM, not our problem
+        });
+        });
+        req.send(data);
+        req.end();
+        */
+        console.log(options);
+        response.write(options + "<br>");
+    }
+
+    module.exports = 
+    {
+        sayHello: sayHello,
+        sendAuthenticationRequest: sendAuthenticationRequest
+    }
+
+// ======================================================================================
 // Application implementation
 // ======================================================================================
 
@@ -244,29 +278,6 @@ app.get('/authenticate', function(request, response){
         response.end();
     }
 });
-
-
-// --------------------------------------------------------------------------------------
-// Send response
-// --------------------------------------------------------------------------------------
-function sendAuthenticationRequest(response)
-{
-    /*
-    const req = https.request(options, (res) => {
-       console.log(`statusCode: ${res.statusCode}`)
-       res.on('data', (d) => {
-          //Send data to ATM
-       });
-       req.on('error', (error) => {
-          //Throow that shit back to ATM, not our problem
-       });
-    });
-    req.send(data);
-    req.end();
-    */
-    console.log(options);
-    response.write(options + "<br>");
-}
 
 // ======================================================================================
 // Specify the port to use
