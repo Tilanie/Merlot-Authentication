@@ -11,6 +11,9 @@ const app = express();
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({extended: false}));
 
+// set view engine to ejs
+app.set('view engine', 'ejs');
+
 // ======================================================================================
 // Define the different classes
 // ======================================================================================
