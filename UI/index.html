@@ -14,37 +14,44 @@
 
     <body>
         <!-- floating container -->
-        <div class="wrapper" style="padding-bottom: 50px">
+        <div class="wrapper" style="padding-bottom: 50px;">
             <div style="margin-left: 20px; padding-top: 20px; margin-right: 20px;">
                 <h1 style="color:white">Authentication Tester</h1>
 
-                <p style="text-align: left; width: 70%; margin-left: 15%; font-size: x-large;">
-                    <pre style="color: black; border: 2px solid black; background-color: rgba(155,155,155, 0.7); border-radius: 50px; text-align: left; width: 17%; margin-left: 40.75%">
+                <pre style="color: black; border: 2px solid black; background-color: rgba(155,155,155, 0.7); border-radius: 50px; text-align: left; width: 100%;">
 
-                    {
-                        "type": [
-                        "PIN",
-                        "CID"
-                        ],
-                        "data": [
-                        123,
-                        456
-                        ]
-                    }
-                    </pre>
-                    <textarea id="input" style="width: 100%; height: 400px; font-size: x-large; color: white">
-                    </textarea>
-                </p>
+                        {
+                            "type": [
+                            "PIN",
+                            "CID"
+                            ],
+                            "data": [
+                            123,
+                            456
+                            ]
+                        }
+                </pre>
 
-                <button style="width: 10%; height: 50px;" onclick="sendData()">Send</button>
+                <select id="method">
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                </select>
+
+                <textarea id="input" style="width: 100%; height: 300px; font-size: x-large; color: white; background-color: #1e1e1e; margin-top: 20px">
+                </textarea>
+
+                <br/>
+
+                <button style="width: 50%; height: 50px; margin-top: 50px;" onclick="sendData()">Send</button>
             </div>
         </div>
 
-        <div class="wrapper">
-            <div style="margin-left: 20px; padding-top: 20px; margin-right: 20px;">
-                <h1 style="color:white">Returned data</h1>
+        <br/>
 
-                <p id="responseBox" style="text-align: center; width: 70%; margin-left: 15%; font-size: x-large">
+        <h1 style="color:white">Returned data</h1>
+        <div class="wrapper">
+            <div style="margin-left: 20px; margin-right: 20px;">
+                <p id="responseBox" style="text-align: center; width: 70%; margin-left: 15%; font-size: x-large;">
 
                 </p>
             </div>

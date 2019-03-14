@@ -120,10 +120,13 @@ let options = [];
 // --------------------------------------------------------------------------------------
 app.post('/authenticate',function(request,response)
 {
+    response.header("Access-Control-Allow-Origin", "*");
+
     console.log("Authenticate on POST");
     let type = request.body.type;
     let data = request.body.data;
 
+    response.end();
 });
 
 // --------------------------------------------------------------------------------------
