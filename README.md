@@ -17,7 +17,7 @@ After that is done make sure of the following:
 
 Run command and make sure the output is the same.
 ```
-git remote -v
+$ git remote -v
 ```
 ```
 merlot-auth     https://git.heroku.com/merlot-auth.git (fetch)
