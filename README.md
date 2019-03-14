@@ -2,7 +2,7 @@
 
 # Hosting the application on Heroku
 
-Be sure you have Git and the Heroku CLI installed => (Install Git/Heroku)[https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up]
+Be sure you have Git and the Heroku CLI installed => [Install Git/Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#set-up)
 
 All code needs to be in the master branch and all code need to be functional!
 
