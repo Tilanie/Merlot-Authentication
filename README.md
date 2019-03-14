@@ -30,6 +30,10 @@ origin  https://github.com/Tilanie/Merlot-Authentication.git (push)
 $ heroku git:remote -a merlot-auth
 // set git remote heroku to https://git.heroku.com/merlot-auth.git
 ```
+Rename the remote git to merlot-auth
+```term
+$ git remote rename heroku merlot-auth
+```
 Now you can deploy the code with the following command.
 Use this command when you want to deploy the latest version of the code.
 ```
