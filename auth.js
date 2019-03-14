@@ -209,28 +209,28 @@ app.get('/authenticate', function(request, response){
             else if(data["type"][i] === "PIC" && PICCount < 3)
             {
                 PICCount++;
-                options[options.length] = pic.path;
+                options = pic.path;
 
                 sendAuthenticationRequest(response);
             }
             else if(data["type"][i] === "NFC" && NFCCount < 3)
             {
                 NFCCount++;
-                options[options.length] = nfc.path;
+                options= nfc.path;
 
                 sendAuthenticationRequest(response);
             }
             else if(data["type"][i] === "CID" && CIDCount < 3)
             {
                 CIDCount++;
-                options[options.length] = cid.path;
+                options = cid.path;
 
                 sendAuthenticationRequest(response);
             }
             else if(data["type"][i] === "OTP" && OTPCount < 3)
             {
                 OTPCount++;
-                options[options.length] = otp.path;
+                options = otp.path;
 
                 sendAuthenticationRequest(response);
             }
