@@ -7,3 +7,9 @@ Thu Mar 14 2019 20:00:06 GMT+0200 (South Africa Standard Time) Sent Auth Request
 Thu Mar 14 2019 20:00:07 GMT+0200 (South Africa Standard Time) Recieved PIC data
 Thu Mar 14 2019 20:00:07 GMT+0200 (South Africa Standard Time) Recieved PIN data
 Thu Mar 14 2019 20:00:07 GMT+0200 (South Africa Standard Time) Sent Auth Request - /todo
+Thu Mar 14 2019 20:47:57 GMT+0200 (South Africa Standard Time) Recieved PIC data
+Thu Mar 14 2019 20:47:57 GMT+0200 (South Africa Standard Time) Recieved PIN data
+Thu Mar 14 2019 20:47:57 GMT+0200 (South Africa Standard Time) Sent Auth Request - /todo
+Fri Mar 15 2019 10:20:04 GMT+0200 (South Africa Standard Time) Recieved PIC data
+Fri Mar 15 2019 10:20:04 GMT+0200 (South Africa Standard Time) Recieved PIN data
+Fri Mar 15 2019 10:20:04 GMT+0200 (South Africa Standard Time) Sent Auth Request - /todo

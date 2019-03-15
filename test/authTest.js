@@ -1,4 +1,6 @@
-var assert = require('chai').assert;
+const assert = require('chai').assert;
+const request = require('request');
+const nock = require('nock');
 const auth = require('../auth');
 
 describe('auth', function () 
@@ -21,15 +23,24 @@ describe('auth', function ()
       assert.equal(sayHelloResult, "hello");
     });
   });
-  /*
-  describe('sendAuthenticationRequest()', function()
+  
+  describe('Resonse to GET authorization requests', function()
   {
-    authenticationRequestResult = auth.sendAuthenticationRequest();
-
-    it('Should return a string', function()
+    it('Response with PIN and PIC types', function() 
     {
-      assert.typeOf(authenticationRequestResult, 'string');
+      //nock('http://127.0.0.1:8000')
+      //  .get('/authenticate')
+      //  .reply(200, 'dataArray')
+      var respon = "";
+      request.get({
+        url: 'http://127.0.0.1:8001/authenticate',
+         body: '"type": ["PIC","PIN"],"data": [123,456]'
+         }, function(error, response, body){
+            console.log(body);
+            respon = body;
+      });
+   
+      assert.equal(respon, 'blah');
     });
   });
-  */
 });
