@@ -1,7 +1,8 @@
 {
-  "name": "Merlot-Authentication",
+  "name": "merlot-authentication",
   "version": "1.0.0",
   "dependencies": {
+<<<<<<< HEAD
     "express": "^4.16.4",
     "body-parser": "latest"
   },
@@ -29,4 +30,12 @@
     "url": "https://github.com/Tilanie/Merlot-Authentication/issues"
   },
   "homepage": "https://github.com/Tilanie/Merlot-Authentication#readme"
+=======
+    "body-parser": "latest",
+    "cors": "^2.8.5",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4"
+  },
+  "engines": { "node":  "10.15.3"}
+>>>>>>> a323e3cb632d17d7481b294fb5e33d1b0a869e2e
 }

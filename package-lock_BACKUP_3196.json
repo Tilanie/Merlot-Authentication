@@ -1,5 +1,5 @@
 {
-  "name": "Merlot-Authentication",
+  "name": "merlot-authentication",
   "version": "1.0.0",
   "lockfileVersion": 1,
   "requires": true,
@@ -449,6 +449,7 @@
       "resolved": "https://registry.npmjs.org/cookie-signature/-/cookie-signature-1.0.6.tgz",
       "integrity": "sha1-4wOogrNCzD7oylE6eZmXNNqzriw="
     },
+<<<<<<< HEAD
     "copy-descriptor": {
       "version": "0.1.1",
       "resolved": "https://registry.npmjs.org/copy-descriptor/-/copy-descriptor-0.1.1.tgz",
@@ -481,6 +482,15 @@
       "dev": true,
       "requires": {
         "assert-plus": "^1.0.0"
+=======
+    "cors": {
+      "version": "2.8.5",
+      "resolved": "https://registry.npmjs.org/cors/-/cors-2.8.5.tgz",
+      "integrity": "sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==",
+      "requires": {
+        "object-assign": "^4",
+        "vary": "^1"
+>>>>>>> a323e3cb632d17d7481b294fb5e33d1b0a869e2e
       }
     },
     "debug": {
@@ -610,6 +620,11 @@
       "version": "1.1.1",
       "resolved": "https://registry.npmjs.org/ee-first/-/ee-first-1.1.1.tgz",
       "integrity": "sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0="
+    },
+    "ejs": {
+      "version": "2.6.1",
+      "resolved": "https://registry.npmjs.org/ejs/-/ejs-2.6.1.tgz",
+      "integrity": "sha512-0xy4A/twfrRCnkhfk8ErDi5DqdAsAqeGxht4xkCUrsvhhbQNs7E+4jV0CN7+NKIY0aHE72+XvqtBIXzD31ZbXQ=="
     },
     "encodeurl": {
       "version": "1.0.2",
@@ -1729,6 +1744,7 @@
       "resolved": "https://registry.npmjs.org/negotiator/-/negotiator-0.6.1.tgz",
       "integrity": "sha1-KzJxhOiZIQEXeyhWP7XnECrNDKk="
     },
+<<<<<<< HEAD
     "nice-try": {
       "version": "1.0.5",
       "resolved": "https://registry.npmjs.org/nice-try/-/nice-try-1.0.5.tgz",
@@ -1875,6 +1891,12 @@
       "requires": {
         "isobject": "^3.0.1"
       }
+=======
+    "object-assign": {
+      "version": "4.1.1",
+      "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.1.tgz",
+      "integrity": "sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM="
+>>>>>>> a323e3cb632d17d7481b294fb5e33d1b0a869e2e
     },
     "on-finished": {
       "version": "2.3.0",
