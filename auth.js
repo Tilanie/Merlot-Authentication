@@ -22,98 +22,18 @@ app.set('view engine', 'ejs');
 // ======================================================================================
 
 // Abstract class for authentication method
-class Authentication{
-
-    // Initialize fields
-    constructor(hostname, port, path, method, headers){
-
-        this.hostname = hostname;
-        this.port = port;
-        this.path = path;
-        this.method = method;
-        this.headers = headers;
-    }
+var options = {
+  hostname: 'flaviocopes.com',
+  port: 443,
+  path: '/todos',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Content-Length': 1
+  }
 }
 
-// Classes that inherit from Authentication are the types of Authentication
-class NFC extends Authentication{
 
-    constructor(hostname, port, path, method, headers){
-        super(hostname, port, path, method, headers);
-    }
-}
-
-let nfc = new NFC(
-    "NFC",
-    443,
-    "/todo",
-    "POST",
-    {
-        'Content-Type': 'application/json' /*,
-        'Content-Length': data.length*/
-    }
-);
-
-class PIC extends Authentication{
-
-    constructor(hostname, port, path, method, headers){
-        super(hostname, port, path, method, headers);
-    }
-}
-
-let pic = new PIC(
-    "facial-recognition",
-    443,
-    "/todo",
-    "POST",
-    {
-        'Content-Type': 'application/json'/*,
-        'Content-Length': data.length*/
-    }
-);
-
-class CID extends Authentication{
-
-    constructor(hostname, port, path, method, headers){
-        super(hostname, port, path, method, headers);
-    }
-}
-
-let cid = new CID(
-    "CID",
-    443,
-    "/todo",
-    "POST",
-    {
-        'Content-Type': 'application/json'/*,
-        'Content-Length': data.length*/
-    }
-);
-
-class OTP extends Authentication{
-
-    constructor(hostname, port, path, method, headers){
-        super(hostname, port, path, method, headers);
-    }
-}
-
-let otp = new OTP(
-    "OTP",
-    443,
-    "/todo",
-    "POST",
-    {
-        'Content-Type': 'application/json'/*,
-        'Content-Length': data.length*/
-    }
-);
-
-// class PIN extends Authentication{
-//
-//     constructor(hostname, port, path, method, headers){
-//         super(hostname, port, path, method, headers);
-//     }
-// }
 
 // ======================================================================================
 // Function Definitions
@@ -166,7 +86,8 @@ let otp = new OTP(
 // Application implementation
 // ======================================================================================
 
-let options = [];
+
+//
 
 // --------------------------------------------------------------------------------------
 // Enable CORS on ExpressJS
@@ -209,6 +130,7 @@ app.post('/authenticate',function(request,response, next)
 // --------------------------------------------------------------------------------------
 // Get authenticate
 // --------------------------------------------------------------------------------------
+var methods = ['PIN', 'PIC', 'NFC', 'CID', 'OTP'];
 app.get('/authenticate', function(request, response, next)
 {
     // response.header("Access-Control-Allow-Origin", "*");
@@ -259,76 +181,25 @@ app.get('/authenticate', function(request, response, next)
         let PINCount = 0;
         let OTPCount = 0;
 
-        /*
-        response.write("<!DOCTYPE html>" +
-            "<html lang='en'>" +
-            "<head>\n" +
-            "        <meta charset='UTF-8'>\n" +
-            "        <title>Response</title>\n" +
-            "\n" +
-            "        <style>\n" +
-            "           \n" +
-            "            .alert {\n" +
-            "                padding: 20px;\n" +
-            "                background-color: #f4ed47;\n" +
-            "                color: #000000;\n" +
-            "                margin-bottom: 15px;\n" +
-            "                transition: opacity 0.6s;\n" +
-            "                width: 20%;" +
-            "                margin-left: 40%;" +
-            "            }\n" +
-            "           a { text-decoration: none }" +
-            "        </style>\n" +
-            "</head>\n" +
-            "    <body>\n<!-- Alert box -->\n" +
-            "        <div class='alert' style='margin-top: 40px' id='alert'>\n" +
-            "            <span id='alertText'>Sending data to -> ");
-        */
 
         for(let i = 0; i < data["type"].length; i++)
         {
-            if(data["type"][i] === "PIN" && PINCount < 3)
+        	for(var j = 0; j < methods.length; j++)
+            if(data["type"][i] === methods[j])
             {
-                PINCount++;
-                //Handle it here
-
-            }
-            else if(data["type"][i] === "PIC" && PICCount < 3)
-            {
-                PICCount++;
-                options = pic.hostname;
-
-                sendAuthenticationRequest(response);
-            }
-            else if(data["type"][i] === "NFC" && NFCCount < 3)
-            {
-                NFCCount++;
-                options= nfc.hostname;
-
-                sendAuthenticationRequest(response);
-            }
-            else if(data["type"][i] === "CID" && CIDCount < 3)
-            {
-                CIDCount++;
-                options = cid.hostname;
-
-                sendAuthenticationRequest(response);
-            }
-            else if(data["type"][i] === "OTP" && OTPCount < 3)
-            {
-                OTPCount++;
-                options = otp.hostname;
+               var path = './' +  methods[j] + '.js';
+            	var method = require(path);
+            	options.hostname = method.returnhostname();
+            	options.port = method.returnport();
+            	options.hostname = method.returnpath();
+            	options.hostname = method.returnmethod();
+            	options.hostname = method.returnheaders();
 
                 sendAuthenticationRequest(response);
             }
         }
 
-        /*
-        response.write("</span>\n" +
-            "        </div>" +
-            "    </body>" +
-            "</html>");
-        */
+        
     }
 
 });
