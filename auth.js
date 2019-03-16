@@ -6,7 +6,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const https = require("https");
 const fs = require("fs");
-
+var functionMaker = require("./functionMaker.js");
 // start express application
 const app = express();
 app.use(bodyParser.json()); // support json encoded bodies
@@ -118,7 +118,7 @@ let otp = new OTP(
 // ======================================================================================
 // Function Definitions
 // ======================================================================================
-
+	
     function sayHello()
     {
         return 'hello';
@@ -215,8 +215,8 @@ app.get('/authenticate', function(request, response, next)
 
     console.log("Authenticate on GET");
 
-    console.log(request.query);
-    let data = request.query;
+    console.log(request.body);
+    let data = request.body; //verander na query
 
     let pinFound = false;
     let diffTypes = 0;
@@ -232,7 +232,7 @@ app.get('/authenticate', function(request, response, next)
             // add new type to the array
             diffTypes++;
             foundTypes[foundTypes.length] = data["type"][i];
-            writeLog("Recieved " + data["type"][i] + " data");
+            writeLog("Recieved " + data["type"][i] + " data"); 
         }
 
         if(data["type"][i] === "PIN"){
@@ -340,6 +340,24 @@ app.get('*', function(req, res, next) {
     res.render('error');
 });
 
+app.post("/newMethod",async function(req,res){
+	try{
+
+		var data = req.body;
+		// data.Code;
+		if(data.Code == undefined)
+			throw "Invalid Input"
+		functionMaker.CreateFunction(data);
+		/*Send feedback to the person who requested our service*/
+		res.json({"status":"Success"});		
+		res.end();
+	}catch(error){
+		console.log(error);
+		res.json(JSON.parse("{ 'status': 'Failed', 'message':'Something went wrong check the server' }"));		
+		res.end();
+		
+	}
+});
 
 // --------------------------------------------------------------------------------------
 // Send response
