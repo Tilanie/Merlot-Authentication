@@ -1,21 +1,21 @@
 module.exports = {
   returnhostname: function () {
-    // func1 impl
+    return "otp.pathname";
   },
   returnport : function()
   {
-
+  	return 8000;
   },
   returnpath : function()
   {
-
+  	return "/todos";
   },
   returnmethod : function()
   {
-
+  	return "GET";
   },
   returnheaders : function()
   {
-  	
+
   }
 };

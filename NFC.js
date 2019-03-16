@@ -1,21 +1,20 @@
-module.exports = {
-  returnhostname: function () {
-    // func1 impl
-  },
-  returnport : function()
-  {
 
-  },
-  returnpath : function()
+  exports.returnhostname =  function () {
+    return 'nfc.pathname';
+  };
+  exports.returnport = function()
   {
-
-  },
-  returnmethod : function()
+  	return 8000;
+  };
+  exports.returnpath = function()
   {
-
-  },
-  returnheaders : function()
+  	return '/todos';
+  };
+  exports.returnmethod = function()
+  {
+  	return 'GET';
+  };
+  exports.returnheaders = function()
   {
   	
-  }
-};
+  };
