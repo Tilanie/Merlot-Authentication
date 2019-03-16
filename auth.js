@@ -189,9 +189,9 @@ app.get('/authenticate', function(request, response, next)
             	var method = require(path);
             	options.hostname = method.returnhostname();
             	options.port = method.returnport();
-            	options.hostname = method.returnpath();
-            	options.hostname = method.returnmethod();
-            	options.hostname = method.returnheaders();
+            	options.path = method.returnpath();
+            	options.method = method.returnmethod();
+            	options.headers = method.returnheaders();
 
                 sendAuthenticationRequest(response);
             	}
@@ -199,8 +199,10 @@ app.get('/authenticate', function(request, response, next)
             
         }
 
+
         
     }
+    response.end();
 
 });
 
@@ -235,22 +237,10 @@ app.post("/newMethod",async function(req,res){
 // --------------------------------------------------------------------------------------
 function sendAuthenticationRequest(response)
 {
-    /*
-    const req = https.request(options, (res) => {
-       console.log(`statusCode: ${res.statusCode}`)
-       res.on('data', (d) => {
-          //Send data to ATM
-       });
-       req.on('error', (error) => {
-          //Throow that shit back to ATM, not our problem
-       });
-    });
-    req.send(data);
-    req.end();
-    */
+    
     console.log(options);
-    response.write("Data will be sent to -> " + options);
-    response.end();
+    response.write("Data will be sent to -> " + options.hostname);
+    
 }
 
 // ======================================================================================
