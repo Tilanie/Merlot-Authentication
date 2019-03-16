@@ -215,8 +215,12 @@ app.get('/authenticate', function(request, response, next)
 
     console.log("Authenticate on GET");
 
-    console.log(request.query);
-    let data = request.query;
+    // for browser
+    // console.log(request.query);
+    // let data = request.query;
+    // for api
+    console.log(request.body);
+    let data = request.body;
 
     let pinFound = false;
     let diffTypes = 0;

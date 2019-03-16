@@ -3,21 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7254173b-abd2-4e19-8452-a97f9df68337" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth.js.orig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json.orig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock_BACKUP_2874.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock_BACKUP_3196.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock_BASE_2874.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock_BASE_3196.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock_LOCAL_2874.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock_LOCAL_3196.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock_REMOTE_2874.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock_REMOTE_3196.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json.orig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package_BACKUP_2264.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package_BASE_2264.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package_LOCAL_2264.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package_REMOTE_2264.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/auth.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -36,27 +22,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/auth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
-              <caret line="49" selection-start-line="49" selection-end-line="49" />
+            <state relative-caret-position="238">
+              <caret line="221" column="30" lean-forward="true" selection-start-line="221" selection-start-column="30" selection-end-line="221" selection-end-column="30" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="32" selection-start-line="32" selection-end-line="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package-lock.json">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -86,9 +58,9 @@
         <option value="$PROJECT_DIR$/CSS/index.css" />
         <option value="$PROJECT_DIR$/UI/index.css" />
         <option value="$PROJECT_DIR$/Views/index.ejs" />
-        <option value="$PROJECT_DIR$/auth.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/public/JavaScript/index.js" />
+        <option value="$PROJECT_DIR$/auth.js" />
       </list>
     </option>
   </component>
@@ -160,6 +132,7 @@
       <workItem from="1552597275622" duration="893000" />
       <workItem from="1552603403448" duration="1340000" />
       <workItem from="1552744539241" duration="309000" />
+      <workItem from="1552745491654" duration="1086000" />
     </task>
     <task id="LOCAL-00001" summary="Set up routing between pages">
       <created>1552599403829</created>
@@ -203,29 +176,43 @@
       <option name="project" value="LOCAL" />
       <updated>1552604566688</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added ejs package.">
+      <created>1552745681721</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1552745681721</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added ejs package.">
+      <created>1552745752727</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1552745752727</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12366000" />
+    <option name="totallyTimeSpent" value="13452000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49945828" visible="true" weight="0.21338251" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49945828" visible="true" weight="0.21338251" />
       <window_info id="Structure" order="1" sideWeight="0.50080776" side_tool="true" weight="0.31612223" />
       <window_info id="Favorites" order="2" sideWeight="0.5005417" side_tool="true" weight="0.31612223" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.24377032" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.20910075" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32936078" />
-      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32936078" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -278,7 +265,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Set up routing between pages" />
     <MESSAGE value="Set up the routing between the views and also the index will send data to authenticate using AJAX" />
-    <option name="LAST_COMMIT_MESSAGE" value="Set up the routing between the views and also the index will send data to authenticate using AJAX" />
+    <MESSAGE value="Added ejs package." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added ejs package." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/../Uni/computer-science/Second year/COS 216/Practical1.php" />
@@ -321,71 +309,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/auth.js.orig">
+    <entry file="file://$PROJECT_DIR$/auth.js.orig" />
+    <entry file="file://$PROJECT_DIR$/package.json.orig" />
+    <entry file="file://$PROJECT_DIR$/package-lock.json.orig" />
+    <entry file="file://$PROJECT_DIR$/package-lock_LOCAL_3196.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_REMOTE_2874.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_REMOTE_3196.json" />
+    <entry file="file://$PROJECT_DIR$/package_BACKUP_2264.json" />
+    <entry file="file://$PROJECT_DIR$/package_BASE_2264.json" />
+    <entry file="file://$PROJECT_DIR$/package_REMOTE_2264.json" />
+    <entry file="file://$PROJECT_DIR$/package_LOCAL_2264.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_LOCAL_2874.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_BASE_3196.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_BACKUP_2874.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_BACKUP_3196.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_BASE_2874.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="338" column="39" lean-forward="true" selection-start-line="338" selection-start-column="39" selection-end-line="338" selection-end-column="39" />
+        <state relative-caret-position="170">
+          <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json.orig">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock.json.orig">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock_LOCAL_3196.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock_REMOTE_2874.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock_REMOTE_3196.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package_BACKUP_2264.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package_BASE_2264.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package_REMOTE_2264.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package_LOCAL_2264.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock_LOCAL_2874.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock_BASE_3196.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-357" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock_BACKUP_2874.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock_BACKUP_3196.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock_BASE_2874.json">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
+        <state relative-caret-position="391">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/auth.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        <state relative-caret-position="238">
+          <caret line="221" column="30" lean-forward="true" selection-start-line="221" selection-start-column="30" selection-end-line="221" selection-end-column="30" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
