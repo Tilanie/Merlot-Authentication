@@ -6,6 +6,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const https = require("https");
 const fs = require("fs");
+const session = require('express-session');
 
 // start express application
 const app = express();
@@ -16,6 +17,9 @@ app.use("/public", express.static(__dirname + "/public"));
 // set view engine to ejs
 app.set('view engine', 'ejs');
 
+
+//To enable sessions
+app.use(session({secret:'yolo'}));
 
 // ======================================================================================
 // Define the different classes
@@ -212,6 +216,11 @@ app.post('/authenticate',function(request,response, next)
 app.get('/authenticate', function(request, response, next)
 {
     // response.header("Access-Control-Allow-Origin", "*");
+    
+    let cookie = request.session;
+
+    let test = "saved in cookie";
+    cookie.test;
 
     console.log("Authenticate on GET");
 
