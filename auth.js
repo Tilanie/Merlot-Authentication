@@ -44,21 +44,10 @@ var options = {
         return 'hello';
     }
 
+
     function sendAuthenticationRequest(response)
     {
-        /*
-        const req = https.request(options, (res) => {
-        console.log(`statusCode: ${res.statusCode}`)
-        res.on('data', (d) => {
-            //Send data to ATM
-        });
-        req.on('error', (error) => {
-            //Throow that shit back to ATM, not our problem
-        });
-        });
-        req.send(data);
-        req.end();
-        */
+        
         console.log(options);
         writeLog("Sent Auth Request - " + options)
         response.write(options + "<br>");
@@ -127,6 +116,14 @@ app.post('/authenticate',function(request,response, next)
     response.end();
 });
 
+app.get('/newMethod',function(request,response, next)
+{
+
+    console.log("New function");
+    let type = request.body.name;
+    functionMaker(type);
+    response.end();
+});
 // --------------------------------------------------------------------------------------
 // Get authenticate
 // --------------------------------------------------------------------------------------
@@ -185,9 +182,10 @@ app.get('/authenticate', function(request, response, next)
         for(let i = 0; i < data["type"].length; i++)
         {
         	for(var j = 0; j < methods.length; j++)
-            if(data["type"][i] === methods[j])
-            {
-               var path = './' +  methods[j] + '.js';
+        	{
+        		if(data["type"][i] === methods[j])
+            	{
+               	var path = './' +  methods[j] + '.js';
             	var method = require(path);
             	options.hostname = method.returnhostname();
             	options.port = method.returnport();
@@ -196,7 +194,9 @@ app.get('/authenticate', function(request, response, next)
             	options.hostname = method.returnheaders();
 
                 sendAuthenticationRequest(response);
-            }
+            	}
+        	}
+            
         }
 
         
