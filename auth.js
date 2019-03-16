@@ -4,8 +4,8 @@
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const https = require("https");
 const fs = require("fs");
+
 const session = require('express-session');
 
 // start express application
@@ -17,9 +17,10 @@ app.use("/public", express.static(__dirname + "/public"));
 // set view engine to ejs
 app.set('view engine', 'ejs');
 
-
 //To enable sessions
-app.use(session({secret:'yolo'}));
+app.use(session({
+    secret: 'yolo'
+}));
 
 // ======================================================================================
 // Define the different classes
@@ -123,48 +124,48 @@ let otp = new OTP(
 // Function Definitions
 // ======================================================================================
 
-    function sayHello()
-    {
-        return 'hello';
+function sayHello()
+{
+    return 'hello';
+}
+
+function writeLog(logMessage)
+{
+    if (!fs.existsSync(__dirname + '/logs')) {
+        fs.mkdirSync(__dirname + '/logs', 0o744);
     }
 
-    function sendAuthenticationRequest(response)
+    fs.appendFile('logs/log.txt', new Date() + ' ' + logMessage + '\n', function (err)
     {
-        /*
-        const req = https.request(options, (res) => {
-        console.log(`statusCode: ${res.statusCode}`)
-        res.on('data', (d) => {
-            //Send data to ATM
-        });
-        req.on('error', (error) => {
-            //Throow that shit back to ATM, not our problem
-        });
-        });
-        req.send(data);
-        req.end();
-        */
-        console.log(options);
-        writeLog("Sent Auth Request - " + options)
-        response.write(options + "<br>");
-    }
+        if (err) throw err;
+    });
+}
 
-    function writeLog(logMessage)
-    {
-        if (!fs.existsSync(__dirname + '/logs')) {
-            fs.mkdirSync(__dirname + '/logs', 0744);
-        }
+module.exports =
+{
+    sayHello: sayHello,
+    sendAuthenticationRequest: sendAuthenticationRequest
+};
 
-        fs.appendFile('logs/log.txt', new Date() + ' ' + logMessage + '\n', function (err) 
-        {
-            if (err) throw err;
-        });
-    }
+function sendAuthenticationRequest()
+{
+    /*
+    const req = https.request(options, (res) => {
+       console.log(`statusCode: ${res.statusCode}`)
+       res.on('data', (d) => {
+          //Send data to ATM
+       });
+       req.on('error', (error) => {
+          //Throow that shit back to ATM, not our problem
+       });
+    });
+    req.send(data);
+    req.end();
+    */
+    console.log("Data will be sent to -> " + options);
 
-    module.exports = 
-    {
-        sayHello: sayHello,
-        sendAuthenticationRequest: sendAuthenticationRequest
-    }
+    return "Data will be sent to -> " + options;
+}
 
 // ======================================================================================
 // Application implementation
@@ -213,137 +214,234 @@ app.post('/authenticate',function(request,response, next)
 // --------------------------------------------------------------------------------------
 // Get authenticate
 // --------------------------------------------------------------------------------------
-app.get('/authenticate', function(request, response, next)
+
+// Declare sess here so that it keeps it's data between calls
+let sess;
+
+app.get('/authenticate', function(request, response)
 {
-    // response.header("Access-Control-Allow-Origin", "*");
-    
-    let cookie = request.session;
-
-    let test = "saved in cookie";
-    cookie.test;
-
     console.log("Authenticate on GET");
 
     // for browser
     // console.log(request.query);
     // let data = request.query;
     // for api
-    console.log(request.body);
-    let data = request.body;
+
+    let data = request.query;
+    console.log(data);
+
+    /*
+     *  The only reason we'd extend a session over multiple connections is for:
+     *      1) Counting number of tries the user has expended
+     *      2) Awaiting an OTP authentication
+     */
+
+    // If the session is new then start new session.
+    if(!sess)
+    {
+        sess = request.session;
+
+        // If the bank didn't send an ID, throw an error
+        if(!data["ID"])
+        {
+            j = JSON.parse('{ "success" : false, "data" : "No bank ID sent."}');
+            response.json(j);
+            response.end();
+
+            return;
+        }
+
+        sess.bankID = data["ID"];
+
+        console.log("\n===============================");
+        console.log("New sessions with bank " + sess.bankID);
+        console.log("===============================\n");
+        console.log("Authentication from bank -> " + sess.bankID);
+
+        // Store number of tries per request here
+        sess.PICTries = 0;
+        sess.PINTries = 0;
+        sess.OTPTries = 0;
+        sess.CIDTries = 0;
+        sess.NFCTries = 0;
+    }
 
     let pinFound = false;
+
     let diffTypes = 0;
     let foundTypes = [];
+    let responses = [];
+    let j;
 
-    for(let i=0; i<data["type"].length; i++)
+    // If it is a returning OTP request, handle it
+    if(sess.waitingforOTP)
     {
-
-        // if found array is empty or type received is not in the array
-        if(foundTypes.length === 0 || foundTypes.indexOf(data["type"][i]) === -1)
-        {
-
-            // add new type to the array
-            diffTypes++;
-            foundTypes[foundTypes.length] = data["type"][i];
-            writeLog("Recieved " + data["type"][i] + " data");
-        }
-
-        if(data["type"][i] === "PIN"){
-            pinFound = true;
-        }
-    }
-
-    console.log(pinFound);
-    console.log(diffTypes);
-
-    if(!pinFound || diffTypes !== 2){
-        // No pin given which was required so throow notAuthenticatedException error
-        request.on('error', (error) => {
-            console.error('notAuthenticatedException' + error);
-        });
-
-        throw new Error("notAuthenticatedException");
-    }
-    else{
-        // Authenticate the given data
-        let NFCCount = 0;
-        let PICCount = 0;
-        let CIDCount = 0;
-        let PINCount = 0;
-        let OTPCount = 0;
-
-        /*
-        response.write("<!DOCTYPE html>" +
-            "<html lang='en'>" +
-            "<head>\n" +
-            "        <meta charset='UTF-8'>\n" +
-            "        <title>Response</title>\n" +
-            "\n" +
-            "        <style>\n" +
-            "           \n" +
-            "            .alert {\n" +
-            "                padding: 20px;\n" +
-            "                background-color: #f4ed47;\n" +
-            "                color: #000000;\n" +
-            "                margin-bottom: 15px;\n" +
-            "                transition: opacity 0.6s;\n" +
-            "                width: 20%;" +
-            "                margin-left: 40%;" +
-            "            }\n" +
-            "           a { text-decoration: none }" +
-            "        </style>\n" +
-            "</head>\n" +
-            "    <body>\n<!-- Alert box -->\n" +
-            "        <div class='alert' style='margin-top: 40px' id='alert'>\n" +
-            "            <span id='alertText'>Sending data to -> ");
-        */
+        let OTPFound = -1;
 
         for(let i = 0; i < data["type"].length; i++)
         {
-            if(data["type"][i] === "PIN" && PINCount < 3)
+            if(data["type"][i] === "OTP")
             {
-                PINCount++;
-                //Handle it here
-
-            }
-            else if(data["type"][i] === "PIC" && PICCount < 3)
-            {
-                PICCount++;
-                options = pic.hostname;
-
-                sendAuthenticationRequest(response);
-            }
-            else if(data["type"][i] === "NFC" && NFCCount < 3)
-            {
-                NFCCount++;
-                options= nfc.hostname;
-
-                sendAuthenticationRequest(response);
-            }
-            else if(data["type"][i] === "CID" && CIDCount < 3)
-            {
-                CIDCount++;
-                options = cid.hostname;
-
-                sendAuthenticationRequest(response);
-            }
-            else if(data["type"][i] === "OTP" && OTPCount < 3)
-            {
-                OTPCount++;
-                options = otp.hostname;
-
-                sendAuthenticationRequest(response);
+                OTPFound = i;
+                break;
             }
         }
 
-        /*
-        response.write("</span>\n" +
-            "        </div>" +
-            "    </body>" +
-            "</html>");
-        */
-    }
+        if(OTPFound === -1)
+        {
+            j = JSON.parse('{ "success" : false, "data" : "Expecting an OTP."}');
+            response.json(j);
+            response.end();
 
+            return;
+        }
+
+        // Handle returning OTP request
+        console.log("Received OTP, handling...");
+
+        // Validate the sent OTP with the one that was generated in previous call
+        let success = true;
+
+        if(success)
+            j = JSON.parse('{ "success" : true, "data" : "someCustomerID"}');
+        else
+            j = JSON.parse('{ "success" : false, "data" : "notAuthenticatedException"}');
+
+        response.json(j);
+        response.end();
+
+        // Destroy session
+        sess = null;
+    }
+    else // Run through the data sent and send off the authentications to correct modules
+    {
+        for(let i = 0 ; i < data["type"].length; i++)
+        {
+            // if found array is empty or type received is not in the array
+            if(foundTypes.length === 0 || foundTypes.indexOf(data["type"][i]) === -1)
+            {
+                // add new type to the array
+                diffTypes++;
+                foundTypes[foundTypes.length] = data["type"][i];
+                writeLog("Received " + data["type"][i] + " data");
+            }
+
+            if(data["type"][i] === "PIN")
+                pinFound = true;
+            else if(data["type"][i] === "OTP")
+                sess.waitingforOTP = true;
+        }
+
+        console.log("PIN found -> " + pinFound);
+        console.log("Different types of authentication -> " + diffTypes + "\n");
+
+        if((!pinFound && !sess.waitingforOTP) || diffTypes !== 2)
+        {
+            /*
+            // No pin given which was required so throw notAuthenticatedException error
+            request.on('error', (error) => {
+                console.error('notAuthenticatedException' + error);
+            });
+
+
+            throw new Error("notAuthenticatedException");
+             */
+
+            j = JSON.parse('{ "success" : false, "data" : "Did not receive either a PIN or OTP."}');
+            response.json(j);
+            response.end();
+
+            return;
+        }
+        else
+        {
+            // Authenticate the given data
+            let a;
+
+            for(let i = 0; i < data["type"].length; i++)
+            {
+                if(data["type"][i] === "PIN" && sess.PINTries < 3)
+                {
+                    sess.PINTries++;
+
+                    //Handle it here
+                    console.log("Handling PIN");
+
+                    a = "someCustomerID"; // Placeholder value
+                }
+                else if(data["type"][i] === "PIC" && sess.PICTries < 3)
+                {
+                    sess.PICTries++;
+                    options = pic.hostname;
+
+                    a = sendAuthenticationRequest(response);
+                }
+                else if(data["type"][i] === "NFC" && sess.NFCTries < 3)
+                {
+                    sess.NFCTries++;
+                    options= nfc.hostname;
+
+                    a = sendAuthenticationRequest(response);
+                }
+                else if(data["type"][i] === "CID" && sess.CIDTries < 3)
+                {
+                    sess.CIDTries++;
+                    options = cid.hostname;
+
+                    a = sendAuthenticationRequest(response);
+                }
+                else if(data["type"][i] === "OTP" && sess.OTPTries < 3)
+                {
+                    sess.OTPTries++;
+                    options = otp.hostname;
+
+                    a = sendAuthenticationRequest(response);
+                }
+
+                // If sendAuthenticationRequest() returns a failed signal
+                if(a === "notAuthenticatedException")
+                    responses[i] = "notAuthenticatedException";
+                else
+                    responses[i] = "someCustomerID"
+            }
+        }
+
+        // If there's no pending OTP request, check the returned values for if the user was authenticated
+        if(!sess.waitingforOTP)
+        {
+            let success = true;
+
+            for(let i = 0; i < responses.length; i++)
+            {
+                if(responses[i] === "notAuthenticatedException")
+                {
+                    success = false;
+                    break;
+                }
+            }
+
+            if(success)
+                j = JSON.parse('{ "success" : true, "data" : "someCustomerID"}');
+            else
+                j = JSON.parse('{ "success" : false, "data" : "notAuthenticatedException"}');
+
+            console.log("Destroying session");
+
+            //Destroy the session
+            sess = null;
+        }
+        else
+        {
+            console.log("Waiting for OTP to be sent");
+
+            j = JSON.parse('{ "success" : true, "data" : "Awaiting OTP"}');
+        }
+
+        console.log(j);
+
+        response.json(j);
+        response.end();
+    }
 });
 
 // --------------------------------------------------------------------------------------
@@ -352,30 +450,6 @@ app.get('/authenticate', function(request, response, next)
 app.get('*', function(req, res, next) {
     res.render('error');
 });
-
-
-// --------------------------------------------------------------------------------------
-// Send response
-// --------------------------------------------------------------------------------------
-function sendAuthenticationRequest(response)
-{
-    /*
-    const req = https.request(options, (res) => {
-       console.log(`statusCode: ${res.statusCode}`)
-       res.on('data', (d) => {
-          //Send data to ATM
-       });
-       req.on('error', (error) => {
-          //Throow that shit back to ATM, not our problem
-       });
-    });
-    req.send(data);
-    req.end();
-    */
-    console.log(options);
-    response.write("Data will be sent to -> " + options);
-    response.end();
-}
 
 // ======================================================================================
 // Specify the port to use
@@ -386,5 +460,6 @@ let port = process.env.PORT;
 if (port == null || port === "") {
     port = 8000;
 }
+
 app.listen(port);
 console.log("Server is running on PORT => "+port);
