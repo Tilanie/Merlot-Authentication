@@ -75,17 +75,28 @@ app.use(function (req, res, next) {
 
 // --------------------------------------------------------------------------------------
 // Get newMethod
+// {
+//   hostname: 'flaviocopes.com',
+//   port: 443,
+//   path: '/todos',
+//   method: 'POST',
+//   headers: {
+//     'Content-Type': 'application/json',
+//     'Content-Length': 1
+//   }
 // --------------------------------------------------------------------------------------
+var methods = ['PIN', 'PIC', 'NFC', 'CID', 'OTP'];
 app.get("/newMethod",async function(req,res){
     try{
-
+        console.log("new function creating");
         var data = req.body;
         // data.Code;
-        if(data.Code == undefined)
+        if(data.methodname == undefined)
             throw "Invalid Input"
         functionMaker.CreateFunction(data);
         /*Send feedback to the person who requested our service*/
         res.json({"status":"Success"});     
+        methods.add(data.methodname);
         res.end();
     }catch(error){
         console.log(error);
@@ -129,7 +140,7 @@ app.post('/authenticate',function(request,response, next)
 // Declare sess here so that it keeps it's data between calls
 let sess;
 var j;
-var methods = ['PIN', 'PIC', 'NFC', 'CID', 'OTP'];
+
 var options = {
   hostname: 'flaviocopes.com',
   port: 443,
@@ -343,7 +354,7 @@ app.get('/authenticate', function(request, response)
 // Get error
 // --------------------------------------------------------------------------------------
 app.get('*', function(req, res, next) {
-    res.render('error');
+    // res.render('error');
 });
 
 // ======================================================================================
