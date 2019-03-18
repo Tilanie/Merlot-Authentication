@@ -161,7 +161,8 @@ var options = {
   contentType: 'application/json',
   contentLength: 1
   
-}
+};
+
 app.get('/authenticate', function(request, response)
 {
     console.log("Authenticate on GET");
@@ -171,7 +172,7 @@ app.get('/authenticate', function(request, response)
     // let data = request.query;
     // for api
 
-    let data = request.body; //change!!!!!!!
+    let data = request.query; //change!!!!!!!
     console.log(data);
 
     /*

@@ -445,3 +445,7 @@ Sat Mar 16 2019 21:22:31 GMT+0200 (South Africa Standard Time) Received NFC data
 Sat Mar 16 2019 21:22:31 GMT+0200 (South Africa Standard Time) Received PIN data
 Sat Mar 16 2019 21:22:39 GMT+0200 (South Africa Standard Time) Received NFC data
 Sat Mar 16 2019 21:22:39 GMT+0200 (South Africa Standard Time) Received OTP data
+Mon Mar 18 2019 15:11:39 GMT+0200 (South Africa Standard Time) Received PIN data
+Mon Mar 18 2019 15:11:39 GMT+0200 (South Africa Standard Time) Received OTP data
+Mon Mar 18 2019 15:14:28 GMT+0200 (South Africa Standard Time) Received PIN data
+Mon Mar 18 2019 15:14:28 GMT+0200 (South Africa Standard Time) Received OTP data
