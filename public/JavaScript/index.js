@@ -6,6 +6,9 @@ function sendData()
         //url: "https://merlot-auth.herokuapp.com/authenticate",
         type: $("#method").val(),
         data: JSON.parse($("#input").val()),
+        xhrFields: {
+            withCredentials: true
+        },
         complete:
             function (response)
             {

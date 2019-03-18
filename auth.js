@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const fs = require("fs");
 var functionMaker = require("./functionMaker.js");
 const session = require('express-session');
+const uuid = require('uuid/v4');
 
 // start express application
 const app = express();
@@ -19,7 +20,14 @@ app.set('view engine', 'ejs');
 
 //To enable sessions
 app.use(session({
-    secret: 'yolo'
+    genid: function(req) {
+        return uuid(); // use UUIDs for session IDs
+    },
+    secret: 'yolo',
+    cookie: {
+        path: "/",
+        maxAge:  1800000  //30 mins
+    }
 }));
 
 // ======================================================================================
@@ -66,7 +74,7 @@ function sendAuthenticationRequest(response)
 // Enable CORS on ExpressJS
 // --------------------------------------------------------------------------------------
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
+    //res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
@@ -149,9 +157,7 @@ app.post('/authenticate',function(request,response, next)
 // Get authenticate
 // --------------------------------------------------------------------------------------
 
-// Declare sess here so that it keeps it's data between calls
-let sess;
-var j;
+let j;
 
 var options = {
   hostname: 'flaviocopes.com',
@@ -165,6 +171,7 @@ var options = {
 
 app.get('/authenticate', function(request, response)
 {
+    //response.header("Access-Control-Allow-Origin", "*");
     console.log("Authenticate on GET");
 
     // for browser
@@ -175,6 +182,7 @@ app.get('/authenticate', function(request, response)
     let data = request.query; //change!!!!!!!
     console.log(data);
 
+    let sess = request.session;
     /*
      *  The only reason we'd extend a session over multiple connections is for:
      *      1) Counting number of tries the user has expended
@@ -182,7 +190,7 @@ app.get('/authenticate', function(request, response)
      */
 
     // If the session is new then start new session.
-    if(!sess)
+    if(!sess.bankID)
     {
         sess = request.session;
 
@@ -200,6 +208,7 @@ app.get('/authenticate', function(request, response)
 
         console.log("\n===============================");
         console.log("New sessions with bank " + sess.bankID);
+        console.log(sess.id);
         console.log("===============================\n");
         console.log("Authentication from bank -> " + sess.bankID);
 
@@ -253,7 +262,7 @@ app.get('/authenticate', function(request, response)
         response.end();
 
         // Destroy session
-        sess = null;
+        sess.destroy();
     }
     else // Run through the data sent and send off the authentications to correct modules
     {
