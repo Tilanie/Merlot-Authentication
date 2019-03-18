@@ -1,4 +1,3 @@
-
 // ======================================================================================
 // Get the dependencies
 // ======================================================================================
@@ -86,7 +85,19 @@ app.use(function (req, res, next) {
 //     'Content-Length': 1
 //   }
 // --------------------------------------------------------------------------------------
-var methods = ['PIN', 'PIC', 'NFC', 'CID', 'OTP'];
+var methods = [];
+
+fs.readFile('methods.json', (err, data) => {  
+    if (err) throw err;
+    let typesOfMethods = JSON.parse(data);
+     methods = typesOfMethods;
+    console.log(methods);
+});
+
+//===== finding methods available =======
+
+console.log('This is after the read call'); 
+
 app.get("/newMethod",async function(req,res){
     try{
         console.log("new function creating");
@@ -97,7 +108,9 @@ app.get("/newMethod",async function(req,res){
         functionMaker.CreateFunction(data);
         /*Send feedback to the person who requested our service*/
         res.json({"status":"Success"});     
-        methods.add(data.methodname);
+        methods.push(data.methodname);
+        let methodData = JSON.stringify(methods);  
+        fs.writeFileSync('methods.json', methodData);
         res.end();
     }catch(error){
         console.log(error);
@@ -147,10 +160,9 @@ var options = {
   port: 443,
   path: '/todos',
   method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'Content-Length': 1
-  }
+  contentType: 'application/json',
+  contentLength: 1
+  
 }
 app.get('/authenticate', function(request, response)
 {
@@ -305,6 +317,8 @@ app.get('/authenticate', function(request, response)
                     options.path = method.returnpath();
                     options.method = method.returnmethod();
                     options.headers = method.returnheaders();
+                    contentType = method.returnCType();
+                    contentLength = method.returnCLength();
 
                     a = sendAuthenticationRequest(response);
                     }
@@ -370,4 +384,3 @@ if (port == null || port === "") {
 
 app.listen(port);
 console.log("Server is running on PORT => "+port);
-

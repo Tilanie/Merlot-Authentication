@@ -1,4 +1,12 @@
 module.exports = {
+  returnCType: function()
+  {
+    return 'application/json';
+  }
+  returnCLength: function()
+  {
+    return 1;
+  }
   returnhostname: function () {
     return "otp.pathname";
   },
@@ -13,9 +21,5 @@ module.exports = {
   returnmethod : function()
   {
   	return "GET";
-  },
-  returnheaders : function()
-  {
-
   }
 };

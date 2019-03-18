@@ -17,7 +17,8 @@ exports.CreateFunction = function(input){
 	" returnport: function () { return "  + input.port +";}," +
 	" returnpath: function () { return " + "\"" + input.path + "\"" +";}," + 
 	" returnmethod: function () { return " + "\"" + input.method + "\"" +";}," + 
- 	" returnheaders: function () { return " + "\"" + input.headers + "\"" +";} };"
+	" returnCType: function () { return "   + "\"" + input.Ctype  + "\"" + ";}," +
+	" returnCLength: function () { return "  + input.Clength +";}, };";
   
 
 	f.fileWrite(toWrite,input.methodname);
