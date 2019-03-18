@@ -55,7 +55,7 @@ function sendAuthenticationRequest(response)
 {
     
     console.log(options);
-    response.write("Data will be sent to -> " + options.hostname);
+    return "Data will be sent to -> " + options.hostname;
     
 }
 
@@ -316,7 +316,6 @@ app.get('/authenticate', function(request, response)
                     options.port = method.returnport();
                     options.path = method.returnpath();
                     options.method = method.returnmethod();
-                    options.headers = method.returnheaders();
                     contentType = method.returnCType();
                     contentLength = method.returnCLength();
 
@@ -384,3 +383,4 @@ if (port == null || port === "") {
 
 app.listen(port);
 console.log("Server is running on PORT => "+port);
+
