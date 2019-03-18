@@ -5,7 +5,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
-
+var functionMaker = require("./functionMaker.js");
 const session = require('express-session');
 
 // start express application
@@ -21,104 +21,6 @@ app.set('view engine', 'ejs');
 app.use(session({
     secret: 'yolo'
 }));
-
-// ======================================================================================
-// Define the different classes
-// ======================================================================================
-
-// Abstract class for authentication method
-class Authentication{
-
-    // Initialize fields
-    constructor(hostname, port, path, method, headers){
-
-        this.hostname = hostname;
-        this.port = port;
-        this.path = path;
-        this.method = method;
-        this.headers = headers;
-    }
-}
-
-// Classes that inherit from Authentication are the types of Authentication
-class NFC extends Authentication{
-
-    constructor(hostname, port, path, method, headers){
-        super(hostname, port, path, method, headers);
-    }
-}
-
-let nfc = new NFC(
-    "NFC",
-    443,
-    "/todo",
-    "POST",
-    {
-        'Content-Type': 'application/json' /*,
-        'Content-Length': data.length*/
-    }
-);
-
-class PIC extends Authentication{
-
-    constructor(hostname, port, path, method, headers){
-        super(hostname, port, path, method, headers);
-    }
-}
-
-let pic = new PIC(
-    "facial-recognition",
-    443,
-    "/todo",
-    "POST",
-    {
-        'Content-Type': 'application/json'/*,
-        'Content-Length': data.length*/
-    }
-);
-
-class CID extends Authentication{
-
-    constructor(hostname, port, path, method, headers){
-        super(hostname, port, path, method, headers);
-    }
-}
-
-let cid = new CID(
-    "CID",
-    443,
-    "/todo",
-    "POST",
-    {
-        'Content-Type': 'application/json'/*,
-        'Content-Length': data.length*/
-    }
-);
-
-class OTP extends Authentication{
-
-    constructor(hostname, port, path, method, headers){
-        super(hostname, port, path, method, headers);
-    }
-}
-
-let otp = new OTP(
-    "OTP",
-    443,
-    "/todo",
-    "POST",
-    {
-        'Content-Type': 'application/json'/*,
-        'Content-Length': data.length*/
-    }
-);
-
-// class PIN extends Authentication{
-//
-//     constructor(hostname, port, path, method, headers){
-//         super(hostname, port, path, method, headers);
-//     }
-// }
 
 // ======================================================================================
 // Function Definitions
@@ -147,31 +49,18 @@ module.exports =
     sendAuthenticationRequest: sendAuthenticationRequest
 };
 
-function sendAuthenticationRequest()
+function sendAuthenticationRequest(response)
 {
-    /*
-    const req = https.request(options, (res) => {
-       console.log(`statusCode: ${res.statusCode}`)
-       res.on('data', (d) => {
-          //Send data to ATM
-       });
-       req.on('error', (error) => {
-          //Throow that shit back to ATM, not our problem
-       });
-    });
-    req.send(data);
-    req.end();
-    */
-    console.log("Data will be sent to -> " + options);
-
-    return "Data will be sent to -> " + options;
+    
+    console.log(options);
+    return "Data will be sent to -> " + options.hostname;
+    
 }
 
 // ======================================================================================
 // Application implementation
 // ======================================================================================
 
-let options = [];
 
 // --------------------------------------------------------------------------------------
 // Enable CORS on ExpressJS
@@ -182,7 +71,52 @@ app.use(function (req, res, next) {
     next();
 });
 
+// --------------------------------------------------------------------------------------
+// Get newMethod
+// {
+//   hostname: 'flaviocopes.com',
+//   port: 443,
+//   path: '/todos',
+//   method: 'POST',
+//   headers: {
+//     'Content-Type': 'application/json',
+//     'Content-Length': 1
+//   }
+// --------------------------------------------------------------------------------------
+var methods = [];
 
+fs.readFile('methods.json', (err, data) => {  
+    if (err) throw err;
+    let typesOfMethods = JSON.parse(data);
+     methods = typesOfMethods;
+    console.log(methods);
+});
+
+//===== finding methods available =======
+
+console.log('This is after the read call'); 
+
+app.get("/newMethod",async function(req,res){
+    try{
+        console.log("new function creating");
+        var data = req.body;
+        // data.Code;
+        if(data.methodname == undefined)
+            throw "Invalid Input"
+        functionMaker.CreateFunction(data);
+        /*Send feedback to the person who requested our service*/
+        res.json({"status":"Success"});     
+        methods.push(data.methodname);
+        let methodData = JSON.stringify(methods);  
+        fs.writeFileSync('methods.json', methodData);
+        res.end();
+    }catch(error){
+        console.log(error);
+        res.json(JSON.parse("{ 'status': 'Failed', 'message':'Something went wrong check the server' }"));      
+        res.end();
+        
+    }
+});
 // --------------------------------------------------------------------------------------
 // Get index page
 // --------------------------------------------------------------------------------------
@@ -217,7 +151,17 @@ app.post('/authenticate',function(request,response, next)
 
 // Declare sess here so that it keeps it's data between calls
 let sess;
+var j;
 
+var options = {
+  hostname: 'flaviocopes.com',
+  port: 443,
+  path: '/todos',
+  method: 'POST',
+  contentType: 'application/json',
+  contentLength: 1
+  
+}
 app.get('/authenticate', function(request, response)
 {
     console.log("Authenticate on GET");
@@ -227,7 +171,7 @@ app.get('/authenticate', function(request, response)
     // let data = request.query;
     // for api
 
-    let data = request.query;
+    let data = request.body; //change!!!!!!!
     console.log(data);
 
     /*
@@ -244,7 +188,7 @@ app.get('/authenticate', function(request, response)
         // If the bank didn't send an ID, throw an error
         if(!data["ID"])
         {
-            j = JSON.parse('{ "success" : false, "data" : "No bank ID sent."}');
+           j = JSON.parse('{ "success" : false, "data" : "No bank ID sent."}');
             response.json(j);
             response.end();
 
@@ -267,11 +211,8 @@ app.get('/authenticate', function(request, response)
     }
 
     let pinFound = false;
-
     let diffTypes = 0;
     let foundTypes = [];
-    let responses = [];
-    let j;
 
     // If it is a returning OTP request, handle it
     if(sess.waitingforOTP)
@@ -358,51 +299,25 @@ app.get('/authenticate', function(request, response)
             // Authenticate the given data
             let a;
 
-            for(let i = 0; i < data["type"].length; i++)
+             for(let i = 0; i < data["type"].length; i++)
             {
-                if(data["type"][i] === "PIN" && sess.PINTries < 3)
+                for(var k = 0; k < methods.length; k++)
                 {
-                    sess.PINTries++;
-
-                    //Handle it here
-                    console.log("Handling PIN");
-
-                    a = "someCustomerID"; // Placeholder value
-                }
-                else if(data["type"][i] === "PIC" && sess.PICTries < 3)
-                {
-                    sess.PICTries++;
-                    options = pic.hostname;
+                    if(data["type"][i] === methods[k])
+                    {
+                    var path = './' +  methods[k] + '.js';
+                    var method = require(path);
+                    options.hostname = method.returnhostname();
+                    options.port = method.returnport();
+                    options.path = method.returnpath();
+                    options.method = method.returnmethod();
+                    contentType = method.returnCType();
+                    contentLength = method.returnCLength();
 
                     a = sendAuthenticationRequest(response);
+                    }
                 }
-                else if(data["type"][i] === "NFC" && sess.NFCTries < 3)
-                {
-                    sess.NFCTries++;
-                    options= nfc.hostname;
-
-                    a = sendAuthenticationRequest(response);
-                }
-                else if(data["type"][i] === "CID" && sess.CIDTries < 3)
-                {
-                    sess.CIDTries++;
-                    options = cid.hostname;
-
-                    a = sendAuthenticationRequest(response);
-                }
-                else if(data["type"][i] === "OTP" && sess.OTPTries < 3)
-                {
-                    sess.OTPTries++;
-                    options = otp.hostname;
-
-                    a = sendAuthenticationRequest(response);
-                }
-
-                // If sendAuthenticationRequest() returns a failed signal
-                if(a === "notAuthenticatedException")
-                    responses[i] = "notAuthenticatedException";
-                else
-                    responses[i] = "someCustomerID"
+            
             }
         }
 
@@ -448,7 +363,7 @@ app.get('/authenticate', function(request, response)
 // Get error
 // --------------------------------------------------------------------------------------
 app.get('*', function(req, res, next) {
-    res.render('error');
+    // res.render('error');
 });
 
 // ======================================================================================
