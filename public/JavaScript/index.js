@@ -12,13 +12,22 @@ function sendData()
         complete:
             function (response)
             {
-                let data = JSON.parse(response.responseText);
+                if(response.statusText !== "error")
+                {
+                    console.log(response);
 
-                console.log(data);
+                    let data = JSON.parse(response.responseText);
 
-                console.log("Sending via " + $("#method").val() + " -> " + $("#input").val());
+                    console.log(data);
 
-                $("#responseBox").html("Success -> " + data["success"] + "<br><br>Data -> " + data["data"]);
+                    console.log("Sending via " + $("#method").val() + " -> " + $("#input").val());
+
+                    $("#responseBox").html("Success -> " + data["success"] + "<br><br>Data -> " + data["data"]);
+                }
+                else
+                {
+                    $("#responseBox").html("Something went wrong...");
+                }
             }
     });
 }

@@ -74,7 +74,8 @@ function sendAuthenticationRequest(response)
 // Enable CORS on ExpressJS
 // --------------------------------------------------------------------------------------
 app.use(function (req, res, next) {
-    //res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Credentials", true);
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
@@ -110,7 +111,7 @@ app.get("/newMethod",async function(req,res){
         var data = req.body;
         // data.Code;
         if(data.methodname == undefined)
-            throw "Invalid Input"
+            throw "Invalid Input";
         functionMaker.CreateFunction(data);
         /*Send feedback to the person who requested our service*/
         res.json({"status":"Success"});     
@@ -144,8 +145,6 @@ app.get('/readme', function (req, res, next) {
 // --------------------------------------------------------------------------------------
 app.post('/authenticate',function(request,response, next)
 {
-    response.header("Access-Control-Allow-Origin", "*");
-
     console.log("Authenticate on POST");
     let type = request.body.type;
     let data = request.body.data;
@@ -171,8 +170,7 @@ var options = {
 
 app.get('/authenticate', function(request, response)
 {
-    //response.header("Access-Control-Allow-Origin", "*");
-    console.log("Authenticate on GET");
+    let sess = request.session;
 
     // for browser
     // console.log(request.query);
@@ -182,7 +180,6 @@ app.get('/authenticate', function(request, response)
     let data = request.query; //change!!!!!!!
     console.log(data);
 
-    let sess = request.session;
     /*
      *  The only reason we'd extend a session over multiple connections is for:
      *      1) Counting number of tries the user has expended
@@ -192,8 +189,6 @@ app.get('/authenticate', function(request, response)
     // If the session is new then start new session.
     if(!sess.bankID)
     {
-        sess = request.session;
-
         // If the bank didn't send an ID, throw an error
         if(!data["ID"])
         {
@@ -210,7 +205,6 @@ app.get('/authenticate', function(request, response)
         console.log("New sessions with bank " + sess.bankID);
         console.log(sess.id);
         console.log("===============================\n");
-        console.log("Authentication from bank -> " + sess.bankID);
 
         // Store number of tries per request here
         sess.PICTries = 0;
@@ -220,9 +214,12 @@ app.get('/authenticate', function(request, response)
         sess.NFCTries = 0;
     }
 
+    console.log("\nAuthenticate on GET from bank -> " + sess.bankID + "\n");
+
     let pinFound = false;
     let diffTypes = 0;
     let foundTypes = [];
+    let responses = [];
 
     // If it is a returning OTP request, handle it
     if(sess.waitingforOTP)
@@ -261,6 +258,7 @@ app.get('/authenticate', function(request, response)
         response.json(j);
         response.end();
 
+        console.log("Destroying session");
         // Destroy session
         sess.destroy();
     }
@@ -353,7 +351,7 @@ app.get('/authenticate', function(request, response)
             console.log("Destroying session");
 
             //Destroy the session
-            sess = null;
+            sess.destroy();
         }
         else
         {
