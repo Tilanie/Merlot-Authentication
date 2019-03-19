@@ -28,19 +28,17 @@ describe('auth', function ()
   {
     it('Response with PIN and PIC types', function() 
     {
-      //nock('http://127.0.0.1:8000')
-      //  .get('/authenticate')
-      //  .reply(200, 'dataArray')
       var respon = "";
       request.get({
+        headers: { 'Content-Type': 'application/json' },
         url: 'http://127.0.0.1:8001/authenticate',
-         body: '"type": ["PIC","PIN"],"data": [123,456]'
+         body: '{"type": ["PIC","PIN"],"data": [123,456]}'
          }, function(error, response, body){
             console.log(body);
             respon = body;
       });
    
-      assert.equal(respon, 'blah');
+      assert.equal('Data will be sent to -> facial-recognition', respon);
     });
   });
 });

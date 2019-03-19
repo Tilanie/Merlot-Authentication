@@ -4,7 +4,9 @@
   "dependencies": {
     "body-parser": "latest",
     "ejs": "^2.6.1",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "express-session": "latest",
+    "uuid": "latest"
   },
   "devDependencies": {
     "chai": "^4.2.0",
