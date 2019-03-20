@@ -21,5 +21,13 @@ module.exports = {
   returnmethod : function()
   {
   	return "GET";
+  },
+  returnData1: function()
+  {
+    return "data1";
+  },
+  returnData2: function()
+  {
+    return "data2";
   }
 };

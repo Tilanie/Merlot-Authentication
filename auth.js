@@ -57,9 +57,25 @@ module.exports =
     sendAuthenticationRequest: sendAuthenticationRequest
 };
 
-function sendAuthenticationRequest(response)
+
+function sendAuthenticationRequest(options)
 {
-    
+    const https = require('https');
+    const req = https.request(options, (res) => {
+  console.log(`statusCode: ${res.statusCode}`)
+
+  res.on('data', (d) => {
+    process.stdout.write(d)
+  })
+})
+
+req.on('error', (error) => {
+  console.error(error)
+})
+var jsonData = JSON.stringify(data);
+req.write(jsonData)
+req.end()
+
     console.log(options);
     return "Data will be sent to -> " + options.hostname;
     
@@ -158,15 +174,20 @@ app.post('/authenticate',function(request,response, next)
 
 let j;
 
-var options = {
+const data = {
+  data1: 'data to verify',
+  data1: 'more data if needed'
+}
+const options = {
   hostname: 'flaviocopes.com',
   port: 443,
   path: '/todos',
   method: 'POST',
-  contentType: 'application/json',
-  contentLength: 1
-  
-};
+  headers: {
+    'Content-Type': 'application/json',
+    'Content-Length': data.length
+  }
+}
 
 app.get('/authenticate', function(request, response)
 {
@@ -291,8 +312,6 @@ app.get('/authenticate', function(request, response)
             request.on('error', (error) => {
                 console.error('notAuthenticatedException' + error);
             });
-
-
             throw new Error("notAuthenticatedException");
              */
 
@@ -319,11 +338,15 @@ app.get('/authenticate', function(request, response)
                     options.port = method.returnport();
                     options.path = method.returnpath();
                     options.method = method.returnmethod();
-                    contentType = method.returnCType();
-                    contentLength = method.returnCLength();
+                    options.headers['Content-Type'] = method.returnCType();
+                    options.headers['Content-Length'] = method.returnCLength();
+                    data.data1 = method.returnData1();
+                    data.data2 = method.returnData2();
 
-                    a = sendAuthenticationRequest(response);
+                    a = sendAuthenticationRequest(options);
                     }
+
+
                 }
             
             }
