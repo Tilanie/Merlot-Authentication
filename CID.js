@@ -2,11 +2,11 @@ module.exports = {
   returnCType: function()
   {
     return 'application/json';
-  }
+  },
   returnCLength: function()
   {
     return 1;
-  }
+  },
   returnhostname: function () {
     return "cid.pathname";
   },
@@ -21,5 +21,13 @@ module.exports = {
   returnmethod : function()
   {
   	return "GET";
+  }
+  returnData1: function()
+  {
+    return "data1";
+  },
+  returnData2: function()
+  {
+    return "data2";
   }
 };

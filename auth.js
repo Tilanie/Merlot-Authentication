@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 const fs = require("fs");
 var functionMaker = require("./functionMaker.js");
 const session = require('express-session');
+const uuid = require('uuid/v4');
 
 // start express application
 const app = express();
@@ -19,10 +20,15 @@ app.set('view engine', 'ejs');
 
 //To enable sessions
 app.use(session({
-    secret: 'yolo'
+    genid: function(req) {
+        return uuid(); // use UUIDs for session IDs
+    },
+    secret: 'yolo',
+    cookie: {
+        path: "/",
+        maxAge:  1800000  //30 mins
+    }
 }));
-
-
 
 // ======================================================================================
 // Function Definitions
@@ -51,9 +57,25 @@ module.exports =
     sendAuthenticationRequest: sendAuthenticationRequest
 };
 
-function sendAuthenticationRequest(response)
+
+function sendAuthenticationRequest(options)
 {
-    
+    const https = require('https');
+    const req = https.request(options, (res) => {
+  console.log(`statusCode: ${res.statusCode}`)
+
+  res.on('data', (d) => {
+    process.stdout.write(d)
+  })
+})
+
+req.on('error', (error) => {
+  console.error(error)
+})
+var jsonData = JSON.stringify(data);
+req.write(jsonData)
+req.end()
+
     console.log(options);
     return "Data will be sent to -> " + options.hostname;
     
@@ -69,6 +91,7 @@ function sendAuthenticationRequest(response)
 // --------------------------------------------------------------------------------------
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Credentials", true);
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
@@ -104,7 +127,7 @@ app.get("/newMethod",async function(req,res){
         var data = req.body;
         // data.Code;
         if(data.methodname == undefined)
-            throw "Invalid Input"
+            throw "Invalid Input";
         functionMaker.CreateFunction(data);
         /*Send feedback to the person who requested our service*/
         res.json({"status":"Success"});     
@@ -138,8 +161,6 @@ app.get('/readme', function (req, res, next) {
 // --------------------------------------------------------------------------------------
 app.post('/authenticate',function(request,response, next)
 {
-    response.header("Access-Control-Allow-Origin", "*");
-
     console.log("Authenticate on POST");
     let type = request.body.type;
     let data = request.body.data;
@@ -151,22 +172,26 @@ app.post('/authenticate',function(request,response, next)
 // Get authenticate
 // --------------------------------------------------------------------------------------
 
-// Declare sess here so that it keeps it's data between calls
-let sess;
-var j;
+let j;
 
-var options = {
+const data = {
+  data1: 'data to verify',
+  data1: 'more data if needed'
+}
+const options = {
   hostname: 'flaviocopes.com',
   port: 443,
   path: '/todos',
   method: 'POST',
-  contentType: 'application/json',
-  contentLength: 1
-  
+  headers: {
+    'Content-Type': 'application/json',
+    'Content-Length': data.length
+  }
 }
+
 app.get('/authenticate', function(request, response)
 {
-    console.log("Authenticate on GET");
+    let sess = request.session;
 
     // for browser
     // console.log(request.query);
@@ -183,10 +208,8 @@ app.get('/authenticate', function(request, response)
      */
 
     // If the session is new then start new session.
-    if(!sess)
+    if(!sess.bankID)
     {
-        sess = request.session;
-
         // If the bank didn't send an ID, throw an error
         if(!data["ID"])
         {
@@ -201,8 +224,8 @@ app.get('/authenticate', function(request, response)
 
         console.log("\n===============================");
         console.log("New sessions with bank " + sess.bankID);
+        console.log(sess.id);
         console.log("===============================\n");
-        console.log("Authentication from bank -> " + sess.bankID);
 
         // Store number of tries per request here
         sess.PICTries = 0;
@@ -212,12 +235,12 @@ app.get('/authenticate', function(request, response)
         sess.NFCTries = 0;
     }
 
-    let pinFound = false;
+    console.log("\nAuthenticate on GET from bank -> " + sess.bankID + "\n");
 
+    let pinFound = false;
     let diffTypes = 0;
     let foundTypes = [];
     let responses = [];
-    
 
     // If it is a returning OTP request, handle it
     if(sess.waitingforOTP)
@@ -256,8 +279,9 @@ app.get('/authenticate', function(request, response)
         response.json(j);
         response.end();
 
+        console.log("Destroying session");
         // Destroy session
-        sess = null;
+        sess.destroy();
     }
     else // Run through the data sent and send off the authentications to correct modules
     {
@@ -288,8 +312,6 @@ app.get('/authenticate', function(request, response)
             request.on('error', (error) => {
                 console.error('notAuthenticatedException' + error);
             });
-
-
             throw new Error("notAuthenticatedException");
              */
 
@@ -316,11 +338,15 @@ app.get('/authenticate', function(request, response)
                     options.port = method.returnport();
                     options.path = method.returnpath();
                     options.method = method.returnmethod();
-                    contentType = method.returnCType();
-                    contentLength = method.returnCLength();
+                    options.headers['Content-Type'] = method.returnCType();
+                    options.headers['Content-Length'] = method.returnCLength();
+                    data.data1 = method.returnData1();
+                    data.data2 = method.returnData2();
 
-                    a = sendAuthenticationRequest(response);
+                    a = sendAuthenticationRequest(options);
                     }
+
+
                 }
             
             }
@@ -348,7 +374,7 @@ app.get('/authenticate', function(request, response)
             console.log("Destroying session");
 
             //Destroy the session
-            sess = null;
+            sess.destroy();
         }
         else
         {

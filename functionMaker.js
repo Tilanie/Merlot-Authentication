@@ -18,7 +18,9 @@ exports.CreateFunction = function(input){
 	" returnpath: function () { return " + "\"" + input.path + "\"" +";}," + 
 	" returnmethod: function () { return " + "\"" + input.method + "\"" +";}," + 
 	" returnCType: function () { return "   + "\"" + input.Ctype  + "\"" + ";}," +
-	" returnCLength: function () { return "  + input.Clength +";}, };";
+	" returnCLength: function () { return "  + input.Clength +";},"+ 
+	" returnData1: function () { return "   + "\"" + input.data1  + "\"" + ";}," + 
+	" returnData2: function () { return "   + "\"" + input.data2  + "\"" + ";}" +" };";
   
 
 	f.fileWrite(toWrite,input.methodname);
