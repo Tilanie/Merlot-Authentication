@@ -337,11 +337,11 @@ app.get('/authenticate', function(request, response)
         responses[responses.length] = [];
         if(success)
         {
-            responses[responses.length-1]["success"] = "true";
+            responses[responses.length-1]["success"] = true;
             responses[responses.length-1]["customerID"] = "someCustomerID";
         }
         else
-            responses[responses.length-1]["success"] = "false";
+            responses[responses.length-1]["success"] = false;
 
     }
     else
@@ -420,8 +420,9 @@ app.get('/authenticate', function(request, response)
 
             return;
         }
+
         // If a pin is found, then it needs to be associated with a card
-        else if(pinFound && !cardFound)
+        if(pinFound && !cardFound)
         {
             j = JSON.parse('{ "success" : false, "data" : "PIN can only be used with a card."}');
 
@@ -432,49 +433,52 @@ app.get('/authenticate', function(request, response)
 
             return;
         }
-        else
+
+        // Authenticate the given data
+        let a;
+
+        for(let i = 0; i < data["type"].length; i++)
         {
-            // Authenticate the given data
-            let a;
-
-            for(let i = 0; i < data["type"].length; i++)
+            for(let k = 0; k < methods.length; k++)
             {
-                for(let k = 0; k < methods.length; k++)
+                if(data["type"][i] === methods[k])
                 {
-                    if(data["type"][i] === methods[k])
+                    sess.usedMethods[sess.usedMethods.length] = data["type"][i];
+
+                    /* TODO: Remove this and implement sending off to other modules
+                    let path = './authentication_types/' +  methods[k] + '.js';
+                    let method = require(path);
+                    options.hostname = method.returnhostname();
+                    options.port = method.returnport();
+                    options.path = method.returnpath();
+                    options.method = method.returnmethod();
+                    options.headers['Content-Type'] = method.returnCType();
+                    options.headers['Content-Length'] = method.returnCLength();
+                    data.data1 = method.returnData1();
+                    data.data2 = method.returnData2();
+
+                    a = sendAuthenticationRequest(options);
+                    */
+
+                    console.log("Sending data to -> " +  data["type"][i]);
+
+                    a = JSON.parse('{ "success" : true, "customerID" : "someCustomerID" }');
+
+                    if( data["type"][i] === "OTP")
                     {
-                        sess.usedMethods[sess.usedMethods.length] = data["type"][i];
-
-                        /* TODO: Remove this and implement sending off to other modules
-                        let path = './authentication_types/' +  methods[k] + '.js';
-                        let method = require(path);
-                        options.hostname = method.returnhostname();
-                        options.port = method.returnport();
-                        options.path = method.returnpath();
-                        options.method = method.returnmethod();
-                        options.headers['Content-Type'] = method.returnCType();
-                        options.headers['Content-Length'] = method.returnCLength();
-                        data.data1 = method.returnData1();
-                        data.data2 = method.returnData2();
-
-                        a = sendAuthenticationRequest(options);
-                        */
-
+                        console.log("Received OTP call from ATM" + sess.atmID + "!");
+                        sess.waitingforOTP = true;
+                    }
+                    else
+                    {
                         responses[responses.length] = [];
 
-                        if(data["type"][i] === "OTP")
-                        {
-                            sess.waitingforOTP = true;
-                            responses[responses.length-1]["success"] = "true";
-                            responses[responses.length-1]["customerID"] = "";
-                        }
-                        else if(true)
-                        {
-                            responses[responses.length-1]["success"] = "true";
-                            responses[responses.length-1]["customerID"] = "someCustomerID";
-                        }
-                        else
-                            responses[responses.length-1]["success"] = "false";
+                        console.log("Added success try");
+
+                        responses[responses.length-1]["success"] = a["success"]; // Success response
+                        responses[responses.length-1]["customerID"] = a["customerID"]; // Customer ID
+
+                        sess.customerID = a["customerID"];
                     }
                 }
             }
@@ -487,19 +491,21 @@ app.get('/authenticate', function(request, response)
 
     for(let i = 0; i < responses.length; i++)
     {
-        if(responses[i]["success"] === "false")
+        if(responses[i]["success"] === false)
         {
             success = false;
             sess.numTries++;
 
             break;
         }
-        else if(responses[i]["success"] === "true")
+        else if(responses[i]["success"] === true)
         {
             customerID = responses[i]["customerID"];
             sess.numAuthenticated++;
         }
     }
+
+    console.log("Session numAuthenticated -> " + sess.numAuthenticated);
 
     // If 2 or more succeeded
     if(success && sess.numAuthenticated >= 2)

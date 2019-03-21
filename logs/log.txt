@@ -58,3 +58,42 @@
 {"date":"2019-03-21T13:44:38.598Z","label":"Merlot-Authentication","type":"response","message":{"success":true,"data":"someCustomerID"}}
 {"date":"2019-03-21T13:44:38.609Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"pic.pathname","host":"pic.pathname","port":8000}}
 {"date":"2019-03-21T13:44:38.610Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"pin.pathname","host":"pin.pathname","port":8000}}
+{"date":"2019-03-21T19:22:15.243Z","label":"Merlot-Authentication","message":"Received OTP data"}
+{"date":"2019-03-21T19:22:15.243Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-21T19:26:20.832Z","label":"Merlot-Authentication","message":"Received OTP data"}
+{"date":"2019-03-21T19:26:20.832Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-21T19:28:44.658Z","label":"Merlot-Authentication","message":"Received OTP data"}
+{"date":"2019-03-21T19:28:44.658Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-21T19:29:23.516Z","label":"Merlot-Authentication","message":"Received OTP data"}
+{"date":"2019-03-21T19:29:23.517Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-21T19:29:47.730Z","label":"Merlot-Authentication","message":"Received OTP data"}
+{"date":"2019-03-21T19:29:47.730Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-21T19:30:22.684Z","label":"Merlot-Authentication","message":"Received OTP data"}
+{"date":"2019-03-21T19:30:22.685Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-21T19:30:25.216Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-21T19:30:25.216Z","label":"Merlot-Authentication","message":"Received OTP data"}
+{"date":"2019-03-21T19:30:36.643Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-21T19:30:36.643Z","label":"Merlot-Authentication","message":"Received PIN data"}
+{"date":"2019-03-21T19:30:47.792Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-21T19:30:47.793Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-21T19:30:54.538Z","label":"Merlot-Authentication","message":"Received OTP data"}
+{"date":"2019-03-21T19:30:54.538Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-21T19:31:00.946Z","label":"Merlot-Authentication","message":"Received OTP data"}
+{"date":"2019-03-21T19:31:00.946Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-21T19:31:11.862Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-21T19:31:17.171Z","label":"Merlot-Authentication","message":"Received PIN data"}
+{"date":"2019-03-21T19:31:22.011Z","label":"Merlot-Authentication","message":"Received PIN data"}
+{"date":"2019-03-21T19:31:23.312Z","label":"Merlot-Authentication","message":"Received PIN data"}
+{"date":"2019-03-21T19:31:26.282Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-21T19:31:27.878Z","label":"Merlot-Authentication","message":"Received PIN data"}
+{"date":"2019-03-21T19:31:33.256Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-21T19:31:37.018Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-21T19:31:39.695Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-21T19:31:41.814Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-21T19:31:50.906Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-21T19:31:54.659Z","label":"Merlot-Authentication","message":"Received OTP data"}
+{"date":"2019-03-21T19:32:00.659Z","label":"Merlot-Authentication","message":"Received OTP data"}
+{"date":"2019-03-21T19:32:03.767Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-21T19:32:05.243Z","label":"Merlot-Authentication","message":"Received OTP data"}
+{"date":"2019-03-21T19:32:09.763Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-21T19:32:11.675Z","label":"Merlot-Authentication","message":"Received OTP data"}
