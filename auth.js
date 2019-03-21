@@ -33,27 +33,53 @@ app.use(session({
 // ======================================================================================
 // Function Definitions
 // ======================================================================================
-
-function sayHello()
-{
-    return 'hello';
-}
-
-function writeLog(logMessage)
+function writeLog(mesg, type)
 {
     if (!fs.existsSync(__dirname + '/logs')) {
         fs.mkdirSync(__dirname + '/logs', 0o744);
     }
 
-    fs.appendFile('logs/log.txt', new Date() + ' ' + logMessage + '\n', function (err)
+    var logEntry = 
+    {
+        "date" : new Date(),
+        "label" : "Merlot-Authentication",
+        "type" : type,
+        "message" : mesg
+    }
+
+    fs.appendFile('logs/log.txt', JSON.stringify(logEntry) + '\n', function (err)
     {
         if (err) throw err;
     });
 }
 
+function logInfo(mesg)
+{
+    writeLog(mesg, 'info');
+}
+
+function logWarning(mesg)
+{
+    writeLog(mesg, 'warn');
+}
+
+function logError(mesg)
+{
+    writeLog(mesg, 'error');
+}
+
+function logRequest(mesg)
+{
+    writeLog(mesg, 'request');
+}
+
+function logResponse(mesg)
+{
+    writeLog(mesg, 'response');
+}
+
 module.exports =
 {
-    sayHello: sayHello,
     sendAuthenticationRequest: sendAuthenticationRequest
 };
 
@@ -62,23 +88,22 @@ function sendAuthenticationRequest(options)
 {
     const https = require('https');
     const req = https.request(options, (res) => {
-  console.log(`statusCode: ${res.statusCode}`)
+    console.log(`statusCode: ${res.statusCode}`);
 
-  res.on('data', (d) => {
-    process.stdout.write(d)
-  })
-})
+    res.on('data', (d) => {
+        process.stdout.write(d);
+        })
+    })
 
-req.on('error', (error) => {
-  console.error(error)
-})
-var jsonData = JSON.stringify(data);
-req.write(jsonData)
-req.end()
+    req.on('error', (error) => {
+        logError(error);
+    })
 
-    console.log(options);
+    var jsonData = JSON.stringify(data);
+    req.write(jsonData);
+    req.end();
+    logRequest(options);
     return "Data will be sent to -> " + options.hostname;
-    
 }
 
 // ======================================================================================
@@ -136,7 +161,7 @@ app.get("/newMethod",async function(req,res){
         fs.writeFileSync('methods.json', methodData);
         res.end();
     }catch(error){
-        console.log(error);
+        logError(error);
         res.json(JSON.parse("{ 'status': 'Failed', 'message':'Something went wrong check the server' }"));      
         res.end();
         
@@ -198,7 +223,7 @@ app.get('/authenticate', function(request, response)
     // let data = request.query;
     // for api
 
-    let data = request.query; //change!!!!!!!
+    let data = request.body; //change!!!!!!!
     console.log(data);
 
     /*
@@ -211,12 +236,13 @@ app.get('/authenticate', function(request, response)
     if(!sess.bankID)
     {
         // If the bank didn't send an ID, throw an error
+        console.log(data);
         if(!data["ID"])
         {
-           j = JSON.parse('{ "success" : false, "data" : "No bank ID sent."}');
+            j = JSON.parse('{ "success" : false, "data" : "No bank ID sent."}');
             response.json(j);
             response.end();
-
+            logWarning('Recieved no bank id');
             return;
         }
 
@@ -236,6 +262,7 @@ app.get('/authenticate', function(request, response)
     }
 
     console.log("\nAuthenticate on GET from bank -> " + sess.bankID + "\n");
+    logInfo("\nAuthenticate on GET from bank -> " + sess.bankID);
 
     let pinFound = false;
     let diffTypes = 0;
@@ -261,7 +288,7 @@ app.get('/authenticate', function(request, response)
             j = JSON.parse('{ "success" : false, "data" : "Expecting an OTP."}');
             response.json(j);
             response.end();
-
+            logResponse(response);
             return;
         }
 
@@ -293,7 +320,7 @@ app.get('/authenticate', function(request, response)
                 // add new type to the array
                 diffTypes++;
                 foundTypes[foundTypes.length] = data["type"][i];
-                writeLog("Received " + data["type"][i] + " data");
+                logInfo("Received " + data["type"][i] + " data");
             }
 
             if(data["type"][i] === "PIN")
@@ -318,7 +345,7 @@ app.get('/authenticate', function(request, response)
             j = JSON.parse('{ "success" : false, "data" : "Did not receive either a PIN or OTP."}');
             response.json(j);
             response.end();
-
+            logResponse(response);
             return;
         }
         else
@@ -384,6 +411,7 @@ app.get('/authenticate', function(request, response)
         }
 
         console.log(j);
+        logResponse(j);
 
         response.json(j);
         response.end();

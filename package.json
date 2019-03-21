@@ -5,7 +5,7 @@
     "body-parser": "latest",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
-    "express-session": "latest",
+    "express-session": "^1.15.6",
     "uuid": "latest"
   },
   "devDependencies": {
