@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7254173b-abd2-4e19-8452-a97f9df68337" name="Default Changelist" comment="" />
+    <list default="true" id="7254173b-abd2-4e19-8452-a97f9df68337" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/log.txt" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -19,12 +23,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/auth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3147">
-              <caret line="171" column="1" selection-start-line="171" selection-start-column="1" selection-end-line="171" selection-end-column="1" />
+            <state relative-caret-position="787">
+              <caret line="438" column="62" selection-start-line="438" selection-start-column="62" selection-end-line="438" selection-end-column="62" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
-                <element signature="e#5659#6356#0" />
-                <element signature="e#6617#7608#0" />
+                <element signature="e#7038#8122#0" />
+                <element signature="e#9111#9135#0" />
               </folding>
             </state>
           </provider>
@@ -46,7 +50,12 @@
       <find>authenticate fro</find>
       <find>&quot;Authentication</find>
       <find>responses</find>
+      <find>sendAuthe</find>
+      <find>bankID</find>
     </findStrings>
+    <replaceStrings>
+      <replace>atmID</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -74,17 +83,17 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="864" />
-    <option name="width" value="1254" />
-    <option name="height" value="1440" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="291" />
+    <option name="y" value="26" />
+    <option name="width" value="1246" />
+    <option name="height" value="1054" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -96,11 +105,12 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="javascript.nodejs.core.library.configured.version" value="11.12.0" />
+    <property name="javascript.nodejs.core.library.configured.version" value="11.11.0" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="settings.nodejs" />
   </component>
@@ -146,6 +156,8 @@
       <workItem from="1552750555280" duration="12437000" />
       <workItem from="1552914664954" duration="3492000" />
       <workItem from="1552918658033" duration="4309000" />
+      <workItem from="1553178382107" duration="4415000" />
+      <workItem from="1553189879019" duration="1934000" />
     </task>
     <task id="LOCAL-00001" summary="Set up routing between pages">
       <created>1552599403829</created>
@@ -207,7 +219,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34403000" />
+    <option name="totallyTimeSpent" value="41269000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="26" width="1922" height="1055" extended-state="6" />
@@ -354,14 +366,17 @@
     <entry file="file://$PROJECT_DIR$/COKE.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/OTP.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/auth.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3147">
-          <caret line="171" column="1" selection-start-line="171" selection-start-column="1" selection-end-line="171" selection-end-column="1" />
+        <state relative-caret-position="787">
+          <caret line="438" column="62" selection-start-line="438" selection-start-column="62" selection-end-line="438" selection-end-column="62" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
-            <element signature="e#5659#6356#0" />
-            <element signature="e#6617#7608#0" />
+            <element signature="e#7038#8122#0" />
+            <element signature="e#9111#9135#0" />
           </folding>
         </state>
       </provider>
