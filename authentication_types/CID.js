@@ -21,7 +21,7 @@ module.exports = {
   returnmethod : function()
   {
   	return "GET";
-  }
+  },
   returnData1: function()
   {
     return "data1";

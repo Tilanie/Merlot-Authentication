@@ -5,7 +5,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
-var functionMaker = require("./functionMaker.js");
+var functionMaker = require("./authentication_types/functionMaker.js");
 const session = require('express-session');
 const uuid = require('uuid/v4');
 
@@ -135,7 +135,7 @@ app.use(function (req, res, next) {
 // --------------------------------------------------------------------------------------
 var methods = [];
 
-fs.readFile('methods.json', (err, data) => {  
+fs.readFile('authentication_types/methods.json', (err, data) => {  
     if (err) throw err;
     let typesOfMethods = JSON.parse(data);
      methods = typesOfMethods;
@@ -158,7 +158,7 @@ app.get("/newMethod",async function(req,res){
         res.json({"status":"Success"});     
         methods.push(data.methodname);
         let methodData = JSON.stringify(methods);  
-        fs.writeFileSync('methods.json', methodData);
+        fs.writeFileSync('authentication_types/methods.json', methodData);
         res.end();
     }catch(error){
         logError(error);
@@ -359,7 +359,7 @@ app.get('/authenticate', function(request, response)
                 {
                     if(data["type"][i] === methods[k])
                     {
-                    var path = './' +  methods[k] + '.js';
+                    var path = './authentication_types/' +  methods[k] + '.js';
                     var method = require(path);
                     options.hostname = method.returnhostname();
                     options.port = method.returnport();
