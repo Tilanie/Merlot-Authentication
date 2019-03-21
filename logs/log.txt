@@ -21,3 +21,11 @@
 {"date":"2019-03-21T12:27:18.447Z","label":"Merlot-Authentication","type":"response","message":{"success":true,"data":"someCustomerID"}}
 {"date":"2019-03-21T12:27:18.464Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"pic.pathname","host":"pic.pathname","port":8000}}
 {"date":"2019-03-21T12:27:18.464Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"pin.pathname","host":"pin.pathname","port":8000}}
+{"date":"2019-03-21T12:40:25.585Z","label":"Merlot-Authentication","type":"info","message":"\nAuthenticate on GET from bank -> 1"}
+{"date":"2019-03-21T12:40:25.586Z","label":"Merlot-Authentication","type":"info","message":"Received PIC data"}
+{"date":"2019-03-21T12:40:25.587Z","label":"Merlot-Authentication","type":"info","message":"Received PIN data"}
+{"date":"2019-03-21T12:40:25.622Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"pic.pathname","port":8000,"path":"/todos","method":"GET","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-21T12:40:25.624Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"pin.pathname","port":8000,"path":"/todos","method":"GET","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-21T12:40:25.624Z","label":"Merlot-Authentication","type":"response","message":{"success":true,"data":"someCustomerID"}}
+{"date":"2019-03-21T12:40:25.635Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"pic.pathname","host":"pic.pathname","port":8000}}
+{"date":"2019-03-21T12:40:25.636Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"pin.pathname","host":"pin.pathname","port":8000}}

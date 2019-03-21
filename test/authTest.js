@@ -5,24 +5,6 @@ const auth = require('../auth');
 
 describe('auth', function () 
 {
-  //This is an example of a functions unit test
-  //The describe block creates a category for the tessted function
-  describe('sayHello()', function()
-  {
-    //Get function output
-    sayHelloResult = auth.sayHello();
-
-    //Each it block is a test for the function
-    it('Should return a string', function()
-    {
-      assert.typeOf(sayHelloResult, 'string');
-    });
-
-    it('Should return "hello"', function () 
-    {
-      assert.equal(sayHelloResult, "hello");
-    });
-  });
   
   describe('Resonse to GET authorization requests', function()
   {
@@ -31,14 +13,18 @@ describe('auth', function ()
       var respon = "";
       request.get({
         headers: { 'Content-Type': 'application/json' },
-        url: 'http://127.0.0.1:8001/authenticate',
-         body: '{"type": ["PIC","PIN"],"data": [123,456]}'
-         }, function(error, response, body){
+        url: 'http://merlot-auth.herokuapp.com/authenticate',
+        qs: '{"type": ["PIC","PIN"],"data": [123,456], "ID":1}'
+      }, function(error, response, body)
+      {
+            if(error)
+              throw error;
+
             console.log(body);
             respon = body;
       });
    
-      assert.equal('Data will be sent to -> facial-recognition', respon);
+      assert.equal('{"success": true,"data": "someCustomerID"}', respon);
     });
   });
 });

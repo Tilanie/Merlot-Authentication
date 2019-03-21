@@ -223,7 +223,7 @@ app.get('/authenticate', function(request, response)
     // let data = request.query;
     // for api
 
-    let data = request.body; //change!!!!!!!
+    let data = request.query; //change!!!!!!!
     console.log(data);
 
     /*
