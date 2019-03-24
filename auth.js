@@ -86,6 +86,7 @@ module.exports =
 
 function sendAuthenticationRequest(options)
 {
+    console.log("authentication function");
     const https = require('https');
     const req = https.request(options, (res) => {
     console.log(`statusCode: ${res.statusCode}`);
@@ -253,7 +254,7 @@ app.get('/authenticate', function(request, response)
     // let data = request.query;
     // for api
 
-    let data = request.query; //change!!!!!!!
+    let data = request.request; //change!!!!!!!
     console.log(data);
 
     /*
@@ -445,7 +446,6 @@ app.get('/authenticate', function(request, response)
                 {
                     sess.usedMethods[sess.usedMethods.length] = data["type"][i];
 
-                    /* TODO: Remove this and implement sending off to other modules
                     let path = './authentication_types/' +  methods[k] + '.js';
                     let method = require(path);
                     options.hostname = method.returnhostname();
@@ -457,12 +457,29 @@ app.get('/authenticate', function(request, response)
                     data.data1 = method.returnData1();
                     data.data2 = method.returnData2();
 
-                    a = sendAuthenticationRequest(options);
-                    */
+                    
+                    
+                    
 
                     console.log("Sending data to -> " +  data["type"][i]);
+                    var reqResponse;
+                    setTimeout(responseFunction, 30000);
+                    reqResponse = sendAuthenticationRequest(options);
+                    function responseFunction()
+                    {
+                       if(reqResponse == undefined)
+                       {
+                         console.log("problem");
+                         a = JSON.parse('{ "success" : true, "customerID" : "someCustomerID" }');
+                       }
+                       else
+                       {
+                        a = reqResponse;
+                        console.log("all good");
+                       }
+                    }
 
-                    a = JSON.parse('{ "success" : true, "customerID" : "someCustomerID" }');
+                    a = JSON.parse('{ "success" : true, "customerID" : "someCustomerID" }'); //Remove once functions implemented
 
                     if( data["type"][i] === "OTP")
                     {
