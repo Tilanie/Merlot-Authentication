@@ -219,14 +219,11 @@ const options = {
 // --------------------------------------------------------------------------------------
 
 app.post('/authenticate', function(request, response)
-{
-
-});
+{ });
 
 // --------------------------------------------------------------------------------------
 // Get authenticate
 // --------------------------------------------------------------------------------------
-
 
 app.get('/authenticate', function(request, response)
 {
@@ -306,6 +303,8 @@ app.get('/authenticate', function(request, response)
 
     let a;
 
+    let callbackDone;
+
     // If it is a returning OTP request, handle it
     if(sess.waitingforOTP)
     {
@@ -345,7 +344,7 @@ app.get('/authenticate', function(request, response)
         options.headers['Content-Type'] = method.returnCType();
         options.headers['Content-Length'] = method.returnCLength();
 
-        /* Format to send to OTP for first request, so that they will generate an OTP and store it
+        /* Format to send to OTP for second request, so that they can verify the OTP
             {
                 "ClientID" : "...",
                 "otp" : "",
@@ -355,27 +354,20 @@ app.get('/authenticate', function(request, response)
          */
 
         options.dataToSend = '{ "ClientID" : "' + sess.ClientID + '",' +
-            '                "otp" : "' + data["data"][OTPFound] + '",' +
+            '                "OTP" : "' + data["data"][OTPFound] + '",' +
             '                "Success" : "",' +
-            '                "statusMessage" : "" }';
+            '                "StatusMessage" : "" }';
 
         //setTimeout(responseFunction, 30000);
 
         sendAuthenticationRequest(options, responseFunction);
+        callbackDone = false;
 
-        sess.waitingforOTP = false;
+        // Wait for the callback function to take effect
+        while(!callbackDone)
+        {}
 
-        // Validate the sent OTP with the one that was generated in previous call
-
-        responses[responses.length] = [];
-        if(a["Success"])
-        {
-            responses[responses.length-1]["Success"] = true;
-            responses[responses.length-1]["ClientID"] = "someClientID";
-        }
-        else
-            responses[responses.length-1]["Success"] = false;
-
+        sess.waitingforOTP = responses[responses.length-1]["Success"];
     }
     else
     {
@@ -408,10 +400,6 @@ app.get('/authenticate', function(request, response)
                     canIdentify = true;
             }
         }
-
-        console.log("PIN found -> " + pinFound);
-        console.log("CARD found -> " + cardFound);
-        console.log("Different types of authentication -> " + diffTypes + "\n");
 
         // If you can't identify the client, then you can't authenticate them
         if(!canIdentify)
@@ -471,13 +459,10 @@ app.get('/authenticate', function(request, response)
             return;
         }
 
-        // Authenticate the given data
         // Callback function for sendAuthenticationRequest()
-
         var reqResponse;
         function responseFunction(a)
         {
-            console.log(a);
             if(!a)
             {
                 console.log("problem");
@@ -492,14 +477,15 @@ app.get('/authenticate', function(request, response)
 
             console.log("Added success try");
 
-            console.log("Succes -> " + a["Success"]);
-            
             responses[responses.length-1]["Success"] = a["Success"]; // Success response
             responses[responses.length-1]["ClientID"] = a["ClientID"]; // Customer ID
 
             sess.ClientID = a["ClientID"];
+
+            callbackDone = true;
         }
 
+        // Authenticate the given data
         for(let i = 0; i < data["type"].length; i++)
         {
             for(let k = 0; k < methods.length; k++)
@@ -529,7 +515,15 @@ app.get('/authenticate', function(request, response)
 
                         //setTimeout(responseFunction, 30000);
 
+                        callbackDone = false;
+
                         sendAuthenticationRequest(options, responseFunction);
+
+                        responses[responses.length] = [];
+
+                        // Wait for the callback function to take effect
+                        while(!callbackDone)
+                        {}
                     }
                     else
                     {

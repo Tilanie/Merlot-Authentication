@@ -208,3 +208,39 @@
 {"date":"2019-03-29T14:10:55.174Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"pic.pathname","port":8000,"path":"/todos","method":"GET","dataToSend":"{ \"data\" : \"456\" }","headers":{"Content-Type":"application/json","Content-Length":1}}}
 {"date":"2019-03-29T14:10:55.182Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"pic.pathname","host":"pic.pathname","port":8000}}
 {"date":"2019-03-29T14:10:55.187Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"https://merlot-card-authentication.herokuapp.com","host":"https://merlot-card-authentication.herokuapp.com","port":3000}}
+{"date":"2019-03-29T14:39:52.297Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:39:52.303Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:39:52.304Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:39:52.305Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:39:52.306Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:39:52.307Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:39:52.308Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:39:52.309Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:39:52.310Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:39:52.311Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:40:17.312Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:40:17.317Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:40:17.319Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:40:17.320Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:40:17.321Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:40:17.322Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:40:17.323Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:40:17.324Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:40:17.325Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:40:17.326Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:42:32.260Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:42:32.266Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:42:32.267Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:42:32.268Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:42:32.269Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:42:32.270Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:42:32.271Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:42:32.272Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:42:32.273Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:42:32.274Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T14:43:46.374Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T14:43:46.375Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T14:43:46.396Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"https://merlot-card-authentication.herokuapp.com","port":3000,"path":"/authenticateNFC","method":"GET","dataToSend":"{ \"data\" : \"123\" }","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-29T14:43:46.397Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"pic.pathname","port":8000,"path":"/todos","method":"GET","dataToSend":"{ \"data\" : \"456\" }","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-29T14:43:46.406Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"pic.pathname","host":"pic.pathname","port":8000}}
+{"date":"2019-03-29T14:43:46.444Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"https://merlot-card-authentication.herokuapp.com","host":"https://merlot-card-authentication.herokuapp.com","port":3000}}
