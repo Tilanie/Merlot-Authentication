@@ -30,4 +30,7 @@ function sendData()
                 }
             }
     });
+
+    console.log("Sent data:");
+    console.log($("#input").val());
 }

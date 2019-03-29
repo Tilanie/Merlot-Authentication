@@ -84,7 +84,7 @@ module.exports =
 };
 
 
-function sendAuthenticationRequest(options)
+function sendAuthenticationRequest(options, callback)
 {
     console.log("authentication function");
     const https = require('https');
@@ -93,18 +93,30 @@ function sendAuthenticationRequest(options)
 
     res.on('data', (d) => {
         process.stdout.write(d);
+        callback(d);
         })
-    })
+    });
 
     req.on('error', (error) => {
         logError(error);
-    })
+    });
 
-    var jsonData = JSON.stringify(data);
-    req.write(jsonData);
+    // Remove when actually testing
+    var jsonData = JSON.parse('{ "Success" : true, "ClientID" : "123", "Timestamp" : "' + (new Date()).valueOf() + '"}');
+
+    console.log("Calling callback with " + jsonData);
+    callback(jsonData);
+    //
+
+    //var jsonData = JSON.parse(options.dataToSend);
+    req.write(jsonData + "");
     req.end();
     logRequest(options);
-    return "Data will be sent to -> " + options.hostname;
+}
+
+function getATMResponse(success, ClientID, triesLeft)
+{
+    return JSON.parse('{ "Success" : "' + success + '", "ClientID" : "' + ClientID + '", "TriesLeft" : "' + triesLeft + '", "Timestamp" : "' + (new Date()).valueOf() + '"}')
 }
 
 // ======================================================================================
@@ -115,6 +127,7 @@ function sendAuthenticationRequest(options)
 // --------------------------------------------------------------------------------------
 // Enable CORS on ExpressJS
 // --------------------------------------------------------------------------------------
+
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Credentials", true);
@@ -134,6 +147,7 @@ app.use(function (req, res, next) {
 //     'Content-Length': 1
 //   }
 // --------------------------------------------------------------------------------------
+
 var methods = [];
 
 fs.readFile('authentication_types/methods.json', (err, data) => {  
@@ -168,6 +182,7 @@ app.get("/newMethod",async function(req,res){
 
     }
 });
+
 // --------------------------------------------------------------------------------------
 // Get index page
 // --------------------------------------------------------------------------------------
@@ -182,22 +197,21 @@ app.get('/readme', function (req, res, next) {
     res.render('readme');
 });
 
-
-
 let j;
 
 const data = {
   data1: 'data to verify',
   data1: 'more data if needed'
 }
+
 const options = {
   hostname: 'flaviocopes.com',
   port: 443,
   path: '/todos',
   method: 'POST',
+  dataToSend : '', // Added this, so each module can have its request tailored if need be
   headers: {
-    'Content-Type': 'application/json',
-    'Content-Length': data.length
+    'Content-Type': 'application/json'
   }
 }
 // --------------------------------------------------------------------------------------
@@ -206,342 +220,7 @@ const options = {
 
 app.post('/authenticate', function(request, response)
 {
-    /* Receive either
-      {
-       "ID": 1,
-       "type":
-           [
-           "type1",
-           "type2"
-           ],
-      "data": [
-           "data1",
-           "data2"
-           ]
-      }
-      OR
-      {
-       "ID": 1,
-       "type":
-           [
-           "type"
-           ],
-      "data": [
-           "data"
-           ]
-      }
-     */
 
-    let sess = request.session;
-
-    // for browser
-    // console.log(request.query);
-    // let data = request.query;
-    // for api
-
-    let data = request.body; //change!!!!!!!
-    console.log(data);
-
-    /*
-     *  The only reason we'd extend a session over multiple connections is for:
-     *      1) Counting number of tries the user has expended
-     *      2) Awaiting an OTP authentication
-     */
-
-    // If the session is new then start new session.
-    if(!sess.atmID)
-    {
-        // If the bank didn't send an ID, throw an error
-        if(!data["ID"])
-        {
-           j = JSON.parse('{ "success" : false, "data" : "No bank ID sent."}');
-            response.json(j);
-            response.end();
-            logWarning('Recieved no atm id');
-            return;
-        }
-
-        sess.atmID = data["ID"];
-
-        console.log("\n===============================");
-        console.log("New sessions with bank " + sess.atmID);
-        console.log(sess.id);
-        console.log("===============================\n");
-
-        // Store number of tries for authentication and number of successful authentications (For TFA)
-        sess.numTries = 0;
-        sess.numAuthenticated = 0;
-        sess.usedMethods = [];
-    }
-
-    console.log("\nAuthenticate on GET from bank -> " + sess.atmID + "\n");
-
-    let pinFound = false;
-    let cardFound = false;
-    let canIdentify = false;
-
-    let diffTypes = 0;
-    let foundTypes = [];
-    let responses = [];
-
-    // If it is a returning OTP request, handle it
-    if(sess.waitingforOTP)
-    {
-        let OTPFound = -1;
-
-        for(let i = 0; i < data["type"].length; i++)
-        {
-            if(data["type"][i] === "OTP")
-            {
-                OTPFound = i;
-                break;
-            }
-        }
-
-        if(OTPFound === -1)
-        {
-            j = JSON.parse('{ "success" : false, "data" : "Expecting an OTP."}');
-
-            console.log(j);
-
-            response.json(j);
-            response.end();
-
-            return;
-        }
-
-        // Handle returning OTP request
-        console.log("Received OTP, handling...");
-
-        sess.waitingforOTP = false;
-
-        // Validate the sent OTP with the one that was generated in previous call
-        // TODO: either send OTP to OTP module or authenticate it against stored OTP returned from OTP module
-
-        let success = true;
-
-        responses[responses.length] = [];
-        if(success)
-        {
-            responses[responses.length-1]["success"] = true;
-            responses[responses.length-1]["customerID"] = "someCustomerID";
-        }
-        else
-            responses[responses.length-1]["success"] = false;
-
-    }
-    else
-    {
-        // Check what you already have, if the authentication was made over more than one call
-        if(sess.usedMethods.indexOf("CID") !== -1)
-            cardFound = true;
-
-        if(sess.usedMethods.indexOf("CID") !== -1 || sess.usedMethods.indexOf("PIC") !== -1)
-            canIdentify = true;
-
-        // Run through the data sent and send off the authentications to correct modules
-        for(let i = 0 ; i < data["type"].length; i++)
-        {
-            // if found array is empty or type received is not in the array
-            if((foundTypes.length === 0 || foundTypes.indexOf(data["type"][i]) === -1) && sess.usedMethods.indexOf(data["type"][i]) === -1)
-            {
-                // add new type to the array
-                diffTypes++;
-                foundTypes[foundTypes.length] = data["type"][i];
-                writeLog("Received " + data["type"][i] + " data");
-
-                if(data["type"][i] === "PIN")
-                    pinFound = true;
-                else if(data["type"][i] === "CID")
-                {
-                    cardFound = true;
-                    canIdentify = true;
-                }
-                else if(data["type"][i] === "PIC")
-                    canIdentify = true;
-            }
-        }
-
-        console.log("PIN found -> " + pinFound);
-        console.log("CARD found -> " + cardFound);
-        console.log("Different types of authentication -> " + diffTypes + "\n");
-
-        // If you can't identify the client, then you can't authenticate them
-        if(!canIdentify)
-        {
-            j = JSON.parse('{ "success" : false, "data" : "No way of identifying the client was given."}');
-
-            console.log(j);
-
-            response.json(j);
-            response.end();
-
-            return;
-        }
-
-        // If there's no authentication methods, then you can't authenticate the client
-        if(diffTypes === 0)
-        {
-            j = JSON.parse('{ "success" : false, "data" : "No new authentication types were given."}');
-
-            console.log(j);
-
-            response.json(j);
-            response.end();
-
-            return;
-        }
-
-        // If only one type of authentication was given, then you can't authenticate
-        if(data["type"].length === 2 && diffTypes !== 2)
-        {
-            j = JSON.parse('{ "success" : false, "data" : "Can\'t do TFA with the same form of authentication."}');
-
-            console.log(j);
-
-            response.json(j);
-            response.end();
-
-            sess.destroy();
-
-            return;
-        }
-
-        // If a pin is found, then it needs to be associated with a card
-        if(pinFound && !cardFound)
-        {
-            j = JSON.parse('{ "success" : false, "data" : "PIN can only be used with a card."}');
-
-            console.log(j);
-
-            response.json(j);
-            response.end();
-
-            return;
-        }
-
-        // Authenticate the given data
-        let a;
-
-        for(let i = 0; i < data["type"].length; i++)
-        {
-            for(let k = 0; k < methods.length; k++)
-            {
-                if(data["type"][i] === methods[k])
-                {
-                    sess.usedMethods[sess.usedMethods.length] = data["type"][i];
-
-                    let path = './authentication_types/' +  methods[k] + '.js';
-                    let method = require(path);
-                    options.hostname = method.returnhostname();
-                    options.port = method.returnport();
-                    options.path = method.returnpath();
-                    options.method = method.returnmethod();
-                    options.headers['Content-Type'] = method.returnCType();
-                    options.headers['Content-Length'] = method.returnCLength();
-                    data.data1 = method.returnData1();
-                    data.data2 = method.returnData2();
-
-
-
-
-
-                    console.log("Sending data to -> " +  data["type"][i]);
-                    var reqResponse;
-                    setTimeout(responseFunction, 30000);
-                    reqResponse = sendAuthenticationRequest(options);
-                    function responseFunction()
-                    {
-                       if(reqResponse == undefined)
-                       {
-                         console.log("problem");
-                         a = JSON.parse('{ "success" : true, "customerID" : "someCustomerID" }');
-                       }
-                       else
-                       {
-                        a = reqResponse;
-                        console.log("all good");
-                       }
-                    }
-
-                    a = JSON.parse('{ "success" : true, "customerID" : "someCustomerID" }'); //Remove once functions implemented
-
-                    if( data["type"][i] === "OTP")
-                    {
-                        console.log("Received OTP call from ATM" + sess.atmID + "!");
-                        sess.waitingforOTP = true;
-                    }
-                    else
-                    {
-                        responses[responses.length] = [];
-
-                        console.log("Added success try");
-
-                        responses[responses.length-1]["success"] = a["success"]; // Success response
-                        responses[responses.length-1]["customerID"] = a["customerID"]; // Customer ID
-
-                        sess.customerID = a["customerID"];
-                    }
-                }
-            }
-        }
-    }
-
-    // Count the number of authentications that succeeded and that failed
-    let success = true;
-    let customerID = "";
-
-    for(let i = 0; i < responses.length; i++)
-    {
-        if(responses[i]["success"] === false)
-        {
-            success = false;
-            sess.numTries++;
-
-            break;
-        }
-        else if(responses[i]["success"] === true)
-        {
-            customerID = responses[i]["customerID"];
-            sess.numAuthenticated++;
-        }
-    }
-
-    console.log("Session numAuthenticated -> " + sess.numAuthenticated);
-
-    // If 2 or more succeeded
-    if(success && sess.numAuthenticated >= 2)
-        sess.customerID = customerID;
-    else if(sess.waitingforOTP === true)
-        j = JSON.parse('{ "success" : false, "data" : "awaiting for OTP confirmation."}');
-    else
-        j = JSON.parse('{ "success" : false, "data" : "awaiting for more authentication for TFA."}');
-
-    if(sess.numAuthenticated >= 2)
-    {
-        j = JSON.parse('{ "success" : true, "data" : "' + sess.customerID + '"}');
-
-        console.log("Destroying session");
-        //Destroy the session
-        sess.destroy();
-    }
-    else if(sess.numTries >= 3)
-    {
-        j = JSON.parse('{ "success" : false, "data" : "notAuthenticatedException"}');
-
-        console.log("Number of tries exceeded specified amount. This customer has been blocked.");
-
-        // TODO: Block the customer
-
-        console.log("Destroying session");
-        //Destroy the session
-        sess.destroy();
-    }
-
-    console.log(j);
-
-    response.json(j);
-    response.end();
 });
 
 // --------------------------------------------------------------------------------------
@@ -584,14 +263,8 @@ app.get('/authenticate', function(request, response)
     // let data = request.query;
     // for api
 
-    let data = request.body; //change!!!!!!!
+    let data = request.query; //change!!!!!!!
     console.log(data);
-
-    /*
-     *  The only reason we'd extend a session over multiple connections is for:
-     *      1) Counting number of tries the user has expended
-     *      2) Awaiting an OTP authentication
-     */
 
     // If the session is new then start new session.
     if(!sess.atmID)
@@ -599,7 +272,9 @@ app.get('/authenticate', function(request, response)
         // If the bank didn't send an ID, throw an error
         if(!data["ID"])
         {
-           j = JSON.parse('{ "success" : false, "data" : "No bank ID sent."}');
+            //j = JSON.parse('{ "Success" : false, "data" : "No bank ID sent."}');
+            j = getATMResponse(false, "", 3 - sess.numTries)
+
             response.json(j);
             response.end();
             logWarning('Recieved no atm id');
@@ -629,6 +304,8 @@ app.get('/authenticate', function(request, response)
     let foundTypes = [];
     let responses = [];
 
+    let a;
+
     // If it is a returning OTP request, handle it
     if(sess.waitingforOTP)
     {
@@ -645,7 +322,8 @@ app.get('/authenticate', function(request, response)
 
         if(OTPFound === -1)
         {
-            j = JSON.parse('{ "success" : false, "data" : "Expecting an OTP."}');
+            //j = JSON.parse('{ "Success" : false, "data" : "Expecting an OTP."}');
+            j = getATMResponse(false, "", 3 - sess.numTries)
 
             console.log(j);
 
@@ -656,23 +334,47 @@ app.get('/authenticate', function(request, response)
         }
 
         // Handle returning OTP request
-        console.log("Received OTP, handling...");
+        sess.usedMethods[sess.usedMethods.length] = "OTP";
+
+        let path = './authentication_types/OTP.js';
+        let method = require(path);
+        options.hostname = method.returnhostname();
+        options.port = method.returnport();
+        options.path = method.returnpath();
+        options.method = method.returnmethod();
+        options.headers['Content-Type'] = method.returnCType();
+        options.headers['Content-Length'] = method.returnCLength();
+
+        /* Format to send to OTP for first request, so that they will generate an OTP and store it
+            {
+                "ClientID" : "...",
+                "otp" : "",
+                "status" : "",
+                "statusMessage" : ""
+            }
+         */
+
+        options.dataToSend = '{ "ClientID" : "' + sess.ClientID + '",' +
+            '                "otp" : "' + data["data"][OTPFound] + '",' +
+            '                "Success" : "",' +
+            '                "statusMessage" : "" }';
+
+        //setTimeout(responseFunction, 30000);
+
+        sendAuthenticationRequest(options, responseFunction);
 
         sess.waitingforOTP = false;
 
         // Validate the sent OTP with the one that was generated in previous call
-        // TODO: either send OTP to OTP module or authenticate it against stored OTP returned from OTP module
-
-        let success = true;
 
         responses[responses.length] = [];
-        if(success)
+        if(a["Success"])
         {
-            responses[responses.length-1]["success"] = true;
-            responses[responses.length-1]["customerID"] = "someCustomerID";
+            responses[responses.length-1]["Success"] = true;
+            responses[responses.length-1]["ClientID"] = "someClientID";
         }
         else
-            responses[responses.length-1]["success"] = false;
+            responses[responses.length-1]["Success"] = false;
 
     }
     else
@@ -714,7 +416,8 @@ app.get('/authenticate', function(request, response)
         // If you can't identify the client, then you can't authenticate them
         if(!canIdentify)
         {
-            j = JSON.parse('{ "success" : false, "data" : "No way of identifying the client was given."}');
+            //j = JSON.parse('{ "Success" : false, "data" : "No way of identifying the client was given."}');
+            j = getATMResponse(false, "", 3 - sess.numTries)
 
             console.log(j);
 
@@ -727,7 +430,8 @@ app.get('/authenticate', function(request, response)
         // If there's no authentication methods, then you can't authenticate the client
         if(diffTypes === 0)
         {
-            j = JSON.parse('{ "success" : false, "data" : "No new authentication types were given."}');
+            //j = JSON.parse('{ "Success" : false, "data" : "No new authentication types were given."}');
+            j = getATMResponse(false, "", 3 - sess.numTries)
 
             console.log(j);
 
@@ -740,7 +444,8 @@ app.get('/authenticate', function(request, response)
         // If only one type of authentication was given, then you can't authenticate
         if(data["type"].length === 2 && diffTypes !== 2)
         {
-            j = JSON.parse('{ "success" : false, "data" : "Can\'t do TFA with the same form of authentication."}');
+            //j = JSON.parse('{ "Success" : false, "data" : "Can\'t do TFA with the same form of authentication."}');
+            j = getATMResponse(false, "", 3 - sess.numTries)
 
             console.log(j);
 
@@ -755,7 +460,8 @@ app.get('/authenticate', function(request, response)
         // If a pin is found, then it needs to be associated with a card
         if(pinFound && !cardFound)
         {
-            j = JSON.parse('{ "success" : false, "data" : "PIN can only be used with a card."}');
+            //j = JSON.parse('{ "Success" : false, "data" : "PIN can only be used with a card."}');
+            j = getATMResponse(false, "", 3 - sess.numTries)
 
             console.log(j);
 
@@ -766,7 +472,33 @@ app.get('/authenticate', function(request, response)
         }
 
         // Authenticate the given data
-        let a;
+        // Callback function for sendAuthenticationRequest()
+
+        var reqResponse;
+        function responseFunction(a)
+        {
+            console.log(a);
+            if(!a)
+            {
+                console.log("problem");
+                a = JSON.parse('{ "Success" : false, "ClientID" : "" }');
+            }
+            else
+            {
+                console.log("all good");
+            }
+
+            responses[responses.length] = [];
+
+            console.log("Added success try");
+
+            console.log("Succes -> " + a["Success"]);
+            
+            responses[responses.length-1]["Success"] = a["Success"]; // Success response
+            responses[responses.length-1]["ClientID"] = a["ClientID"]; // Customer ID
+
+            sess.ClientID = a["ClientID"];
+        }
 
         for(let i = 0; i < data["type"].length; i++)
         {
@@ -774,80 +506,89 @@ app.get('/authenticate', function(request, response)
             {
                 if(data["type"][i] === methods[k])
                 {
-                    sess.usedMethods[sess.usedMethods.length] = data["type"][i];
-
-                    let path = './authentication_types/' +  methods[k] + '.js';
-                    let method = require(path);
-                    options.hostname = method.returnhostname();
-                    options.port = method.returnport();
-                    options.path = method.returnpath();
-                    options.method = method.returnmethod();
-                    options.headers['Content-Type'] = method.returnCType();
-                    options.headers['Content-Length'] = method.returnCLength();
-                    data.data1 = method.returnData1();
-                    data.data2 = method.returnData2();
-
-
-
-
-
-                    console.log("Sending data to -> " +  data["type"][i]);
-                    var reqResponse;
-                    setTimeout(responseFunction, 30000);
-                    reqResponse = sendAuthenticationRequest(options);
-                    function responseFunction()
+                    if(data["type"][i] !== "OTP")
                     {
-                       if(reqResponse == undefined)
-                       {
-                         console.log("problem");
-                         a = JSON.parse('{ "success" : true, "customerID" : "someCustomerID" }');
-                       }
-                       else
-                       {
-                        a = reqResponse;
-                        console.log("all good");
-                       }
-                    }
+                        //sess.usedMethods[sess.usedMethods.length] = data["type"][i];
 
-                    a = JSON.parse('{ "success" : true, "customerID" : "someCustomerID" }'); //Remove once functions implemented
+                        let path = './authentication_types/' +  methods[k] + '.js';
+                        let method = require(path);
+                        options.hostname = method.returnhostname();
+                        options.port = method.returnport();
+                        options.path = method.returnpath();
+                        options.method = method.returnmethod();
+                        options.headers['Content-Type'] = method.returnCType();
+                        options.headers['Content-Length'] = method.returnCLength();
 
-                    if( data["type"][i] === "OTP")
-                    {
-                        console.log("Received OTP call from ATM" + sess.atmID + "!");
-                        sess.waitingforOTP = true;
+                        /* Default format for data, I'm just taking a guess with this, change it if needed
+                            {
+                                "data" : "data["data"][i]"
+                            }
+                         */
+
+                        options.dataToSend = '{ "data" : "' + data["data"][i] + '" }';
+
+                        //setTimeout(responseFunction, 30000);
+
+                        sendAuthenticationRequest(options, responseFunction);
                     }
                     else
                     {
-                        responses[responses.length] = [];
-
-                        console.log("Added success try");
-
-                        responses[responses.length-1]["success"] = a["success"]; // Success response
-                        responses[responses.length-1]["customerID"] = a["customerID"]; // Customer ID
-
-                        sess.customerID = a["customerID"];
+                        console.log("Received OTP call from ATM" + sess.atmID + "!");
+                        sess.waitingforOTP = true;
                     }
                 }
             }
         }
     }
 
+    if(sess.waitingforOTP === true)
+    {
+        sess.usedMethods[sess.usedMethods.length] = "OTP";
+
+        let path = './authentication_types/OTP.js';
+        let method = require(path);
+        options.hostname = method.returnhostname();
+        options.port = method.returnport();
+        options.path = method.returnpath();
+        options.method = method.returnmethod();
+        options.headers['Content-Type'] = method.returnCType();
+        options.headers['Content-Length'] = method.returnCLength();
+
+        /* Format to send to OTP for first request, so that they will generate an OTP and store it
+            {
+                "ClientID" : "...",
+                "otp" : "",
+                "status" : "",
+                "statusMessage" : ""
+            }
+         */
+
+        options.dataToSend = '{ "ClientID" : "' + sess.ClientID + '",' +
+            '                "otp" : "",' +
+            '                "Success" : "",' +
+            '                "statusMessage" : "" }';
+
+        ////setTimeout(responseFunction, 30000);
+
+        sendAuthenticationRequest(options, responseFunction);
+    }
+
     // Count the number of authentications that succeeded and that failed
     let success = true;
-    let customerID = "";
+    let ClientID = "";
 
     for(let i = 0; i < responses.length; i++)
     {
-        if(responses[i]["success"] === false)
+        if(responses[i]["Success"] === false)
         {
             success = false;
             sess.numTries++;
 
             break;
         }
-        else if(responses[i]["success"] === true)
+        else if(responses[i]["Success"] === true)
         {
-            customerID = responses[i]["customerID"];
+            ClientID = responses[i]["ClientID"];
             sess.numAuthenticated++;
         }
     }
@@ -856,15 +597,22 @@ app.get('/authenticate', function(request, response)
 
     // If 2 or more succeeded
     if(success && sess.numAuthenticated >= 2)
-        sess.customerID = customerID;
+        sess.ClientID = ClientID;
     else if(sess.waitingforOTP === true)
-        j = JSON.parse('{ "success" : false, "data" : "awaiting for OTP confirmation."}');
+    {
+        //j = JSON.parse('{ "Success" : false, "data" : "awaiting for OTP confirmation."}');
+        j = getATMResponse(false, "", 3 - sess.numTries)
+    }
     else
-        j = JSON.parse('{ "success" : false, "data" : "awaiting for more authentication for TFA."}');
+    {
+        //j = JSON.parse('{ "Success" : false, "data" : "awaiting for more authentication for TFA."}');
+        j = getATMResponse(false, "", 3 - sess.numTries)
+    }
 
     if(sess.numAuthenticated >= 2)
     {
-        j = JSON.parse('{ "success" : true, "data" : "' + sess.customerID + '"}');
+        //j = JSON.parse('{ "Success" : true, "data" : "' + sess.ClientID + '"}');
+        j = getATMResponse(true, sess.ClientID, 3 - sess.numTries)
 
         console.log("Destroying session");
         //Destroy the session
@@ -872,7 +620,8 @@ app.get('/authenticate', function(request, response)
     }
     else if(sess.numTries >= 3)
     {
-        j = JSON.parse('{ "success" : false, "data" : "notAuthenticatedException"}');
+        //j = JSON.parse('{ "Success" : false, "data" : "notAuthenticatedException"}');
+        j = getATMResponse(false, "", 0)
 
         console.log("Number of tries exceeded specified amount. This customer has been blocked.");
 

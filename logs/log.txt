@@ -97,3 +97,114 @@
 {"date":"2019-03-21T19:32:05.243Z","label":"Merlot-Authentication","message":"Received OTP data"}
 {"date":"2019-03-21T19:32:09.763Z","label":"Merlot-Authentication","message":"Received PIC data"}
 {"date":"2019-03-21T19:32:11.675Z","label":"Merlot-Authentication","message":"Received OTP data"}
+{"date":"2019-03-29T13:08:08.131Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T13:08:22.684Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T13:10:18.475Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T13:10:24.805Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T13:10:45.428Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T13:12:16.330Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T13:13:16.804Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T13:20:41.326Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T13:20:51.349Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T13:20:53.186Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T13:35:11.631Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T13:36:16.961Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T13:36:27.725Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T13:36:50.357Z","label":"Merlot-Authentication","type":"warn","message":"Recieved no atm id"}
+{"date":"2019-03-29T13:37:42.880Z","label":"Merlot-Authentication","message":"Received PIN data"}
+{"date":"2019-03-29T13:37:42.881Z","label":"Merlot-Authentication","message":"Received OTP data"}
+{"date":"2019-03-29T13:37:56.205Z","label":"Merlot-Authentication","message":"Received PIN data"}
+{"date":"2019-03-29T13:37:56.205Z","label":"Merlot-Authentication","message":"Received OTP data"}
+{"date":"2019-03-29T13:40:17.954Z","label":"Merlot-Authentication","message":"Received PIN data"}
+{"date":"2019-03-29T13:40:17.955Z","label":"Merlot-Authentication","message":"Received OTP data"}
+{"date":"2019-03-29T13:40:20.851Z","label":"Merlot-Authentication","message":"Received PIN data"}
+{"date":"2019-03-29T13:40:20.852Z","label":"Merlot-Authentication","message":"Received OTP data"}
+{"date":"2019-03-29T13:40:46.898Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T13:40:46.898Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T13:40:47.237Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"https://merlot-card-authentication.herokuapp.com","host":"https://merlot-card-authentication.herokuapp.com","port":3000}}
+{"date":"2019-03-29T13:42:37.970Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T13:42:37.970Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T13:42:59.205Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T13:42:59.206Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T13:45:54.555Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T13:45:54.556Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T13:45:55.513Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T13:45:55.513Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T13:45:56.227Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T13:45:56.227Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T13:46:06.505Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T13:46:06.505Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T13:47:57.007Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T13:47:57.008Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T13:50:03.218Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T13:50:03.219Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T13:50:26.647Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T13:50:26.648Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T13:51:39.128Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T13:51:39.129Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T13:52:20.518Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T13:52:20.519Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T13:55:53.300Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T13:55:53.301Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T14:00:02.863Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T14:00:02.864Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T14:01:10.538Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T14:01:10.539Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T14:01:10.938Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"https://merlot-card-authentication.herokuapp.com","host":"https://merlot-card-authentication.herokuapp.com","port":3000}}
+{"date":"2019-03-29T14:01:45.043Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T14:01:45.043Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T14:01:45.062Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"https://merlot-card-authentication.herokuapp.com","port":3000,"path":"/authenticateNFC","method":"GET","dataToSend":"{ \"data\" : \"123\" }","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-29T14:01:45.064Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"pic.pathname","port":8000,"path":"/todos","method":"GET","dataToSend":"{ \"data\" : \"456\" }","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-29T14:01:45.078Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"https://merlot-card-authentication.herokuapp.com","host":"https://merlot-card-authentication.herokuapp.com","port":3000}}
+{"date":"2019-03-29T14:01:45.854Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"pic.pathname","host":"pic.pathname","port":8000}}
+{"date":"2019-03-29T14:02:35.878Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T14:02:35.879Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T14:02:35.899Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"https://merlot-card-authentication.herokuapp.com","port":3000,"path":"/authenticateNFC","method":"GET","dataToSend":"{ \"data\" : \"123\" }","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-29T14:02:35.900Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"pic.pathname","port":8000,"path":"/todos","method":"GET","dataToSend":"{ \"data\" : \"456\" }","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-29T14:02:35.907Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"pic.pathname","host":"pic.pathname","port":8000}}
+{"date":"2019-03-29T14:02:36.136Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"https://merlot-card-authentication.herokuapp.com","host":"https://merlot-card-authentication.herokuapp.com","port":3000}}
+{"date":"2019-03-29T14:03:13.859Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T14:03:13.859Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T14:03:13.877Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"https://merlot-card-authentication.herokuapp.com","port":3000,"path":"/authenticateNFC","method":"GET","dataToSend":"{ \"data\" : \"123\" }","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-29T14:03:13.878Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"pic.pathname","port":8000,"path":"/todos","method":"GET","dataToSend":"{ \"data\" : \"456\" }","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-29T14:03:13.886Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"pic.pathname","host":"pic.pathname","port":8000}}
+{"date":"2019-03-29T14:03:14.126Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"https://merlot-card-authentication.herokuapp.com","host":"https://merlot-card-authentication.herokuapp.com","port":3000}}
+{"date":"2019-03-29T14:03:47.065Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T14:03:47.065Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T14:03:47.089Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"https://merlot-card-authentication.herokuapp.com","port":3000,"path":"/authenticateNFC","method":"GET","dataToSend":"{ \"data\" : \"123\" }","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-29T14:03:47.090Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"pic.pathname","port":8000,"path":"/todos","method":"GET","dataToSend":"{ \"data\" : \"456\" }","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-29T14:03:47.096Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"pic.pathname","host":"pic.pathname","port":8000}}
+{"date":"2019-03-29T14:03:47.304Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"https://merlot-card-authentication.herokuapp.com","host":"https://merlot-card-authentication.herokuapp.com","port":3000}}
+{"date":"2019-03-29T14:04:12.384Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T14:04:12.384Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T14:04:12.404Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"https://merlot-card-authentication.herokuapp.com","port":3000,"path":"/authenticateNFC","method":"GET","dataToSend":"{ \"data\" : \"123\" }","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-29T14:04:12.405Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"pic.pathname","port":8000,"path":"/todos","method":"GET","dataToSend":"{ \"data\" : \"456\" }","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-29T14:04:12.413Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"pic.pathname","host":"pic.pathname","port":8000}}
+{"date":"2019-03-29T14:04:12.598Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"https://merlot-card-authentication.herokuapp.com","host":"https://merlot-card-authentication.herokuapp.com","port":3000}}
+{"date":"2019-03-29T14:07:22.971Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T14:07:22.972Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T14:07:22.992Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"https://merlot-card-authentication.herokuapp.com","port":3000,"path":"/authenticateNFC","method":"GET","dataToSend":"{ \"data\" : \"123\" }","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-29T14:07:22.993Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"pic.pathname","port":8000,"path":"/todos","method":"GET","dataToSend":"{ \"data\" : \"456\" }","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-29T14:07:23.002Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"pic.pathname","host":"pic.pathname","port":8000}}
+{"date":"2019-03-29T14:07:23.375Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"https://merlot-card-authentication.herokuapp.com","host":"https://merlot-card-authentication.herokuapp.com","port":3000}}
+{"date":"2019-03-29T14:08:18.051Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T14:08:18.052Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T14:08:18.070Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"https://merlot-card-authentication.herokuapp.com","port":3000,"path":"/authenticateNFC","method":"GET","dataToSend":"{ \"Success\" : true, \"data\" : \"123\" }","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-29T14:08:18.071Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"pic.pathname","port":8000,"path":"/todos","method":"GET","dataToSend":"{ \"Success\" : true, \"data\" : \"456\" }","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-29T14:08:18.079Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"pic.pathname","host":"pic.pathname","port":8000}}
+{"date":"2019-03-29T14:08:18.262Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"https://merlot-card-authentication.herokuapp.com","host":"https://merlot-card-authentication.herokuapp.com","port":3000}}
+{"date":"2019-03-29T14:09:59.719Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T14:09:59.720Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T14:09:59.951Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"https://merlot-card-authentication.herokuapp.com","host":"https://merlot-card-authentication.herokuapp.com","port":3000}}
+{"date":"2019-03-29T14:10:23.275Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T14:10:23.276Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T14:10:23.504Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"https://merlot-card-authentication.herokuapp.com","host":"https://merlot-card-authentication.herokuapp.com","port":3000}}
+{"date":"2019-03-29T14:10:45.389Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T14:10:45.389Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T14:10:45.628Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"https://merlot-card-authentication.herokuapp.com","host":"https://merlot-card-authentication.herokuapp.com","port":3000}}
+{"date":"2019-03-29T14:10:55.152Z","label":"Merlot-Authentication","message":"Received CID data"}
+{"date":"2019-03-29T14:10:55.152Z","label":"Merlot-Authentication","message":"Received PIC data"}
+{"date":"2019-03-29T14:10:55.173Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"https://merlot-card-authentication.herokuapp.com","port":3000,"path":"/authenticateNFC","method":"GET","dataToSend":"{ \"data\" : \"123\" }","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-29T14:10:55.174Z","label":"Merlot-Authentication","type":"request","message":{"hostname":"pic.pathname","port":8000,"path":"/todos","method":"GET","dataToSend":"{ \"data\" : \"456\" }","headers":{"Content-Type":"application/json","Content-Length":1}}}
+{"date":"2019-03-29T14:10:55.182Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"pic.pathname","host":"pic.pathname","port":8000}}
+{"date":"2019-03-29T14:10:55.187Z","label":"Merlot-Authentication","type":"error","message":{"errno":"ENOTFOUND","code":"ENOTFOUND","syscall":"getaddrinfo","hostname":"https://merlot-card-authentication.herokuapp.com","host":"https://merlot-card-authentication.herokuapp.com","port":3000}}
