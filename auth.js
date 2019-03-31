@@ -140,7 +140,6 @@ app.use(function (req, res, next) {
 //     'Content-Length': 1
 //   }
 // --------------------------------------------------------------------------------------
-
 var methods = [];
 
 fs.readFile('authentication_types/methods.json', (err, data) => {  
@@ -172,7 +171,6 @@ app.get("/newMethod",async function(req,res){
         logError(error);
         res.json(JSON.parse("{ 'status': 'Failed', 'message':'Something went wrong check the server' }"));      
         res.end();
-
     }
 });
 
