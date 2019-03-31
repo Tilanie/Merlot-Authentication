@@ -3,21 +3,66 @@
   <component name="ChangeListManager">
     <list default="true" id="7254173b-abd2-4e19-8452-a97f9df68337" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auth.js.orig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json.orig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock_BACKUP_2874.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock_BACKUP_3196.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock_BASE_2874.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock_BASE_3196.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock_LOCAL_2874.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock_LOCAL_3196.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock_REMOTE_2874.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock_REMOTE_3196.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json.orig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package_BACKUP_2264.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package_BASE_2264.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package_LOCAL_2264.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package_REMOTE_2264.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/crc/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/crc/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/crc/lib/crc1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/crc/lib/crc16.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/crc/lib/crc16_ccitt.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/crc/lib/crc16_kermit.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/crc/lib/crc16_modbus.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/crc/lib/crc16_xmodem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/crc/lib/crc24.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/crc/lib/crc32.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/crc/lib/crc8.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/crc/lib/crc8_1wire.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/crc/lib/create_buffer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/crc/lib/define_crc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/crc/lib/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/crc/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/ejs/Jakefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/ejs/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/ejs/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/ejs/ejs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/ejs/ejs.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/ejs/lib/ejs.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/ejs/lib/utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/ejs/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/express-session/HISTORY.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/express-session/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/express-session/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/express-session/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/express-session/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/express-session/session/cookie.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/express-session/session/memory.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/express-session/session/session.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/express-session/session/store.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/on-headers/HISTORY.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/on-headers/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/on-headers/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/on-headers/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/on-headers/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/random-bytes/HISTORY.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/random-bytes/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/random-bytes/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/random-bytes/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/random-bytes/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/uid-safe/HISTORY.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/uid-safe/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/uid-safe/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/uid-safe/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/uid-safe/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/CSS/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/Images/BGdark.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/JavaScript/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/JavaScript/jquery-3.3.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/error.ejs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/index.ejs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/readme.ejs" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -36,27 +81,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/auth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
-              <caret line="49" selection-start-line="49" selection-end-line="49" />
+            <state relative-caret-position="154">
+              <caret line="558" column="31" lean-forward="true" selection-start-line="558" selection-start-column="31" selection-end-line="558" selection-end-column="31" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="32" selection-start-line="32" selection-end-line="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package-lock.json">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -65,13 +96,28 @@
     <findStrings>
       <find>/todo</find>
       <find>sendAuthen</find>
+      <find>response.wr</find>
+      <find>someCustomerID</find>
+      <find>request.wr</find>
+      <find>methods</find>
+      <find>===============================</find>
+      <find>session</find>
+      <find>receive</find>
+      <find>authenticate fro</find>
+      <find>&quot;Authentication</find>
+      <find>responses</find>
+      <find>sendAuthe</find>
+      <find>bankID</find>
     </findStrings>
+    <replaceStrings>
+      <replace>atmID</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="development" />
       </map>
     </option>
   </component>
@@ -86,23 +132,24 @@
         <option value="$PROJECT_DIR$/CSS/index.css" />
         <option value="$PROJECT_DIR$/UI/index.css" />
         <option value="$PROJECT_DIR$/Views/index.ejs" />
-        <option value="$PROJECT_DIR$/auth.js" />
         <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/views/index.ejs" />
         <option value="$PROJECT_DIR$/public/JavaScript/index.js" />
+        <option value="$PROJECT_DIR$/auth.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="39" />
-    <option name="width" value="1262" />
-    <option name="height" value="1441" />
+    <option name="x" value="291" />
+    <option name="y" value="26" />
+    <option name="width" value="1246" />
+    <option name="height" value="1054" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -114,6 +161,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -160,6 +208,12 @@
       <workItem from="1552597275622" duration="893000" />
       <workItem from="1552603403448" duration="1340000" />
       <workItem from="1552744539241" duration="309000" />
+      <workItem from="1552745491654" duration="1086000" />
+      <workItem from="1552750555280" duration="12437000" />
+      <workItem from="1552914664954" duration="3492000" />
+      <workItem from="1552918658033" duration="4309000" />
+      <workItem from="1553178382107" duration="4415000" />
+      <workItem from="1553189879019" duration="3142000" />
     </task>
     <task id="LOCAL-00001" summary="Set up routing between pages">
       <created>1552599403829</created>
@@ -203,30 +257,51 @@
       <option name="project" value="LOCAL" />
       <updated>1552604566688</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added ejs package.">
+      <created>1552745681721</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1552745681721</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added ejs package.">
+      <created>1552745752727</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1552745752727</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added functionality to block a user.">
+      <created>1554032539481</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1554032539481</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12366000" />
+    <option name="totallyTimeSpent" value="52068000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49945828" visible="true" weight="0.21338251" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49945828" visible="true" weight="0.21338251" />
       <window_info id="Structure" order="1" sideWeight="0.50080776" side_tool="true" weight="0.31612223" />
       <window_info id="Favorites" order="2" sideWeight="0.5005417" side_tool="true" weight="0.31612223" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.24377032" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49947312" visible="true" weight="0.19176598" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32936078" />
-      <window_info anchor="bottom" id="Terminal" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.60238355" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50052685" side_tool="true" weight="0.20910075" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -278,7 +353,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Set up routing between pages" />
     <MESSAGE value="Set up the routing between the views and also the index will send data to authenticate using AJAX" />
-    <option name="LAST_COMMIT_MESSAGE" value="Set up the routing between the views and also the index will send data to authenticate using AJAX" />
+    <MESSAGE value="Added ejs package." />
+    <MESSAGE value="Added functionality to block a user." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added functionality to block a user." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/../Uni/computer-science/Second year/COS 216/Practical1.php" />
@@ -286,20 +363,6 @@
     <entry file="file://$PROJECT_DIR$/../work/ElectronApps/MarketObserver/JS/index.js" />
     <entry file="file://$PROJECT_DIR$/UI/index.css" />
     <entry file="file://$PROJECT_DIR$/UI/index.html" />
-    <entry file="file://$PROJECT_DIR$/views/index.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="918">
-          <caret line="54" selection-start-line="54" selection-end-line="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/CSS/index.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="1" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/error.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -314,78 +377,113 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/package.json.orig" />
+    <entry file="file://$PROJECT_DIR$/package-lock.json.orig" />
+    <entry file="file://$PROJECT_DIR$/package-lock_LOCAL_3196.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_REMOTE_2874.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_REMOTE_3196.json" />
+    <entry file="file://$PROJECT_DIR$/package_BACKUP_2264.json" />
+    <entry file="file://$PROJECT_DIR$/package_BASE_2264.json" />
+    <entry file="file://$PROJECT_DIR$/package_REMOTE_2264.json" />
+    <entry file="file://$PROJECT_DIR$/package_LOCAL_2264.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_LOCAL_2874.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_BASE_3196.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_BACKUP_2874.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_BACKUP_3196.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_BASE_2874.json" />
+    <entry file="file://$PROJECT_DIR$/views/index.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="963">
+          <caret line="44" column="59" selection-start-line="44" selection-start-column="59" selection-end-line="44" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/CSS/index.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="11" column="15" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/public/JavaScript/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+        <state relative-caret-position="138">
+          <caret line="6" column="32" lean-forward="true" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/COKE.js" />
+    <entry file="file://$PROJECT_DIR$/OTP.js" />
+    <entry file="file://$PROJECT_DIR$/package-lock.json">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/auth.js.orig">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="338" column="39" lean-forward="true" selection-start-line="338" selection-start-column="39" selection-end-line="338" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json.orig">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock.json.orig">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock_LOCAL_3196.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock_REMOTE_2874.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock_REMOTE_3196.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package_BACKUP_2264.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package_BASE_2264.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package_REMOTE_2264.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package_LOCAL_2264.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock_LOCAL_2874.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock_BASE_3196.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-357" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock_BACKUP_2874.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock_BACKUP_3196.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock_BASE_2874.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
+        <state relative-caret-position="578">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock.json">
+    <entry file="file://$PROJECT_DIR$/Procfile">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="-255" />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/js-yaml/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-612">
+          <caret line="3" column="21" lean-forward="true" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/js-yaml/LICENSE">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-117" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/js-yaml/index.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authentication_types/CID.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="10" column="53" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authentication_types/NFC.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authentication_types/OTP.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" selection-start-line="14" selection-end-line="14" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authentication_types/PIC.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authentication_types/PIN.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/auth.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        <state relative-caret-position="154">
+          <caret line="558" column="31" lean-forward="true" selection-start-line="558" selection-start-column="31" selection-end-line="558" selection-end-column="31" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>

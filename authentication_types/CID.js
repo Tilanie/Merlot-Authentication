@@ -8,15 +8,15 @@ module.exports = {
     return 1;
   },
   returnhostname: function () {
-    return "cid.pathname";
+    return "https://merlot-card-authentication.herokuapp.com";
   },
   returnport : function()
   {
-  	return 8000;
+  	return 3000;
   },
   returnpath : function()
   {
-  	return "/todos";
+  	return "/authenticateNFC";
   },
   returnmethod : function()
   {
