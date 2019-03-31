@@ -5,7 +5,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const fs = require("fs");
-var functionMaker = require("./authentication_types/functionMaker.js");
+const functionMaker = require("./authentication_types/functionMaker.js");
 const session = require('express-session');
 const uuid = require('uuid/v4');
 
@@ -45,7 +45,7 @@ function writeLog(mesg, type)
         "label" : "Merlot-Authentication",
         "type" : type,
         "message" : mesg
-    }
+    };
 
     fs.appendFile('logs/log.txt', JSON.stringify(logEntry) + '\n', function (err)
     {
@@ -101,10 +101,8 @@ function sendAuthenticationRequest(options, callback)
     });
 
     // Remove when actually testing
-    var jsonData = JSON.parse('{ "Success" : true, "ClientID" : "123", "Timestamp" : "' + (new Date()).valueOf() + '"}');
-
+    let jsonData = JSON.parse('{ "Success" : false, "ClientID" : "123", "Timestamp" : "' + (new Date()).valueOf() + '"}');
     callback(jsonData);
-    //
 
     //var jsonData = JSON.parse(options.dataToSend);
     req.write(jsonData + "");
@@ -120,12 +118,9 @@ function getATMResponse(success, ClientID, triesLeft)
 // ======================================================================================
 // Application implementation
 // ======================================================================================
-
-
 // --------------------------------------------------------------------------------------
 // Enable CORS on ExpressJS
 // --------------------------------------------------------------------------------------
-
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Credentials", true);
@@ -156,7 +151,6 @@ fs.readFile('authentication_types/methods.json', (err, data) => {
 });
 
 //===== finding methods available =======
-
 console.log('This is after the read call'); 
 
 app.get("/newMethod",async function(req,res){
@@ -182,25 +176,14 @@ app.get("/newMethod",async function(req,res){
 });
 
 // --------------------------------------------------------------------------------------
-// Get index page
+// Request Structure
 // --------------------------------------------------------------------------------------
-app.get('/', function (req, res, next) {
-    res.render('index');
-});
-
-// --------------------------------------------------------------------------------------
-// Get readme page
-// --------------------------------------------------------------------------------------
-app.get('/readme', function (req, res, next) {
-    res.render('readme');
-});
-
 let j;
 
 const data = {
   data1: 'data to verify',
-  data1: 'more data if needed'
-}
+  data2: 'more data if needed'
+};
 
 const options = {
   hostname: 'flaviocopes.com',
@@ -211,18 +194,17 @@ const options = {
   headers: {
     'Content-Type': 'application/json'
   }
-}
+};
+
 // --------------------------------------------------------------------------------------
 // Post authenticate
 // --------------------------------------------------------------------------------------
-
 app.post('/authenticate', function(request, response)
 { });
 
 // --------------------------------------------------------------------------------------
 // Get authenticate
 // --------------------------------------------------------------------------------------
-
 app.get('/authenticate', function(request, response)
 {
     /* Receive either
@@ -253,7 +235,7 @@ app.get('/authenticate', function(request, response)
 
     let sess = request.session;
 
-    let data = request.query; //change!!!!!!!
+    let data = request.body; //change!!!!!!!
     console.log(data);
 
     // If the session is new then start new session.
@@ -517,6 +499,8 @@ app.get('/authenticate', function(request, response)
             success = false;
             sess.numTries++;
 
+            ClientID = responses[i]["ClientID"];
+
             break;
         }
         else if(responses[i]["Success"] === true)
@@ -537,12 +521,12 @@ app.get('/authenticate', function(request, response)
     else if(sess.waitingforOTP === true)
     {
         //j = JSON.parse('{ "Success" : false, "data" : "awaiting for OTP confirmation."}');
-        j = getATMResponse(false, "", 3 - sess.numTries)
+        j = getATMResponse(false, ClientID, 3 - sess.numTries)
     }
     else
     {
         //j = JSON.parse('{ "Success" : false, "data" : "awaiting for more authentication for TFA."}');
-        j = getATMResponse(false, "", 3 - sess.numTries)
+        j = getATMResponse(false, ClientID, 3 - sess.numTries)
     }
 
     if(sess.numAuthenticated >= 2)
@@ -557,11 +541,31 @@ app.get('/authenticate', function(request, response)
     else if(sess.numTries >= 3)
     {
         //j = JSON.parse('{ "Success" : false, "data" : "notAuthenticatedException"}');
-        j = getATMResponse(false, "", 0)
+        j = getATMResponse(false, ClientID, 0)
 
         console.log("Number of tries exceeded specified amount. This customer has been blocked.");
 
         // TODO: Block the customer
+        // send post request to block current user
+
+        let clientServicesPort = 443;
+        let clientServicesPath = "/clientServicesPath";
+
+        let path = './clientServices';
+        let method = require(path);
+        options.hostname = "hostname";
+        options.port = clientServicesPort;
+        options.path = clientServicesPath;
+        options.method = "POST";
+        options.headers['Content-Type'] = "json";
+        options.headers['Content-Length'] = method.returnCLength();
+
+        options.dataToSend = '{ "ClientID" : "' + sess.ClientID + '",' +
+                             '  "deactivate" : "1" }';
+
+        //setTimeout(responseFunction, 30000);
+
+        sendAuthenticationRequest(options, responseFunction);
 
         console.log("Destroying session");
         //Destroy the session
@@ -572,13 +576,6 @@ app.get('/authenticate', function(request, response)
 
     response.json(j);
     response.end();
-});
-
-// --------------------------------------------------------------------------------------
-// Get error
-// --------------------------------------------------------------------------------------
-app.get('*', function(req, res, next) {
-    // res.render('error');
 });
 
 // ======================================================================================
