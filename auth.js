@@ -13,12 +13,8 @@ const uuid = require('uuid/v4');
 const app = express();
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({extended: false}));
-app.use("/public", express.static(__dirname + "/public"));
 
-// set view engine to ejs
-app.set('view engine', 'ejs');
-
-//To enable sessions
+// use sessions in the application
 app.use(session({
     genid: function(req) {
         return uuid(); // use UUIDs for session IDs
@@ -33,6 +29,7 @@ app.use(session({
 // ======================================================================================
 // Function Definitions
 // ======================================================================================
+// write logs
 function writeLog(mesg, type)
 {
     if (!fs.existsSync(__dirname + '/logs')) {
@@ -83,14 +80,16 @@ module.exports =
     sendAuthenticationRequest: sendAuthenticationRequest
 };
 
-
+// send an authentication request
 function sendAuthenticationRequest(options, callback)
 {
     const https = require('https');
     const req = https.request(options, (res) => {
     console.log(`statusCode: ${res.statusCode}`);
 
+    // callback -> responseFunction()
     res.on('data', (d) => {
+        // debug msg
         process.stdout.write(d);
         callback(d);
         })
@@ -100,19 +99,20 @@ function sendAuthenticationRequest(options, callback)
         logError(error);
     });
 
-    // Remove when actually testing
-    let jsonData = JSON.parse('{ "Success" : false, "ClientID" : "123", "Timestamp" : "' + (new Date()).valueOf() + '"}');
-    callback(jsonData);
+    // dummy data if other systems do not respond
+    let dummyData = JSON.parse('{ "Success" : false, "ClientID" : "123", "Timestamp" : "' + (new Date()).valueOf() + '"}');
+    // callback -> responseFunction()
+    callback(dummyData);
 
-    //var jsonData = JSON.parse(options.dataToSend);
-    req.write(jsonData + "");
+    // debug msg
+    req.write(JSON.stringify(dummyData));
     req.end();
     logRequest(options);
 }
 
 function getATMResponse(success, ClientID, triesLeft)
 {
-    return JSON.parse('{ "Success" : "' + success + '", "ClientID" : "' + ClientID + '", "TriesLeft" : "' + triesLeft + '", "Timestamp" : "' + (new Date()).valueOf() + '"}')
+    return JSON.parse('{ "Success" : "' + success + '", "ClientID" : "' + ClientID + '", "TriesLeft" : "' + triesLeft + '", "Timestamp" : "' + (new Date()).valueOf() + '"}');
 }
 
 // ======================================================================================
@@ -151,6 +151,7 @@ fs.readFile('authentication_types/methods.json', (err, data) => {
 });
 
 //===== finding methods available =======
+// debug msg
 console.log('This is after the read call'); 
 
 app.get("/newMethod",async function(req,res){
@@ -235,7 +236,8 @@ app.get('/authenticate', function(request, response)
 
     let sess = request.session;
 
-    let data = request.body; //change!!!!!!!
+    let data = request.body;
+    // debug msg
     console.log(data);
 
     // If the session is new then start new session.
@@ -254,6 +256,7 @@ app.get('/authenticate', function(request, response)
         sess.usedMethods = [];
     }
 
+    // debug msg
     console.log("\nAuthenticate on GET from bank -> " + sess.atmID + "\n");
 
     let pinFound = false;
@@ -277,12 +280,9 @@ app.get('/authenticate', function(request, response)
         }
 
         responses[responses.length] = [];
-
-        responses[responses.length-1]["Success"] = a["Success"]; // Success response
-        responses[responses.length-1]["ClientID"] = a["ClientID"]; // Customer ID
-
+        responses[responses.length-1]["Success"] = a["Success"];    // Success response
+        responses[responses.length-1]["ClientID"] = a["ClientID"];  // Customer ID
         sess.ClientID = a["ClientID"];
-
         callbackDone = true;
     }
 
@@ -291,7 +291,6 @@ app.get('/authenticate', function(request, response)
     {
         //Look through the given types for a OTP
         let OTPFound = -1;
-
         for(let i = 0; i < data["type"].length; i++)
         {
             if(data["type"][i] === "OTP")
@@ -304,8 +303,9 @@ app.get('/authenticate', function(request, response)
         if(OTPFound === -1)
         {
             //j = JSON.parse('{ "Success" : false, "data" : "Expecting an OTP."}');
-            j = getATMResponse(false, "", 3 - sess.numTries)
+            j = getATMResponse(false, "", 3 - sess.numTries);
 
+            // debug msg
             console.log(j);
 
             response.json(j);
@@ -335,10 +335,10 @@ app.get('/authenticate', function(request, response)
             }
          */
 
-        options.dataToSend = '{ "ClientID" : "' + sess.ClientID + '",' +
-            '                "OTP" : "' + data["data"][OTPFound] + '",' +
-            '                "Success" : "",' +
-            '                "StatusMessage" : "" }';
+        options.dataToSend = '{ "ClientID":         "' + sess.ClientID + '",' +
+                             '  "OTP":              "' + data["data"][OTPFound] + '",' +
+                             '  "Success":          "",' +
+                             '  "StatusMessage":    "" }';
 
         //setTimeout(responseFunction, 30000);
 
@@ -346,6 +346,7 @@ app.get('/authenticate', function(request, response)
 
         sendAuthenticationRequest(options, responseFunction);
 
+        // debug msg
         console.log("Handling returning OTP call...");
 
         // Wait for the callback function to take effect
@@ -392,13 +393,14 @@ app.get('/authenticate', function(request, response)
 
         // If you can't identify the client OR
         // No types were given OR
-        // A pin was found without a car
+        // A pin was found without a card
         // Then you can't authenticate them
         if(!canIdentify || diffTypes === 0 || (pinFound && !cardFound))
         {
             //j = JSON.parse('{ "Success" : false, "data" : "No way of identifying the client was given."}');
             j = getATMResponse(false, "", 3 - sess.numTries)
 
+            // debug msg
             console.log(j);
 
             response.json(j);
@@ -421,6 +423,7 @@ app.get('/authenticate', function(request, response)
                     {
                         sess.usedMethods[sess.usedMethods.length] = "OTP";
 
+                        // debug msg
                         console.log("Received OTP call from ATM" + sess.atmID + "!");
                         sess.waitingforOTP = true;
 
@@ -442,10 +445,10 @@ app.get('/authenticate', function(request, response)
                             }
                          */
 
-                        options.dataToSend = '{ "ClientID" : "' + sess.ClientID + '",' +
-                            '                "otp" : "",' +
-                            '                "Success" : "",' +
-                            '                "statusMessage" : "" }';
+                        options.dataToSend = '{ "ClientID":         "' + sess.ClientID + '",' +
+                                             '  "otp":              "",' +
+                                             '  "Success":          "",' +
+                                             '  "statusMessage":    "" }';
 
                         //setTimeout(responseFunction, 30000);
 
@@ -480,7 +483,7 @@ app.get('/authenticate', function(request, response)
                         while(!callbackDone)
                         {}
 
-                        if(responses[responses.length-1]["Success"] == true)
+                        if(responses[responses.length-1]["Success"] === true)
                             sess.usedMethods[sess.usedMethods.length] = data["type"][i];
                     }
                 }
@@ -513,11 +516,13 @@ app.get('/authenticate', function(request, response)
     if(sess.waitingforOTP)
         sess.numAuthenticated--;
 
+    // debug msg
     console.log("Session numAuthenticated -> " + sess.numAuthenticated + "\n");
 
     // If 2 or more succeeded
     if(success && sess.numAuthenticated >= 2)
         sess.ClientID = ClientID;
+    // if waiting for OTP
     else if(sess.waitingforOTP === true)
     {
         //j = JSON.parse('{ "Success" : false, "data" : "awaiting for OTP confirmation."}');
@@ -529,15 +534,18 @@ app.get('/authenticate', function(request, response)
         j = getATMResponse(false, ClientID, 3 - sess.numTries)
     }
 
+    // if succeeded
     if(sess.numAuthenticated >= 2)
     {
         //j = JSON.parse('{ "Success" : true, "data" : "' + sess.ClientID + '"}');
         j = getATMResponse(true, sess.ClientID, 3 - sess.numTries)
 
+        // debug msg
         console.log("Destroying session");
         //Destroy the session
         sess.destroy();
     }
+    // if ran our of tries
     else if(sess.numTries >= 3)
     {
         //j = JSON.parse('{ "Success" : false, "data" : "notAuthenticatedException"}');
@@ -545,33 +553,29 @@ app.get('/authenticate', function(request, response)
 
         console.log("Number of tries exceeded specified amount. This customer has been blocked.");
 
-        // TODO: Block the customer
-        // send post request to block current user
+        if(ClientID !== ""){
+            // send post request to block current user
+            options.hostname = "http://merlotnotification.herokuapp.com/";
+            options.path = "/";
+            options.method = "POST";
+            options.headers['Content-Type'] = "application/json";
 
-        let clientServicesPort = 443;
-        let clientServicesPath = "/clientServicesPath";
+            options.dataToSend = '{' +
+                '  "option": "deactivate"' +
+                '  "clientId": "' + sess.ClientID + '",' +
+                '}';
 
-        let path = './clientServices';
-        let method = require(path);
-        options.hostname = "hostname";
-        options.port = clientServicesPort;
-        options.path = clientServicesPath;
-        options.method = "POST";
-        options.headers['Content-Type'] = "json";
-        options.headers['Content-Length'] = method.returnCLength();
+            //setTimeout(responseFunction, 30000);
+            sendAuthenticationRequest(options, responseFunction);
+        }
 
-        options.dataToSend = '{ "ClientID" : "' + sess.ClientID + '",' +
-                             '  "deactivate" : "1" }';
-
-        //setTimeout(responseFunction, 30000);
-
-        sendAuthenticationRequest(options, responseFunction);
-
+        // debug msg
         console.log("Destroying session");
         //Destroy the session
         sess.destroy();
     }
 
+    // debug msg
     console.log(j);
 
     response.json(j);
@@ -588,5 +592,6 @@ if (port == null || port === "") {
     port = 8000;
 }
 
-app.listen(port);
-console.log("Server is running on PORT => "+port);
+app.listen(port, function () {
+    console.log("Server is running at " + port);
+});
