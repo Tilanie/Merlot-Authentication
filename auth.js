@@ -1,4 +1,5 @@
-// ======================================================================================
+
+        let path = './authentication_types/OTP.js';// ======================================================================================
 // Get the dependencies
 // ======================================================================================
 
@@ -29,50 +30,73 @@ app.use(session({
 // ======================================================================================
 // Function Definitions
 // ======================================================================================
-// write logs
-function writeLog(mesg, type)
+//Core logging function
+function writeLog(mesg, type, success, cardID, cardType, clientID)
 {
-    if (!fs.existsSync(__dirname + '/logs')) {
+    if (!fs.existsSync(__dirname + '/logs')) 
+    {
         fs.mkdirSync(__dirname + '/logs', 0o744);
     }
 
     var logEntry = 
     {
-        "date" : new Date(),
-        "label" : "Merlot-Authentication",
-        "type" : type,
-        "message" : mesg
+        "logType" : type,
+        "cardID" : cardID,
+        "cardType" : cardType,
+        "clientID" : clientID,
+        "description" : mesg,
+        "success" : success,
+        "timestamp" : (new Date()).valueOf()
     };
 
     fs.appendFile('logs/log.txt', JSON.stringify(logEntry) + '\n', function (err)
     {
         if (err) throw err;
     });
+
+    fs.stat('logs/log.txt', function (err, stats) 
+    {
+        console.log("Log file size: " + stats.size);
+        if(stats.size > 10000) //Log greater than 10 KB
+        {
+            //Rename file to enable logging to continue
+            fs.rename('logs/log.txt', 'logs/log.json', function(err) 
+            {
+                if ( err ) console.log('ERROR: ' + err);
+            });
+
+            //Read in file and send to the reporting team
+            logInfo("Log size limit reached, sending log to reporting subsystem", -1, "N/A", -1);
+
+            
+        }
+    });
 }
 
-function logInfo(mesg)
+//Logging functions (Please use these rather than the core logging function)
+function logInfo(mesg, cardID, cardType, clientID)
 {
-    writeLog(mesg, 'info');
+    writeLog(mesg, 'info', true, cardID, cardType, clientID);
 }
 
-function logWarning(mesg)
+function logWarning(mesg, cardID, cardType, clientID)
 {
-    writeLog(mesg, 'warn');
+    writeLog(mesg, 'warn', false, cardID, cardType, clientID);
 }
 
-function logError(mesg)
+function logError(mesg, cardID, cardType, clientID)
 {
-    writeLog(mesg, 'error');
+    writeLog(mesg, 'error', false, cardID, cardType, clientID);
 }
 
-function logRequest(mesg)
+function logRequest(mesg, cardID, cardType, clientID)
 {
-    writeLog(mesg, 'request');
+    writeLog(mesg, 'request', true, cardID, cardType, clientID);
 }
 
-function logResponse(mesg)
+function logResponse(mesg, cardID, cardType, clientID)
 {
-    writeLog(mesg, 'response');
+    writeLog(mesg, 'response', true, cardID, cardType, clientID);
 }
 
 module.exports =
@@ -96,7 +120,7 @@ function sendAuthenticationRequest(options, callback)
     });
 
     req.on('error', (error) => {
-        logError(error);
+        logError(error, -1, "N/A", -1);
     });
 
     // dummy data if other systems do not respond
@@ -107,7 +131,7 @@ function sendAuthenticationRequest(options, callback)
     // debug msg
     req.write(JSON.stringify(dummyData));
     req.end();
-    logRequest(options);
+    logRequest(options, -1, "N/A", -1);
 }
 
 function getATMResponse(success, ClientID, triesLeft)
@@ -153,7 +177,7 @@ fs.readFile('authentication_types/methods.json', (err, data) => {
 // debug msg
 console.log('This is after the read call'); 
 
-app.get("/newMethod",async function(req,res){
+app.post("/newMethod",async function(req,res){
     try{
         console.log("new function creating");
         var data = req.body;
@@ -168,7 +192,7 @@ app.get("/newMethod",async function(req,res){
         fs.writeFileSync('authentication_types/methods.json', methodData);
         res.end();
     }catch(error){
-        logError(error);
+        logError("Mehod adding failed", -1, "N/A", -1);
         res.json(JSON.parse("{ 'status': 'Failed', 'message':'Something went wrong check the server' }"));      
         res.end();
     }
@@ -198,13 +222,32 @@ const options = {
 // --------------------------------------------------------------------------------------
 // Post authenticate
 // --------------------------------------------------------------------------------------
-app.post('/authenticate', function(request, response)
-{ });
+app.get('/display', function(request, response)
+{ 
+   var displayData = {
+    "CID": [
+        "PIN",
+        "OTP",
+        "PIC"
+    ],
+    "PIC": [
+        "PIN",
+        "OTP",
+        "CID"
+     ]
+    };
+
+    console.log(displayData);
+
+    response.json(displayData);
+    response.end();
+
+});
 
 // --------------------------------------------------------------------------------------
 // Get authenticate
 // --------------------------------------------------------------------------------------
-app.get('/authenticate', function(request, response)
+app.post('/authenticate', function(request, response)
 {
     /* Receive either
       {
@@ -231,7 +274,7 @@ app.get('/authenticate', function(request, response)
            ]
       }
      */
-
+    logRequest("Recieved authentication request: " + request.body, -1, "N/A", -1);
     let sess = request.session;
 
     let data = request.body;
@@ -315,7 +358,6 @@ app.get('/authenticate', function(request, response)
         // Handle returning OTP request
         sess.usedMethods[sess.usedMethods.length] = "OTP";
 
-        let path = './authentication_types/OTP.js';
         let method = require(path);
         options.hostname = method.returnhostname();
         options.port = method.returnport();
@@ -375,7 +417,7 @@ app.get('/authenticate', function(request, response)
                 // add new type to the array
                 diffTypes++;
                 foundTypes[foundTypes.length] = data["type"][i];
-                writeLog("Received " + data["type"][i] + " data");
+                logInfo("Found type " + data["type"][i], data["data"][i], "N/A", sess.ClientID);
 
                 if(data["type"][i] === "PIN")
                     pinFound = true;
@@ -478,8 +520,22 @@ app.get('/authenticate', function(request, response)
                         sendAuthenticationRequest(options, responseFunction);
 
                         // Wait for the callback function to take effect
+                        
+                        let startDate = new Date().getTime();
+                        let date = new Date().getTime();
                         while(!callbackDone)
-                        {}
+                        {
+                            if(date-startDate > 10000)
+                            {
+                                 responses[responses.length] = [];
+                                responses[responses.length-1]["Success"] = true;    // Success response
+                                responses[responses.length-1]["ClientID"] = "-1";  // Customer ID
+                                sess.ClientID = "-1";
+                                callbackDone = true;
+
+                            }
+                            let date = new Date().getTime();
+                        }
 
                         if(responses[responses.length-1]["Success"] === true)
                             sess.usedMethods[sess.usedMethods.length] = data["type"][i];
@@ -542,6 +598,8 @@ app.get('/authenticate', function(request, response)
         console.log("Destroying session");
         //Destroy the session
         sess.destroy();
+
+        logInfo("Session destroyed", -1, "N/A", sess.ClientID);
     }
     // if ran our of tries
     else if(sess.numTries >= 3)
@@ -550,10 +608,11 @@ app.get('/authenticate', function(request, response)
         j = getATMResponse(false, ClientID, 0)
 
         console.log("Number of tries exceeded specified amount. This customer has been blocked.");
+        logInfo("Customer exceeded number of authentication attempts. Account suspended.", -1, "N/A", sess.ClientID);
 
         if(ClientID !== ""){
             // send post request to block current user
-            options.hostname = "http://merlotnotification.herokuapp.com/";
+            options.hostname = "http://merlotcisg7.herokuapp.com/";
             options.path = "/";
             options.method = "POST";
             options.headers['Content-Type'] = "application/json";
