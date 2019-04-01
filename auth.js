@@ -579,7 +579,7 @@ app.get('/authenticate', function(request, response)
 
         if(ClientID !== ""){
             // send post request to block current user
-            options.hostname = "http://merlotnotification.herokuapp.com/";
+            options.hostname = "http://merlotcisg7.herokuapp.com/";
             options.path = "/";
             options.method = "POST";
             options.headers['Content-Type'] = "application/json";
