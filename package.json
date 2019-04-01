@@ -1,5 +1,5 @@
 {
-  "name": "Merlot-Authentication",
+  "name": "merlot-authentication",
   "version": "1.0.0",
   "dependencies": {
     "body-parser": "^1.18.3",
@@ -28,7 +28,7 @@
     "type": "git",
     "url": "git+https://github.com/Tilanie/Merlot-Authentication.git"
   },
-  "author": "",
+  "author": "merlot-authentication team",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Tilanie/Merlot-Authentication/issues"
