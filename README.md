@@ -74,7 +74,7 @@ Our system will only respond to the ATM Simulation system. A response will be st
  "Success": "True",
  "ClientID": 123,
  "TriesLeft": 3,
- "Timestemp": 15129837123
+ "Timestemp": 15129837123,
  "Methods": [
  ]
 }
