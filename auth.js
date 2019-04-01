@@ -249,6 +249,7 @@ app.get('/display', function(request, response)
 // --------------------------------------------------------------------------------------
 app.post('/authenticate', function(request, response)
 {
+
     /* Receive either
       {
        "ID": 1,
@@ -401,6 +402,7 @@ app.post('/authenticate', function(request, response)
     }
     else
     {
+
         // Check what you already have since the authentication could've been made over more than one call
         if(sess.usedMethods.indexOf("CID") !== -1)
             cardFound = true;
@@ -459,8 +461,10 @@ app.post('/authenticate', function(request, response)
             {
                 if(data["type"][i] === methods[k])
                 {
+
                     if(data["type"][i] === "OTP")
                     {
+
                         sess.usedMethods[sess.usedMethods.length] = "OTP";
 
                         // debug msg
@@ -496,6 +500,8 @@ app.post('/authenticate', function(request, response)
                     }
                     else
                     {
+
+
                         let path = './authentication_types/' +  methods[k] + '.js';
                         let method = require(path);
                         options.hostname = method.returnhostname();
@@ -511,7 +517,41 @@ app.post('/authenticate', function(request, response)
                             }
                          */
 
-                        options.dataToSend = '{ "data" : "' + data["data"][i] + '" }';
+                        if(data["type"][i] === "PIC")
+                        {
+                            onsole.log("Pic");
+                            options.dataToSend = '{ "type":         "' + "authenticate" + '",' +
+                                             '  "image":         '   + data["data"][i] + '"  ""}';
+                            
+                        }
+                        
+                        if(data["type"][0] == "PIN"&& data["type"].length > 1)
+                        {
+                            console.log("REorder");
+                            var temp = data["data"][0];
+                            data["data"][0] = data["data"][1];
+                            data["data"][1] = temp;
+
+                            temp = data["type"][0];
+                            data["type"][0] = data["type"][1];
+                            data["type"][1] = temp;
+
+                             options.dataToSend = '{ "cardID":         "' + data["data"][0]  + '",' +
+                                             '  "pin":         '   + data["data"][1] + '"  ""}';
+
+                             
+                        }
+                        else if(data["type"][i] == "NFC" || data["type"][i] == "CID")
+                        {
+                            
+                            options.dataToSend = '{ "cardID":         "'   + data["data"][i] + '"  ""}';       
+                        }
+                        else
+                        {
+
+                                options.dataToSend = '{ "data" : "' + data["data"][i] + '" }';
+                        }
+                        
 
                         //setTimeout(responseFunction, 30000);
 
