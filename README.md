@@ -7,7 +7,7 @@ Our application is hosted at - https://merlot-auth.herokuapp.com/authenticate
 
 ## Requests to our syustem
 
-**NOTE** Requests to the API should be structured as JSON objects.
+**NOTE** - Requests to the API should be structured as JSON objects.
 
 Our accepts either of the following two requests:
 
@@ -47,8 +47,8 @@ Type refers to the authentication type the user is using and can be one of the f
 
 Data refers to the data sent along associated to that specific type of authentication.
 
-**NOTE** A user cannot use the same authentication method in order to be authenticated.
-**NOTE** The first authentication type cannot be OTP as their is no way for us the get the Client ID with OTP.
+**NOTE** - A user cannot use the same authentication method in order to be authenticated.
+**NOTE** - The first authentication type cannot be OTP as their is no way for us the get the Client ID with OTP.
 
 Possible type orders and combinations are as follows:
 Correct
@@ -63,7 +63,7 @@ Incorrect
 * OTP - CID
 * OTP - PIC
 
-**NOTE** The data sent with OTP can be sent as either an empty string - OTP request is made, or as the string the user entered - To send to OTP in order to authenticate it.
+**NOTE** - The data sent with OTP can be sent as either an empty string - OTP request is made, or as the string the user entered - To send to OTP in order to authenticate it.
 
 ## Responses from our system
 
@@ -71,10 +71,10 @@ Our system will only respond to the ATM Simulation system. A response will be st
 
 ```json
 {
- "Success": True/False,
+ "Success": "True",
  "ClientID": 123,
- "TriesLeft": 0 < x <= 3,
- "Timestemp": 15129837123...
+ "TriesLeft": 3,
+ "Timestemp": 15129837123
  "Methods": [
   // methods that is available to use
  ]
@@ -85,7 +85,7 @@ Our system will only respond to the ATM Simulation system. A response will be st
 
 Requests to other systems are purely internal and the need to show other people what we request is not necassary, but for the sake of completeness we will show what we are requesting to other systems. 
 
-**NOTE** Since we are relying on other systems the requests may change during the course of this project and thus will add the requests once it is finalized.
+**NOTE** - Since we are relying on other systems the requests may change during the course of this project and thus will add the requests once it is finalized.
 
 
 ---
