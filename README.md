@@ -76,7 +76,6 @@ Our system will only respond to the ATM Simulation system. A response will be st
  "TriesLeft": 3,
  "Timestemp": 15129837123
  "Methods": [
-  // methods that is available to use
  ]
 }
 ```
