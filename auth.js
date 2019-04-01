@@ -1,5 +1,4 @@
-
-        let path = './authentication_types/OTP.js';// ======================================================================================
+// ======================================================================================
 // Get the dependencies
 // ======================================================================================
 
@@ -124,11 +123,14 @@ function sendAuthenticationRequest(options, callback)
     });
 
     // dummy data if other systems do not respond
-    let dummyData = JSON.parse('{ "Success" : false, "ClientID" : "123", "Timestamp" : "' + (new Date()).valueOf() + '"}');
+    let dummyData = JSON.parse('{ "Success" : true, "ClientID" : "DummyID", "Timestamp" : "' + (new Date()).valueOf() + '"}');
     // callback -> responseFunction()
     callback(dummyData);
 
     // debug msg
+    console.log("Request sent to -> " + options.hostname + "\n\nWith data:\n");
+    console.log(JSON.parse(options.dataToSend));
+
     req.write(JSON.stringify(dummyData));
     req.end();
     logRequest(options, -1, "N/A", -1);
@@ -174,8 +176,6 @@ fs.readFile('authentication_types/methods.json', (err, data) => {
 });
 
 //===== finding methods available =======
-// debug msg
-console.log('This is after the read call'); 
 
 app.post("/newMethod",async function(req,res){
     try{
@@ -202,11 +202,6 @@ app.post("/newMethod",async function(req,res){
 // Request Structure
 // --------------------------------------------------------------------------------------
 let j;
-
-const data = {
-  data1: 'data to verify',
-  data2: 'more data if needed'
-};
 
 const options = {
   hostname: 'flaviocopes.com',
@@ -249,7 +244,6 @@ app.get('/display', function(request, response)
 // --------------------------------------------------------------------------------------
 app.post('/authenticate', function(request, response)
 {
-
     /* Receive either
       {
        "ID": 1,
@@ -275,7 +269,7 @@ app.post('/authenticate', function(request, response)
            ]
       }
      */
-    logRequest("Recieved authentication request: " + request.body, -1, "N/A", -1);
+    logRequest("Received authentication request: " + request.body, -1, "N/A", -1);
     let sess = request.session;
 
     let data = request.body;
@@ -309,7 +303,6 @@ app.post('/authenticate', function(request, response)
     let foundTypes = [];
     let responses = [];
 
-    let a;
     let callbackDone;
 
     // Callback function for sendAuthenticationRequest()
@@ -404,10 +397,10 @@ app.post('/authenticate', function(request, response)
     {
 
         // Check what you already have since the authentication could've been made over more than one call
-        if(sess.usedMethods.indexOf("CID") !== -1)
+        if(sess.usedMethods.indexOf("CID") !== -1 || sess.usedMethods.indexOf("NFC") !== -1)
             cardFound = true;
 
-        if(sess.usedMethods.indexOf("CID") !== -1 || sess.usedMethods.indexOf("PIC") !== -1)
+        if(sess.usedMethods.indexOf("CID") !== -1 || sess.usedMethods.indexOf("PIC") !== -1 || sess.usedMethods.indexOf("CID") !== -1)
             canIdentify = true;
 
         // Run through the data sent and send off the authentications to correct modules
@@ -423,7 +416,7 @@ app.post('/authenticate', function(request, response)
 
                 if(data["type"][i] === "PIN")
                     pinFound = true;
-                else if(data["type"][i] === "CID")
+                else if(data["type"][i] === "CID" || data["type"][i] === "NFC")
                 {
                     cardFound = true;
                     canIdentify = true;
@@ -440,7 +433,7 @@ app.post('/authenticate', function(request, response)
         if(!canIdentify || diffTypes === 0 || (pinFound && !cardFound))
         {
             //j = JSON.parse('{ "Success" : false, "data" : "No way of identifying the client was given."}');
-            j = getATMResponse(false, "", 3 - sess.numTries)
+            j = getATMResponse(false, "", 3 - sess.numTries);
 
             // debug msg
             console.log(j);
@@ -454,6 +447,20 @@ app.post('/authenticate', function(request, response)
             return;
         }
 
+        // If the PIN is at index 0 and the length is greater than 1, then we know since we reached here that the card must be at index 1, so swap the two
+        if(data["type"][0] === "PIN" && data["type"].length > 1)
+        {
+            let temp = data["data"][0];
+            data["data"][0] = data["data"][1];
+            data["data"][1] = temp;
+
+            temp = data["type"][0];
+            data["type"][0] = data["type"][1];
+            data["type"][1] = temp;
+
+            sess.cardID = data["type"][0];
+        }
+
         // Authenticate the given data
         for(let i = 0; i < data["type"].length; i++)
         {
@@ -461,125 +468,101 @@ app.post('/authenticate', function(request, response)
             {
                 if(data["type"][i] === methods[k])
                 {
+                    let path = './authentication_types/' +  methods[k] + '.js';
+                    let method = require(path);
+                    options.hostname = method.returnhostname();
+                    options.port = method.returnport();
+                    options.path = method.returnpath();
+                    options.method = method.returnmethod();
+                    options.headers['Content-Type'] = method.returnCType();
+                    options.headers['Content-Length'] = method.returnCLength();
 
                     if(data["type"][i] === "OTP")
                     {
-
-                        sess.usedMethods[sess.usedMethods.length] = "OTP";
-
                         // debug msg
                         console.log("Received OTP call from ATM" + sess.atmID + "!");
                         sess.waitingforOTP = true;
 
-                        let path = './authentication_types/OTP.js';
-                        let method = require(path);
-                        options.hostname = method.returnhostname();
-                        options.port = method.returnport();
-                        options.path = method.returnpath();
-                        options.method = method.returnmethod();
-                        options.headers['Content-Type'] = method.returnCType();
-                        options.headers['Content-Length'] = method.returnCLength();
-
                         /* Format to send to OTP for first request, so that they will generate an OTP and store it
                             {
-                                "ClientID" : "...",
+                                "ClientID" : "XYZ",
                                 "otp" : "",
                                 "status" : "",
                                 "statusMessage" : ""
                             }
                          */
 
-                        options.dataToSend = '{ "ClientID":         "' + sess.ClientID + '",' +
-                                             '  "otp":              "",' +
-                                             '  "Success":          "",' +
-                                             '  "statusMessage":    "" }';
+                        options.dataToSend = '{ "ClientID":"' + sess.ClientID + '",' +
+                                             '  "otp": "",' +
+                                             '  "Success": "",' +
+                                             '  "statusMessage": "" }';
+                    }
+                    else if(data["type"][i] === "PIC")
+                    {
+                        /*
+                            {
+                                "type": "authenticate"
+                                "image": "base64Image"
+                            }
+                         */
+                        options.dataToSend = '{ "type": "authenticate",' +
+                            '"image": ' + data["data"][i] + '"}';
 
-                        //setTimeout(responseFunction, 30000);
-
-                        sendAuthenticationRequest(options, responseFunction);
+                    }
+                    else if(data["type"][i] === "NFC" || data["type"][i] === "CID")
+                    {
+                        sess.cardID = data["data"][i];
+                        /*
+                            {
+                                "cardID": "XYZ"
+                            }
+                         */
+                        options.dataToSend = '{ "cardID": "' + data["data"][i] + '"}';
+                    }
+                    else if(data["type"][i] === "PIN")
+                    {
+                        /*
+                            {
+                                "cardID": "XYZ",
+                                "pin": "xzy"
+                            }
+                         */
+                        options.dataToSend = '{ "cardID": "' + sess.cardID  + '",' +
+                            '"pin": "' + data["data"][i] + '"}';
                     }
                     else
                     {
-
-
-                        let path = './authentication_types/' +  methods[k] + '.js';
-                        let method = require(path);
-                        options.hostname = method.returnhostname();
-                        options.port = method.returnport();
-                        options.path = method.returnpath();
-                        options.method = method.returnmethod();
-                        options.headers['Content-Type'] = method.returnCType();
-                        options.headers['Content-Length'] = method.returnCLength();
-
-                        /* Default format for data, I'm just taking a guess with this, change it if needed
+                        /*
                             {
-                                "data" : "data["data"][i]"
+                                "data" : "XYZ"
                             }
                          */
-
-                        if(data["type"][i] === "PIC")
-                        {
-                            onsole.log("Pic");
-                            options.dataToSend = '{ "type":         "' + "authenticate" + '",' +
-                                             '  "image":         '   + data["data"][i] + '"  ""}';
-                            
-                        }
-                        
-                        if(data["type"][0] == "PIN"&& data["type"].length > 1)
-                        {
-                            console.log("REorder");
-                            var temp = data["data"][0];
-                            data["data"][0] = data["data"][1];
-                            data["data"][1] = temp;
-
-                            temp = data["type"][0];
-                            data["type"][0] = data["type"][1];
-                            data["type"][1] = temp;
-
-                             options.dataToSend = '{ "cardID":         "' + data["data"][0]  + '",' +
-                                             '  "pin":         '   + data["data"][1] + '"  ""}';
-
-                             
-                        }
-                        else if(data["type"][i] == "NFC" || data["type"][i] == "CID")
-                        {
-                            
-                            options.dataToSend = '{ "cardID":         "'   + data["data"][i] + '"  ""}';       
-                        }
-                        else
-                        {
-
-                                options.dataToSend = '{ "data" : "' + data["data"][i] + '" }';
-                        }
-                        
-
-                        //setTimeout(responseFunction, 30000);
-
-                        callbackDone = false;
-
-                        sendAuthenticationRequest(options, responseFunction);
-
-                        // Wait for the callback function to take effect
-                        
-                        let startDate = new Date().getTime();
-                        let date = new Date().getTime();
-                        while(!callbackDone)
-                        {
-                            if(date-startDate > 10000)
-                            {
-                                 responses[responses.length] = [];
-                                responses[responses.length-1]["Success"] = true;    // Success response
-                                responses[responses.length-1]["ClientID"] = "-1";  // Customer ID
-                                sess.ClientID = "-1";
-                                callbackDone = true;
-
-                            }
-                            let date = new Date().getTime();
-                        }
-
-                        if(responses[responses.length-1]["Success"] === true)
-                            sess.usedMethods[sess.usedMethods.length] = data["type"][i];
+                        options.dataToSend = '{ "data" : "' + data["data"][i] + '" }';
                     }
+
+                    callbackDone = false;
+
+                    sendAuthenticationRequest(options, responseFunction);
+
+                    // Wait for the callback function to take effect (Wait for max of 10 sec
+                    let startDate = new Date().getTime();
+                    let date = new Date().getTime();
+                    while(!callbackDone)
+                    {
+                        if(date-startDate > 10000)
+                        {
+                            responses[responses.length] = [];
+                            responses[responses.length-1]["Success"] = true;    // Success response
+                            responses[responses.length-1]["ClientID"] = "-1";  // Customer ID
+                            sess.ClientID = "-1";
+
+                            callbackDone = true;
+                        }
+                        date = new Date().getTime();
+                    }
+
+                    if(responses[responses.length-1]["Success"] === true)
+                        sess.usedMethods[sess.usedMethods.length] = data["type"][i];
                 }
             }
         }
