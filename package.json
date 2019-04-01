@@ -1,37 +1,33 @@
 {
   "name": "merlot-authentication",
   "version": "1.0.0",
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "ejs": "^2.6.1",
-    "express": "^4.16.4",
-    "express-session": "^1.15.6",
-    "fs": "0.0.1-security",
-    "js-yaml": "^3.13.0",
-    "uuid": "latest"
-  },
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^6.0.2",
-    "nock": "^10.0.6",
-    "request": "^2.88.0"
-  },
-  "description": "# Hosting the application on Heroku",
+  "description": "Welcome to the Merlot Authentication System team. We are responsible for receiving data from the Mobile Application (ATM Simulation), determining what type of authentication is required and send the data to the subsystem responsible for the authentication of that data.\r We also handle the business logic of ensuring only three tries for a user to be authenticated, if the tries exceeded this specified amount the user will be blocked.",
   "main": "auth.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "mocha || true"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Tilanie/Merlot-Authentication.git"
   },
-  "author": "merlot-authentication team",
+  "author": "merlot-authentication dev team",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Tilanie/Merlot-Authentication/issues"
   },
-  "homepage": "https://github.com/Tilanie/Merlot-Authentication#readme"
+  "homepage": "https://github.com/Tilanie/Merlot-Authentication#readme",
+  "dependencies": {
+    "body-parser": "latest",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "nock": "^10.0.6",
+    "request": "^2.88.0",
+    "uuid": "^3.3.2"
+  }
 }
