@@ -8,7 +8,7 @@ module.exports = {
     return 1;
   },
   returnhostname: function () {
-    return "pin.pathname";
+    return "https://merlot-card-authentication.herokuapp.com";
   },
   returnport : function()
   {
@@ -20,14 +20,6 @@ module.exports = {
   },
   returnmethod : function()
   {
-  	return "GET";
-  },
-  returnData1: function()
-  {
-    return "data1";
-  },
-  returnData2: function()
-  {
-    return "data2";
+  	return "POST";
   }
 };

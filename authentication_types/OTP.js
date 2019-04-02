@@ -20,6 +20,6 @@ module.exports = {
   },
   returnmethod : function()
   {
-  	return "GET";
+  	return "POST";
   }
 };

@@ -67,7 +67,7 @@ function writeLog(mesg, type, success, cardID, cardType, clientID)
             //Read in file and send to the reporting team
             logInfo("Log size limit reached, sending log to reporting subsystem", -1, "N/A", -1);
 
-            
+
         }
     });
 }
@@ -337,7 +337,6 @@ app.post('/authenticate', function(request, response)
 
         if(OTPFound === -1)
         {
-            //j = JSON.parse('{ "Success" : false, "data" : "Expecting an OTP."}');
             j = getATMResponse(false, "", 3 - sess.numTries);
 
             // debug msg
@@ -350,8 +349,6 @@ app.post('/authenticate', function(request, response)
         }
 
         // Handle returning OTP request
-        sess.usedMethods[sess.usedMethods.length] = "OTP";
-
         let path = './authentication_types/OTP.js';
         let method = require(path);
         options.hostname = method.returnhostname();
@@ -363,19 +360,15 @@ app.post('/authenticate', function(request, response)
 
         /* Format to send to OTP for second request, so that they can verify the OTP
             {
-                "ClientID" : "...",
-                "otp" : "",
-                "status" : "",
-                "statusMessage" : ""
+                "ClientID" : "XYZ",
+                "type" : "validate",
+                "pin": "xyz"
             }
          */
 
-        options.dataToSend = '{ "ClientID":         "' + sess.ClientID + '",' +
-                             '  "OTP":              "' + data["data"][OTPFound] + '",' +
-                             '  "Success":          "",' +
-                             '  "StatusMessage":    "" }';
-
-        //setTimeout(responseFunction, 30000);
+        options.dataToSend = '{ "ClientID": "' + sess.ClientID + '",' +
+                             '  "type": "validate",' +
+                             '  "pin": "' + data["data"][OTPFound] +'"}';
 
         callbackDone = false;
 
@@ -384,15 +377,30 @@ app.post('/authenticate', function(request, response)
         // debug msg
         console.log("Handling returning OTP call...");
 
-        // Wait for the callback function to take effect
+        // Wait for the callback function to take effect (Wait for max of 10 sec)
+        let startDate = new Date().getTime();
+        let date = new Date().getTime();
         while(!callbackDone)
-        {}
+        {
+            if(date-startDate > 10000)
+            {
+                responses[responses.length] = [];
+                responses[responses.length-1]["Success"] = true;    // Success response
+                responses[responses.length-1]["ClientID"] = "-1";  // Customer ID
+                sess.ClientID = "-1";
+
+                callbackDone = true;
+            }
+            date = new Date().getTime();
+        }
 
         sess.waitingforOTP = !responses[responses.length-1]["Success"];
 
         // If the OTP didn't work, increment number of tries
         if(sess.waitingforOTP)
             sess.numTries++;
+        else
+            sess.usedMethods[sess.usedMethods.length] = "OTP";
     }
     else
     {
@@ -432,7 +440,6 @@ app.post('/authenticate', function(request, response)
         // Then you can't authenticate them
         if(!canIdentify || diffTypes === 0 || (pinFound && !cardFound))
         {
-            //j = JSON.parse('{ "Success" : false, "data" : "No way of identifying the client was given."}');
             j = getATMResponse(false, "", 3 - sess.numTries);
 
             // debug msg
@@ -449,6 +456,20 @@ app.post('/authenticate', function(request, response)
 
         // If the PIN is at index 0 and the length is greater than 1, then we know since we reached here that the card must be at index 1, so swap the two
         if(data["type"][0] === "PIN" && data["type"].length > 1)
+        {
+            let temp = data["data"][0];
+            data["data"][0] = data["data"][1];
+            data["data"][1] = temp;
+
+            temp = data["type"][0];
+            data["type"][0] = data["type"][1];
+            data["type"][1] = temp;
+
+            sess.cardID = data["type"][0];
+        }
+
+        // If the OTP is at index 0 and the length is greater than 1, then we know since we reached here that the identification method must be at index 1, so swap the two
+        if(data["type"][0] === "OTP" && data["type"].length > 1)
         {
             let temp = data["data"][0];
             data["data"][0] = data["data"][1];
@@ -486,16 +507,12 @@ app.post('/authenticate', function(request, response)
                         /* Format to send to OTP for first request, so that they will generate an OTP and store it
                             {
                                 "ClientID" : "XYZ",
-                                "otp" : "",
-                                "status" : "",
-                                "statusMessage" : ""
+                                "type" : "generate"
                             }
                          */
 
                         options.dataToSend = '{ "ClientID":"' + sess.ClientID + '",' +
-                                             '  "otp": "",' +
-                                             '  "Success": "",' +
-                                             '  "statusMessage": "" }';
+                                             '"type": "generate"}';
                     }
                     else if(data["type"][i] === "PIC")
                     {
@@ -506,7 +523,7 @@ app.post('/authenticate', function(request, response)
                             }
                          */
                         options.dataToSend = '{ "type": "authenticate",' +
-                            '"image": ' + data["data"][i] + '"}';
+                            '"image": "' + data["data"][i] + '"}';
 
                     }
                     else if(data["type"][i] === "NFC" || data["type"][i] === "CID")
@@ -544,7 +561,7 @@ app.post('/authenticate', function(request, response)
 
                     sendAuthenticationRequest(options, responseFunction);
 
-                    // Wait for the callback function to take effect (Wait for max of 10 sec
+                    // Wait for the callback function to take effect (Wait for max of 10 sec)
                     let startDate = new Date().getTime();
                     let date = new Date().getTime();
                     while(!callbackDone)
@@ -602,19 +619,16 @@ app.post('/authenticate', function(request, response)
     // if waiting for OTP
     else if(sess.waitingforOTP === true)
     {
-        //j = JSON.parse('{ "Success" : false, "data" : "awaiting for OTP confirmation."}');
-        j = getATMResponse(false, ClientID, 3 - sess.numTries)
+        j = getATMResponse(false, "", 3 - sess.numTries)
     }
     else
     {
-        //j = JSON.parse('{ "Success" : false, "data" : "awaiting for more authentication for TFA."}');
-        j = getATMResponse(false, ClientID, 3 - sess.numTries)
+        j = getATMResponse(false, "", 3 - sess.numTries)
     }
 
     // if succeeded
     if(sess.numAuthenticated >= 2)
     {
-        //j = JSON.parse('{ "Success" : true, "data" : "' + sess.ClientID + '"}');
         j = getATMResponse(true, sess.ClientID, 3 - sess.numTries)
 
         // debug msg
@@ -627,7 +641,6 @@ app.post('/authenticate', function(request, response)
     // if ran our of tries
     else if(sess.numTries >= 3)
     {
-        //j = JSON.parse('{ "Success" : false, "data" : "notAuthenticatedException"}');
         j = getATMResponse(false, ClientID, 0)
 
         console.log("Number of tries exceeded specified amount. This customer has been blocked.");
@@ -645,7 +658,6 @@ app.post('/authenticate', function(request, response)
                 '  "clientId": "' + sess.ClientID + '",' +
                 '}';
 
-            //setTimeout(responseFunction, 30000);
             sendAuthenticationRequest(options, responseFunction);
         }
 
