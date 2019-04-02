@@ -352,6 +352,7 @@ app.post('/authenticate', function(request, response)
         // Handle returning OTP request
         sess.usedMethods[sess.usedMethods.length] = "OTP";
 
+        let path = './authentication_types/OTP.js';
         let method = require(path);
         options.hostname = method.returnhostname();
         options.port = method.returnport();
@@ -395,7 +396,6 @@ app.post('/authenticate', function(request, response)
     }
     else
     {
-
         // Check what you already have since the authentication could've been made over more than one call
         if(sess.usedMethods.indexOf("CID") !== -1 || sess.usedMethods.indexOf("NFC") !== -1)
             cardFound = true;

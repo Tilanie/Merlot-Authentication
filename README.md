@@ -5,11 +5,11 @@ We also handle the business logic of ensuring only three tries for a user to be 
 
 Our application is hosted at - https://merlot-auth.herokuapp.com/authenticate
 
-## Requests to our syustem
+## Requests to our system
 
 **NOTE** - Requests to the API should be structured as JSON objects.
 
-Our accepts either of the following two requests:
+Our system accepts either of the following two requests:
 
 ```json
 {
@@ -25,7 +25,8 @@ Our accepts either of the following two requests:
    "data2"
   ]
 }
-
+```
+```json
 {
  "ID": 1,
  "type":
@@ -48,6 +49,7 @@ Type refers to the authentication type the user is using and can be one of the f
 Data refers to the data sent along associated to that specific type of authentication.
 
 **NOTE** - A user cannot use the same authentication method in order to be authenticated.
+
 **NOTE** - The first authentication type cannot be OTP as their is no way for us the get the Client ID with OTP.
 
 Possible type orders and combinations are as follows:

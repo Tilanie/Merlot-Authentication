@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="7254173b-abd2-4e19-8452-a97f9df68337" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/logs/log.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+    </list>
+=======
+    <list default="true" id="7254173b-abd2-4e19-8452-a97f9df68337" name="Default Changelist" comment="" />
+>>>>>>> master
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="Merlot-Authentication" />
+  </component>
+  <component name="FileEditorManager">
+<<<<<<< HEAD
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/auth.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1311">
+              <caret line="435" column="61" selection-start-line="435" selection-start-column="61" selection-end-line="435" selection-end-column="61" />
+              <folding>
+                <element signature="e#5258#5387#0" />
+                <element signature="e#5537#6275#0" />
+                <element signature="e#7062#7309#0" />
+                <element signature="e#7574#7928#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+=======
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+>>>>>>> master
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>/todo</find>
+      <find>sendAuthen</find>
+      <find>response.wr</find>
+      <find>someCustomerID</find>
+      <find>request.wr</find>
+      <find>methods</find>
+      <find>===============================</find>
+      <find>session</find>
+      <find>receive</find>
+      <find>authenticate fro</find>
+      <find>&quot;Authentication</find>
+      <find>responses</find>
+      <find>sendAuthe</find>
+      <find>bankID</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>atmID</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="development" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/../work/ElectronApps/MarketObserver/JS/index.js" />
+        <option value="$PROJECT_DIR$/UI/index.js" />
+        <option value="$PROJECT_DIR$/UI/index.html" />
+        <option value="$PROJECT_DIR$/Views/error.ejs" />
+        <option value="$PROJECT_DIR$/Views/readme.ejs" />
+        <option value="$PROJECT_DIR$/CSS/index.css" />
+        <option value="$PROJECT_DIR$/UI/index.css" />
+        <option value="$PROJECT_DIR$/Views/index.ejs" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/views/index.ejs" />
+        <option value="$PROJECT_DIR$/public/JavaScript/index.js" />
+        <option value="$PROJECT_DIR$/auth.js" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="291" />
+    <option name="y" value="26" />
+    <option name="width" value="1246" />
+    <option name="height" value="1054" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Merlot-Authentication" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Merlot-Authentication" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="javascript.nodejs.core.library.configured.version" value="11.12.0" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="settings.nodejs" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Tjaart\Documents\University of Pretoria\Computer Science 2019 3rd Year\COS 301 - Software Engeneering\Merlot-Authentication\public" />
+      <recent name="C:\Users\Tjaart\Documents\University of Pretoria\Computer Science 2019 3rd Year\COS 301 - Software Engeneering\Merlot-Authentication\JavaScript" />
+      <recent name="C:\Users\Tjaart\Documents\University of Pretoria\Computer Science 2019 3rd Year\COS 301 - Software Engeneering\Merlot-Authentication\Images" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="auth.js" type="NodeJSConfigurationType" nameIsGenerated="true" path-to-js-file="auth.js" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7254173b-abd2-4e19-8452-a97f9df68337" name="Default Changelist" comment="" />
+      <created>1552580826498</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1552580826498</updated>
+      <workItem from="1552580829154" duration="5986000" />
+      <workItem from="1552597275622" duration="893000" />
+      <workItem from="1552603403448" duration="1340000" />
+      <workItem from="1552744539241" duration="309000" />
+      <workItem from="1552745491654" duration="1086000" />
+      <workItem from="1552750555280" duration="12437000" />
+      <workItem from="1552914664954" duration="3492000" />
+      <workItem from="1552918658033" duration="4309000" />
+      <workItem from="1553178382107" duration="4415000" />
+      <workItem from="1553189879019" duration="3142000" />
+      <workItem from="1554131104299" duration="599000" />
+      <workItem from="1554145306837" duration="2690000" />
+    </task>
+    <task id="LOCAL-00001" summary="Set up routing between pages">
+      <created>1552599403829</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1552599403829</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Set up routing between pages">
+      <created>1552600027585</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1552600027585</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Set up the routing between the views and also the index will send data to authenticate using AJAX">
+      <created>1552603003345</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1552603003345</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Set up the routing between the views and also the index will send data to authenticate using AJAX">
+      <created>1552604130850</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1552604130850</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Set up the routing between the views and also the index will send data to authenticate using AJAX">
+      <created>1552604394492</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1552604394492</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Set up the routing between the views and also the index will send data to authenticate using AJAX">
+      <created>1552604566688</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1552604566688</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Added ejs package.">
+      <created>1552745681721</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1552745681721</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Added ejs package.">
+      <created>1552745752727</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1552745752727</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Added functionality to block a user.">
+      <created>1554032539481</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1554032539481</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+<<<<<<< HEAD
+    <option name="totallyTimeSpent" value="55357000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="39" y="0" width="2522" height="1441" extended-state="6" />
+    <editor active="true" />
+=======
+    <option name="totallyTimeSpent" value="52082000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-1928" y="-8" width="1936" height="1056" extended-state="6" />
+>>>>>>> master
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49945828" visible="true" weight="0.21328531" />
+      <window_info id="Structure" order="1" sideWeight="0.50080776" side_tool="true" weight="0.31612223" />
+      <window_info id="Favorites" order="2" sideWeight="0.5005417" side_tool="true" weight="0.31612223" />
+      <window_info id="npm" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947312" weight="0.19176598" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3997833" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="8" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.60238355" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50052685" side_tool="true" weight="0.20910075" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Set up routing between pages" />
+    <MESSAGE value="Set up the routing between the views and also the index will send data to authenticate using AJAX" />
+    <MESSAGE value="Added ejs package." />
+    <MESSAGE value="Added functionality to block a user." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added functionality to block a user." />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/../Uni/computer-science/Second year/COS 216/Practical1.php" />
+    <entry file="file://$PROJECT_DIR$/../work/ElectronApps/MarketObserver/index.html" />
+    <entry file="file://$PROJECT_DIR$/../work/ElectronApps/MarketObserver/JS/index.js" />
+    <entry file="file://$PROJECT_DIR$/UI/index.css" />
+    <entry file="file://$PROJECT_DIR$/UI/index.html" />
+    <entry file="file://$PROJECT_DIR$/views/error.ejs" />
+    <entry file="file://$PROJECT_DIR$/views/readme.ejs" />
+    <entry file="file://$PROJECT_DIR$/package.json.orig" />
+    <entry file="file://$PROJECT_DIR$/package-lock.json.orig" />
+    <entry file="file://$PROJECT_DIR$/package-lock_LOCAL_3196.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_REMOTE_2874.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_REMOTE_3196.json" />
+    <entry file="file://$PROJECT_DIR$/package_BACKUP_2264.json" />
+    <entry file="file://$PROJECT_DIR$/package_BASE_2264.json" />
+    <entry file="file://$PROJECT_DIR$/package_REMOTE_2264.json" />
+    <entry file="file://$PROJECT_DIR$/package_LOCAL_2264.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_LOCAL_2874.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_BASE_3196.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_BACKUP_2874.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_BACKUP_3196.json" />
+    <entry file="file://$PROJECT_DIR$/package-lock_BASE_2874.json" />
+    <entry file="file://$PROJECT_DIR$/views/index.ejs" />
+    <entry file="file://$PROJECT_DIR$/public/CSS/index.css" />
+    <entry file="file://$PROJECT_DIR$/public/JavaScript/index.js" />
+    <entry file="file://$PROJECT_DIR$/COKE.js" />
+    <entry file="file://$PROJECT_DIR$/OTP.js" />
+    <entry file="file://$PROJECT_DIR$/package-lock.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/auth.js.orig" />
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Procfile">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="-255" />
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/js-yaml/package.json" />
+    <entry file="file://$PROJECT_DIR$/node_modules/js-yaml/LICENSE" />
+    <entry file="file://$PROJECT_DIR$/node_modules/js-yaml/index.js" />
+    <entry file="file://$PROJECT_DIR$/authentication_types/CID.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="10" column="53" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authentication_types/NFC.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authentication_types/OTP.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" selection-start-line="14" selection-end-line="14" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authentication_types/PIC.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authentication_types/PIN.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/auth.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1311">
+          <caret line="435" column="61" selection-start-line="435" selection-start-column="61" selection-end-line="435" selection-end-column="61" />
+          <folding>
+            <element signature="e#5258#5387#0" />
+            <element signature="e#5537#6275#0" />
+            <element signature="e#7062#7309#0" />
+            <element signature="e#7574#7928#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
