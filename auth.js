@@ -34,12 +34,12 @@ app.use(session({
 //Core logging function
 function writeLog(mesg, type, success, cardID, cardType, clientID)
 {
-    if (!fs.existsSync(__dirname + '/logs')) 
+    if (!fs.existsSync(__dirname + '/logs'))
     {
         fs.mkdirSync(__dirname + '/logs', 0o744);
     }
 
-    var logEntry = 
+    var logEntry =
     {
         "logType" : type,
         "cardID" : cardID,
@@ -55,18 +55,20 @@ function writeLog(mesg, type, success, cardID, cardType, clientID)
         if (err) throw err;
     });
 
-    fs.stat('logs/log.txt', function (err, stats) 
+    fs.stat('logs/log.txt', function (err, stats)
     {
-        if(stats != undefined && stats.size > 10000) //Log greater than 10 KB
+        if(stats != undefined && stats.size > 10000)  //Log greater than 10 KB
         {
             //Rename file to enable logging to continue
-            fs.rename('logs/log.txt', 'logs/log.json', function(err) 
+            fs.rename('logs/log.txt', 'logs/log.json', function(err)
             {
                 if ( err ) console.log('ERROR: ' + err);
             });
 
             //Read in file and send to the reporting team
             logInfo("Log size limit reached, sending log to reporting subsystem", -1, "N/A", -1);
+
+
         }
     });
 }
@@ -111,13 +113,19 @@ async function sendAuthenticationRequest(options, callback)
 
     console.log("Sending request to -> " + url + " \nwith data:");
     console.log(options.dataToSend);
-
+    var b  = false;
     logRequest(optionsToSend, -1, "N/A", -1);
+    const intervalObj = setTimeout(() => {
+     
+            callback(null);
 
+        }, 10000);
     return await rp(optionsToSend)
             .then(function(parseBody) {
                 console.log(parseBody);
                 callback(parseBody);
+                return;
+
             })
             .catch(function(error) {
                 console.log(error);
@@ -156,7 +164,7 @@ app.use(function (req, res, next) {
 // --------------------------------------------------------------------------------------
 var methods = [];
 
-fs.readFile('authentication_types/methods.json', (err, data) => {  
+fs.readFile('authentication_types/methods.json', (err, data) => {
     if (err) throw err;
     let typesOfMethods = JSON.parse(data);
      methods = typesOfMethods;
@@ -174,14 +182,14 @@ app.post("/newMethod",async function(req,res){
             throw "Invalid Input";
         functionMaker.CreateFunction(data);
         /*Send feedback to the person who requested our service*/
-        res.json({"status":"Success"});     
+        res.json({"status":"Success"});
         methods.push(data.methodname);
-        let methodData = JSON.stringify(methods);  
+        let methodData = JSON.stringify(methods);
         fs.writeFileSync('authentication_types/methods.json', methodData);
         res.end();
     }catch(error){
         logError("Mehod adding failed", -1, "N/A", -1);
-        res.json(JSON.parse("{ 'status': 'Failed', 'message':'Something went wrong check the server' }"));      
+        res.json(JSON.parse("{ 'status': 'Failed', 'message':'Something went wrong check the server' }"));
         res.end();
     }
 });
@@ -206,7 +214,7 @@ const options = {
 // Post authenticate
 // --------------------------------------------------------------------------------------
 app.get('/display', function(request, response)
-{ 
+{
    var displayData = {
     "CID": [
         "PIN",
@@ -294,19 +302,31 @@ app.post('/authenticate', async function(request, response)
     // Callback function for sendAuthenticationRequest()
     async function responseFunction(a)
     {
-        if(!a)
+        if(sess.ClientID == undefined && a == null)
         {
-            console.log("problem");
-            a = JSON.parse('{ "Success" : false, "ClientID" : "" }');
+            console.log("summyD " + sess.clientID);
+            
+            var b = JSON.parse('{ "Success" : false, "ClientID" : "dummyData" }');
+            responses[responses.length] = [];
+
+            responses[responses.length-1]["Success"] = b["Success"];    // Success response
+
+            responses[responses.length-1]["ClientID"] = b["ClientID"];  // Customer ID
+
+            sess.ClientID = responses[responses.length-1]["ClientID"];
         }
+        else if(a)
+        {
+            console.log("aD " + sess.clientID);
+            responses[responses.length] = [];
 
-        responses[responses.length] = [];
+            responses[responses.length-1]["Success"] = a["Success"];    // Success response
 
-        responses[responses.length-1]["Success"] = a["Success"];    // Success response
+            responses[responses.length-1]["ClientID"] = a["ClientID"];  // Customer ID
 
-        responses[responses.length-1]["ClientID"] = a["ClientID"];  // Customer ID
+            sess.ClientID = responses[responses.length-1]["ClientID"];
+        }
         
-        sess.ClientID = responses[responses.length-1]["ClientID"];
     }
 
     // If it is a returning OTP request, handle it
@@ -542,7 +562,7 @@ app.post('/authenticate', async function(request, response)
 
     // Count the number of authentications that succeeded and that failed
     let success = true;
-    
+
     console.log(sess.ClientID);
 
     for(let i = 0; i < responses.length; i++)
