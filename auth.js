@@ -370,6 +370,7 @@ app.post('/authenticate', async function(request, response)
         else
             sess.waitingforOTP = true;
 
+        console.log("sess.waitingForOTP = " + sess.waitingforOTP);
         // If the OTP didn't work, increment number of tries
         if(sess.waitingforOTP)
             sess.numTries++;
@@ -548,6 +549,7 @@ app.post('/authenticate', async function(request, response)
 
     for(let i = 0; i < responses.length; i++)
     {
+        console.log(responses[i]);
         if(responses[i]["Success"] == 'false' || responses[i]["Success"] == 'false')
         {
             success = false;
@@ -557,12 +559,16 @@ app.post('/authenticate', async function(request, response)
         }
         else if(responses[i]["Success"] == 'true' || responses[i]["Success"] == true)
         {
-            if(responses[i]["ClientID"] && !sess.ClientID)
+            sess.numAuthenticated++;
+            if(responses[i]["ClientID"])
             {
                 sess.ClientID = responses[i]["ClientID"];
             }
-
-            sess.numAuthenticated++;
+            else if(responses[i]["ClientID"] && sess.ClientID && toString(sess.ClientID) != toString(responses[i]["ClientID"]))
+            {
+                console.log("Sess.ClientID: " + sess.clientID + " != " + responses[i]["ClientID"]);
+                sess.numAuthenticated--;
+            }
         }
     }
 
