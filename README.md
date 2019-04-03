@@ -61,14 +61,15 @@ Data refers to the data sent along associated to that specific type of authentic
 **NOTE** - The first authentication type cannot be OTP or PIN as their is no way for us the get the Client ID.
 
 Possible type orders and combinations are as follows:
-Correct
+
+#####Correct
 * CID - PIN
 * CID - PIC
 * CID - OTP
 * PIC - CID
 * PIC - OTP
 
-Incorrect
+##### Incorrect
 * PIN - CID
 * OTP - CID
 * OTP - PIC
