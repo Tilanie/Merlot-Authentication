@@ -90,7 +90,7 @@ function writeLog(mesg, type, success, cardID, cardType, clientID)
                     }
                 }
 
-                sendAuthenticationRequest(options);
+                sendAuthenticationRequest(options, responseFunction);
             }
         }
     });

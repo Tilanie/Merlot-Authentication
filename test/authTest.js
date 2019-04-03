@@ -234,7 +234,7 @@ describe('/authenticate with correct PIC', () => {
                 } 
                 else
                 {
-                  response.body["Success"].should.equal("true");
+                  response.body["Success"].should.equal("false");
                   response.body["ClientID"].should.equal("DummyID");
                   done();
                 }
