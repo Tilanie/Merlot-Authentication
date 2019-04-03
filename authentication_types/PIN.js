@@ -16,7 +16,7 @@ module.exports = {
   },
   returnpath : function()
   {
-  	return "/todos";
+  	return "/authenticateNFC";
   },
   returnmethod : function()
   {

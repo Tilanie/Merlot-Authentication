@@ -8,6 +8,8 @@ const fs = require("fs");
 const functionMaker = require("./authentication_types/functionMaker.js");
 const session = require('express-session');
 const uuid = require('uuid/v4');
+const https = require('https');
+const rp = require('request-promise');
 
 // start express application
 const app = express();
@@ -55,7 +57,6 @@ function writeLog(mesg, type, success, cardID, cardType, clientID)
 
     fs.stat('logs/log.txt', function (err, stats) 
     {
-        console.log("Log file size: " + stats.size);
         if(stats.size > 10000) //Log greater than 10 KB
         {
             //Rename file to enable logging to continue
@@ -98,42 +99,31 @@ function logResponse(mesg, cardID, cardType, clientID)
     writeLog(mesg, 'response', true, cardID, cardType, clientID);
 }
 
-module.exports =
-{
-    sendAuthenticationRequest: sendAuthenticationRequest
-};
-
 // send an authentication request
-function sendAuthenticationRequest(options, callback)
+async function sendAuthenticationRequest(options, callback)
 {
-    const https = require('https');
-    const req = https.request(options, (res) => {
-    console.log(`statusCode: ${res.statusCode}`);
+    let url = options.hostname + options.path;
 
-    // callback -> responseFunction()
-    res.on('data', (d) => {
-        // debug msg
-        process.stdout.write(d);
-        callback(d);
-        })
-    });
+    let optionsToSend = {
+        method: 'POST',
+        uri: url,
+        body: JSON.parse(options.dataToSend),
+        json: true
+    };
 
-    req.on('error', (error) => {
-        logError(error, -1, "N/A", -1);
-    });
+    console.log("Sending request to -> " + url + " \nwith data:");
+    console.log(options.dataToSend);
 
-    // dummy data if other systems do not respond
-    let dummyData = JSON.parse('{ "Success" : true, "ClientID" : "DummyID", "Timestamp" : "' + (new Date()).valueOf() + '"}');
-    // callback -> responseFunction()
-    callback(dummyData);
+    logRequest(optionsToSend, -1, "N/A", -1);
 
-    // debug msg
-    console.log("Request sent to -> " + options.hostname + "\n\nWith data:\n");
-    console.log(JSON.parse(options.dataToSend));
-
-    req.write(JSON.stringify(dummyData));
-    req.end();
-    logRequest(options, -1, "N/A", -1);
+    return await rp(optionsToSend)
+            .then(function(parseBody) {
+                console.log(parseBody);
+                callback(parseBody);
+            })
+            .catch(function(error) {
+                console.log(error);
+            });
 }
 
 function getATMResponse(success, ClientID, triesLeft)
@@ -242,7 +232,7 @@ app.get('/display', function(request, response)
 // --------------------------------------------------------------------------------------
 // Get authenticate
 // --------------------------------------------------------------------------------------
-app.post('/authenticate', function(request, response)
+app.post('/authenticate', async function(request, response)
 {
     /* Receive either
       {
@@ -303,10 +293,8 @@ app.post('/authenticate', function(request, response)
     let foundTypes = [];
     let responses = [];
 
-    let callbackDone;
-
     // Callback function for sendAuthenticationRequest()
-    function responseFunction(a)
+    async function responseFunction(a)
     {
         if(!a)
         {
@@ -315,10 +303,12 @@ app.post('/authenticate', function(request, response)
         }
 
         responses[responses.length] = [];
+
         responses[responses.length-1]["Success"] = a["Success"];    // Success response
+
         responses[responses.length-1]["ClientID"] = a["ClientID"];  // Customer ID
-        sess.ClientID = a["ClientID"];
-        callbackDone = true;
+        
+        sess.ClientID = responses[responses.length-1]["ClientID"];
     }
 
     // If it is a returning OTP request, handle it
@@ -370,31 +360,15 @@ app.post('/authenticate', function(request, response)
                              '  "type": "validate",' +
                              '  "pin": "' + data["data"][OTPFound] +'"}';
 
-        callbackDone = false;
-
-        sendAuthenticationRequest(options, responseFunction);
+        await sendAuthenticationRequest(options, responseFunction);
 
         // debug msg
         console.log("Handling returning OTP call...");
 
-        // Wait for the callback function to take effect (Wait for max of 10 sec)
-        let startDate = new Date().getTime();
-        let date = new Date().getTime();
-        while(!callbackDone)
-        {
-            if(date-startDate > 10000)
-            {
-                responses[responses.length] = [];
-                responses[responses.length-1]["Success"] = true;    // Success response
-                responses[responses.length-1]["ClientID"] = "-1";  // Customer ID
-                sess.ClientID = "-1";
-
-                callbackDone = true;
-            }
-            date = new Date().getTime();
-        }
-
-        sess.waitingforOTP = !responses[responses.length-1]["Success"];
+        if(responses[responses.length-1]["Success"] == 'true' || responses[responses.length-1]["Success"] == true)
+            sess.waitingforOTP = false;
+        else
+            sess.waitingforOTP = true;
 
         // If the OTP didn't work, increment number of tries
         if(sess.waitingforOTP)
@@ -408,7 +382,7 @@ app.post('/authenticate', function(request, response)
         if(sess.usedMethods.indexOf("CID") !== -1 || sess.usedMethods.indexOf("NFC") !== -1)
             cardFound = true;
 
-        if(sess.usedMethods.indexOf("CID") !== -1 || sess.usedMethods.indexOf("PIC") !== -1 || sess.usedMethods.indexOf("CID") !== -1)
+        if(sess.usedMethods.indexOf("CID") !== -1 || sess.usedMethods.indexOf("PIC") !== -1 || sess.usedMethods.indexOf("NFC") !== -1)
             canIdentify = true;
 
         // Run through the data sent and send off the authentications to correct modules
@@ -544,6 +518,7 @@ app.post('/authenticate', function(request, response)
                                 "pin": "xzy"
                             }
                          */
+                        console.log("Here");
                         options.dataToSend = '{ "cardID": "' + sess.cardID  + '",' +
                             '"pin": "' + data["data"][i] + '"}';
                     }
@@ -557,28 +532,9 @@ app.post('/authenticate', function(request, response)
                         options.dataToSend = '{ "data" : "' + data["data"][i] + '" }';
                     }
 
-                    callbackDone = false;
+                    await sendAuthenticationRequest(options, responseFunction);
 
-                    sendAuthenticationRequest(options, responseFunction);
-
-                    // Wait for the callback function to take effect (Wait for max of 10 sec)
-                    let startDate = new Date().getTime();
-                    let date = new Date().getTime();
-                    while(!callbackDone)
-                    {
-                        if(date-startDate > 10000)
-                        {
-                            responses[responses.length] = [];
-                            responses[responses.length-1]["Success"] = true;    // Success response
-                            responses[responses.length-1]["ClientID"] = "-1";  // Customer ID
-                            sess.ClientID = "-1";
-
-                            callbackDone = true;
-                        }
-                        date = new Date().getTime();
-                    }
-
-                    if(responses[responses.length-1]["Success"] === true)
+                    if(responses[responses.length-1]["Success"] == 'true' || responses[responses.length-1]["Success"] == true)
                         sess.usedMethods[sess.usedMethods.length] = data["type"][i];
                 }
             }
@@ -587,22 +543,25 @@ app.post('/authenticate', function(request, response)
 
     // Count the number of authentications that succeeded and that failed
     let success = true;
-    let ClientID = "";
+    
+    console.log(sess.ClientID);
 
     for(let i = 0; i < responses.length; i++)
     {
-        if(responses[i]["Success"] === false)
+        if(responses[i]["Success"] == 'false' || responses[i]["Success"] == 'false')
         {
             success = false;
             sess.numTries++;
 
-            ClientID = responses[i]["ClientID"];
-
             break;
         }
-        else if(responses[i]["Success"] === true)
+        else if(responses[i]["Success"] == 'true' || responses[i]["Success"] == true)
         {
-            ClientID = responses[i]["ClientID"];
+            if(responses[i]["ClientID"] && !sess.ClientID)
+            {
+                sess.ClientID = responses[i]["ClientID"];
+            }
+
             sess.numAuthenticated++;
         }
     }
@@ -610,14 +569,13 @@ app.post('/authenticate', function(request, response)
     if(sess.waitingforOTP)
         sess.numAuthenticated--;
 
+    console.log("Client ID in sess -> " + sess.ClientID)
+
     // debug msg
     console.log("Session numAuthenticated -> " + sess.numAuthenticated + "\n");
 
-    // If 2 or more succeeded
-    if(success && sess.numAuthenticated >= 2)
-        sess.ClientID = ClientID;
     // if waiting for OTP
-    else if(sess.waitingforOTP === true)
+    if(sess.waitingforOTP === true)
     {
         j = getATMResponse(false, "", 3 - sess.numTries)
     }
@@ -641,7 +599,7 @@ app.post('/authenticate', function(request, response)
     // if ran our of tries
     else if(sess.numTries >= 3)
     {
-        j = getATMResponse(false, ClientID, 0)
+        j = getATMResponse(false, sess.ClientID, 0)
 
         console.log("Number of tries exceeded specified amount. This customer has been blocked.");
         logInfo("Customer exceeded number of authentication attempts. Account suspended.", -1, "N/A", sess.ClientID);
@@ -658,7 +616,7 @@ app.post('/authenticate', function(request, response)
                 '  "clientId": "' + sess.ClientID + '",' +
                 '}';
 
-            sendAuthenticationRequest(options, responseFunction);
+            await sendAuthenticationRequest(options, responseFunction);
         }
 
         // debug msg
