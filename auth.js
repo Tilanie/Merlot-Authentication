@@ -57,7 +57,7 @@ function writeLog(mesg, type, success, cardID, cardType, clientID)
 
     fs.stat('logs/log.txt', function (err, stats) 
     {
-        if(stats.size > 10000) //Log greater than 10 KB
+        if(stats != undefined && stats.size > 10000) //Log greater than 10 KB
         {
             //Rename file to enable logging to continue
             fs.rename('logs/log.txt', 'logs/log.json', function(err) 
@@ -67,8 +67,6 @@ function writeLog(mesg, type, success, cardID, cardType, clientID)
 
             //Read in file and send to the reporting team
             logInfo("Log size limit reached, sending log to reporting subsystem", -1, "N/A", -1);
-
-
         }
     });
 }
