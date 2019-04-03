@@ -15,7 +15,7 @@ describe('Responses', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["PIC","PIN"],"data": [123,456], "ID":1})
+        .send({"type": ["PIC","PIN"],"data": [DummyID,456], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -35,7 +35,7 @@ describe('Responses', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["PIC","PIN"],"data": [123,456], "ID":1})
+        .send({"type": ["PIC","PIN"],"data": [DummyID,456], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -55,7 +55,7 @@ describe('Responses', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["PIC","PIN"],"data": [123,456], "ID":1})
+        .send({"type": ["PIC","PIN"],"data": [DummyID,456], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -80,7 +80,7 @@ describe('/authenticate with PIN', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["PIN"],"data": [123], "ID":1})
+        .send({"type": ["PIN"],"data": [DummyID], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -100,7 +100,7 @@ describe('/authenticate with PIN', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["PIN"],"data": [123], "ID":1})
+        .send({"type": ["PIN"],"data": [DummyID], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -123,7 +123,7 @@ describe('/authenticate with incorrect PIC', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["PIC"],"data": [123], "ID":1})
+        .send({"type": ["PIC"],"data": [DummyID], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -143,7 +143,7 @@ describe('/authenticate with incorrect PIC', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["PIC"],"data": [123], "ID":1})
+        .send({"type": ["PIC"],"data": [DummyID], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -165,7 +165,7 @@ describe('/authenticate with incorrect PIC', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["PIC"],"data": [123], "ID":1})
+        .send({"type": ["PIC"],"data": [DummyID], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -182,8 +182,8 @@ describe('/authenticate with incorrect PIC', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["PIC"],"data": [123], "ID":1})
-        .send({"type": ["PIC"],"data": [123], "ID":1})
+        .send({"type": ["PIC"],"data": [DummyID], "ID":1})
+        .send({"type": ["PIC"],"data": [DummyID], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -205,7 +205,7 @@ describe('/authenticate with correct PIC', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["PIC"],"data": [123], "ID":1})
+        .send({"type": ["PIC"],"data": [DummyID], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -225,7 +225,7 @@ describe('/authenticate with correct PIC', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["PIC"],"data": [123], "ID":1})
+        .send({"type": ["PIC"],"data": [DummyID], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -248,7 +248,7 @@ describe('/authenticate with OTP', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["OTP"],"data": [123], "ID":1})
+        .send({"type": ["OTP"],"data": [DummyID], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -268,7 +268,7 @@ describe('/authenticate with OTP', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["OTP"],"data": [123], "ID":1})
+        .send({"type": ["OTP"],"data": [DummyID], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -291,7 +291,7 @@ describe('/authenticate with correct NFC', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["NFC"],"data": [123], "ID":1})
+        .send({"type": ["NFC"],"data": [DummyID], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -311,7 +311,7 @@ describe('/authenticate with correct NFC', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["NFC"],"data": [123], "ID":1})
+        .send({"type": ["NFC"],"data": [DummyID], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -334,7 +334,7 @@ describe('/authenticate with incorrect NFC', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["NFC"],"data": [123], "ID":1})
+        .send({"type": ["NFC"],"data": [DummyID], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -354,7 +354,7 @@ describe('/authenticate with incorrect NFC', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["NFC"],"data": [123], "ID":1})
+        .send({"type": ["NFC"],"data": [DummyID], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -377,7 +377,7 @@ describe('/authenticate with correct CID', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["CID"],"data": [123], "ID":1})
+        .send({"type": ["CID"],"data": [DummyID], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -397,7 +397,7 @@ describe('/authenticate with correct CID', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["CID"],"data": [123], "ID":1})
+        .send({"type": ["CID"],"data": [DummyID], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -420,7 +420,7 @@ describe('/authenticate with incorrect CID', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["CID"],"data": [123], "ID":1})
+        .send({"type": ["CID"],"data": [DummyID], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -440,7 +440,7 @@ describe('/authenticate with incorrect CID', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["CID"],"data": [123], "ID":1})
+        .send({"type": ["CID"],"data": [DummyID], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -463,7 +463,7 @@ describe('/authenticate with unknown identification type', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["XXX"],"data": [123], "ID":1})
+        .send({"type": ["XXX"],"data": [DummyID], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -506,7 +506,7 @@ describe('/authenticate with PIC and PIN', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["PIC", "PIN"],"data": [123, 456], "ID":1})
+        .send({"type": ["PIC", "PIN"],"data": [DummyID, 456], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -526,7 +526,7 @@ describe('/authenticate with PIC and PIN', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["PIC", "PIN"],"data": [123, 456], "ID":1})
+        .send({"type": ["PIC", "PIN"],"data": [DummyID, 456], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -570,7 +570,7 @@ describe('/authenticate with CID and PIN', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["CID", "PIN"],"data": [123, 456], "ID":1})
+        .send({"type": ["CID", "PIN"],"data": [DummyID, 456], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -590,7 +590,7 @@ describe('/authenticate with CID and PIN', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["CID", "PIN"],"data": [123, 456], "ID":1})
+        .send({"type": ["CID", "PIN"],"data": [DummyID, 456], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -634,7 +634,7 @@ describe('/authenticate with NFC and PIN', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["NFC", "PIN"],"data": [123, 456], "ID":1})
+        .send({"type": ["NFC", "PIN"],"data": [DummyID, 456], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -654,7 +654,7 @@ describe('/authenticate with NFC and PIN', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["NFC", "PIN"],"data": [123, 456], "ID":1})
+        .send({"type": ["NFC", "PIN"],"data": [DummyID, 456], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -698,7 +698,7 @@ describe('/authenticate with CID and OTP', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["CID", "OTP"],"data": [123, 456], "ID":1})
+        .send({"type": ["CID", "OTP"],"data": [DummyID, 456], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -718,7 +718,7 @@ describe('/authenticate with CID and OTP', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["CID", "OTP"],"data": [123, 456], "ID":1})
+        .send({"type": ["CID", "OTP"],"data": [DummyID, 456], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -728,7 +728,7 @@ describe('/authenticate with CID and OTP', () => {
                 else
                 {
                   response.body["Success"].should.equal("false");
-                  response.body["ClientID"].should.equal("123");
+                  response.body["ClientID"].should.equal("DummyID");
                   done();
                 }
             });
@@ -749,7 +749,7 @@ describe('/authenticate with CID and OTP', () => {
                 else
                 {
                   response.body["Success"].should.equal("false");
-                  response.body["ClientID"].should.equal("123");
+                  response.body["ClientID"].should.equal("DummyID");
                   done();
                 }
             });
@@ -762,7 +762,7 @@ describe('/authenticate with NFC and OTP', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["NFC", "OTP"],"data": [123, 456], "ID":1})
+        .send({"type": ["NFC", "OTP"],"data": [DummyID, 456], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -782,7 +782,7 @@ describe('/authenticate with NFC and OTP', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["NFC", "OTP"],"data": [123, 456], "ID":1})
+        .send({"type": ["NFC", "OTP"],"data": [DummyID, 456], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -826,7 +826,7 @@ describe('/authenticate with PIC and OTP', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["PIC", "OTP"],"data": [123, 456], "ID":1})
+        .send({"type": ["PIC", "OTP"],"data": [DummyID, 456], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -846,7 +846,7 @@ describe('/authenticate with PIC and OTP', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["PIC", "OTP"],"data": [123, 456], "ID":1})
+        .send({"type": ["PIC", "OTP"],"data": [DummyID, 456], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -890,7 +890,7 @@ describe('/authenticate with PIC and CID', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["PIC", "CID"],"data": [123, 456], "ID":1})
+        .send({"type": ["PIC", "CID"],"data": [DummyID, 456], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -910,7 +910,7 @@ describe('/authenticate with PIC and CID', () => {
     chai.request('merlot-auth.herokuapp.com')
         .get('/authenticate')
         .set('content-type', 'application/json')
-        .send({"type": ["PIC", "CID"],"data": [123, 456], "ID":1})
+        .send({"type": ["PIC", "CID"],"data": [DummyID, 456], "ID":1})
         .end(function(error, response, body)
             {
                 if (error) 
@@ -919,7 +919,7 @@ describe('/authenticate with PIC and CID', () => {
                 } 
                 else
                 {
-                  response.body["Success"].should.equal("false");
+                  response.body["Success"].should.equal("true");
                   response.body["ClientID"].should.equal("DummyID");
                   done();
                 }
@@ -940,244 +940,10 @@ describe('/authenticate with PIC and CID', () => {
                 } 
                 else
                 {
-                  response.body["Success"].should.equal("false");
-                  response.body["ClientID"].should.equal("123");
+                  response.body["Success"].should.equal("true");
+                  response.body["ClientID"].should.equal("DummyID");
                   done();
                 }
             });
   });
 });
-/*
-const assert = require('chai').assert;
-const chaiHttp = require('chai-http');
-const request = require('request');
-const nock = require('nock');
-const auth = require('../auth');
-const http = require('http');
-
-describe('auth', function () 
-{
-  describe('Resonse to GET authorization requests', function()
-  {
-    it('Response with PIN and PIC types', function() 
-    {
-      var options = {
-        host: 'merlot-auth.herokuapp.com',
-        port: 80,
-        path: "/authenticate",
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-      };
-      
-      var body = "";
-      
-      var req = http.request(options, function(res) {
-        console.log('STATUS: ' + res.statusCode);
-        console.log('HEADERS: ' + JSON.stringify(res.headers));
-        res.setEncoding('utf8');
-        res.on('data', function (chunk) {
-          //console.log('BODY: ' + chunk);
-          body += chunk;
-        });
-        res.on('end', function () {
-          assert.equal('{"Success": "false","ClientID": "","TriesLeft": "3","Timestamp": "' + + '"}', respon);
-        });
-      });
-      
-      req.on('error', function(e) {
-        console.log('problem with request: ' + e.message);
-      });
-      
-      req.end();
-      /*
-      var respon = "";
-
-      let done = false;
-
-      fdescribe('/authenticate with incorrect PIC', () => {
-  it('responds', function(done) 
-  {
-    chai.request('merlot-auth.herokuapp.com')
-        .get('/authenticate')
-        .set('content-type', 'application/json')
-        .send({"type": ["PIC"],"data": [123], "ID":1})
-        .end(function(error, response, body)
-            {
-                if (error) 
-                {
-                  done(error);
-                } 
-                else
-                {
-                  response.should.have.status(200);
-                  done();
-                }
-            });
-  });
-
-  it('response did not authenticate', function(done) 
-  {
-    chai.request('merlot-auth.herokuapp.com')
-        .get('/authenticate')
-        .set('content-type', 'application/json')
-        .send({"type": ["PIC"],"data": [123], "ID":1})
-        .end(function(error, response, body)
-            {
-                if (error) 
-                {
-                  done(error);
-                } 
-                else
-                {
-                  response.body["Success"].should.equal("false");
-                  response.body["ClientID"].should.equal("123");
-                  done();
-                }
-            });
-  });
-
-  it('correctly keeps track of tries left', function(done) 
-  {
-    //First request
-    chai.request('merlot-auth.herokuapp.com')
-        .get('/authenticate')
-        .set('content-type', 'application/json')
-        .send({"type": ["PIC"],"data": [123], "ID":1})
-        .end(function(error, response, body)
-            {
-                if (error) 
-                {
-                  done(error);
-                } 
-                else
-                {
-                  response.body["TriesLeft"].should.equal("2");
-                }
-            });
-    
-    //Second request
-    chai.request('merlot-auth.herokuapp.com')
-        .get('/authenticate')
-        .set('content-type', 'application/json')
-        .send({"type": ["PIC"],"data": [123], "ID":1})
-        .send({"type": ["PIC"],"data": [123], "ID":1})
-        .end(function(error, response, body)
-            {
-                if (error) 
-                {
-                  done(error);
-                } 
-                else
-                {
-                  response.body["TriesLeft"].should.equal("2");
-                  done();
-                }
-            });
-  });
-});ion callback(respon)
-      {describe('/authenticate with incorrect PIC', () => {
-  it('responds', function(done) 
-  {
-    chai.request('merlot-auth.herokuapp.com')
-        .get('/authenticate')
-        .set('content-type', 'application/json')
-        .send({"type": ["PIC"],"data": [123], "ID":1})
-        .end(function(error, response, body)
-            {
-                if (error) 
-                {
-                  done(error);
-                } 
-                else
-                {
-                  response.should.have.status(200);
-                  done();
-                }
-            });
-  });
-
-  it('response did not authenticate', function(done) 
-  {
-    chai.request('merlot-auth.herokuapp.com')
-        .get('/authenticate')
-        .set('content-type', 'application/json')
-        .send({"type": ["PIC"],"data": [123], "ID":1})
-        .end(function(error, response, body)
-            {
-                if (error) 
-                {
-                  done(error);
-                } 
-                else
-                {
-                  response.body["Success"].should.equal("false");
-                  response.body["ClientID"].should.equal("123");
-                  done();
-                }
-            });
-  });
-
-  it('correctly keeps track of tries left', function(done) 
-  {
-    //First request
-    chai.request('merlot-auth.herokuapp.com')
-        .get('/authenticate')
-        .set('content-type', 'application/json')
-        .send({"type": ["PIC"],"data": [123], "ID":1})
-        .end(function(error, response, body)
-            {
-                if (error) 
-                {
-                  done(error);
-                } 
-                else
-                {
-                  response.body["TriesLeft"].should.equal("2");
-                }
-            });
-    
-    //Second request
-    chai.request('merlot-auth.herokuapp.com')
-        .get('/authenticate')
-        .set('content-type', 'application/json')
-        .send({"type": ["PIC"],"data": [123], "ID":1})
-        .send({"type": ["PIC"],"data": [123], "ID":1})
-        .end(function(error, response, body)
-            {
-                if (error) 
-                {
-                  done(error);
-                } 
-                else
-                {
-                  response.body["TriesLeft"].should.equal("2");
-                  done();
-                }
-            });
-  });
-});
-        assert.equal('{"Success": "false","ClientID": "","TriesLeft": "3","Timestamp": "' + + '"}', respon);
-      }
-
-      request.get(
-        {
-          headers: { 'Content-Type': 'application/json' },
-          url: 'http://merlot-auth.herokuapp.com/authenticate',
-          body: '{"type": ["PIC","PIN"],"data": [123,456], "ID":1}'
-        }, function(error, response, body)
-            {
-              if(error)
-              throw error;
-
-              respon = body;
-              console.log(respon);
-              done = true;
-              
-            });
-       
-    });
-  });
-});
-*/
