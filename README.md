@@ -7,38 +7,46 @@ Our application is hosted at - https://merlot-auth.herokuapp.com/authenticate
 
 ## Requests to our system
 
-**NOTE** - Requests to the API should be structured as JSON objects.
+**NOTE** - Requests to the API should be structured as JSON objects in the body element.
 
-Our system accepts either of the following two requests:
+### ATM Simulation:
 
-```json
-{
- "ID": 1,
- "type":
-  [
-   "type1",
-   "type2"
-  ],
-   "data": 
-  [
-   "data1",
-   "data2"
-  ]
+#### Request
+
+Two methods of authentication at a time
+
+```javascript
+var data = {
+    "ID": 1,
+    "type":
+    [
+        "type1",
+        "type2"
+    ],
+    "data": 
+    [
+        "data1",
+        "data2"
+    ]
 }
 ```
-```json
-{
- "ID": 1,
- "type":
-  [
-   "type"
-  ],
-   "data": 
-  [
-   "data"
-  ]
+
+One method of authentication at a time
+
+```javascript
+var data = {
+    "ID": 1,
+    "type":
+    [
+        "type"
+    ],
+    "data": 
+    [
+        "data"
+    ]
 }
 ```
+
 Type refers to the authentication type the user is using and can be one of the following:
 
 * CID  -> Card ID
@@ -48,16 +56,16 @@ Type refers to the authentication type the user is using and can be one of the f
 
 Data refers to the data sent along associated to that specific type of authentication.
 
-**NOTE** - A user cannot use the same authentication method in order to be authenticated.
+**NOTE** - A user cannot use the same authentication method twice in order to be authenticated.
 
-**NOTE** - The first authentication type cannot be OTP as their is no way for us the get the Client ID with OTP.
+**NOTE** - The first authentication type cannot be OTP or PIN as their is no way for us the get the Client ID.
 
 Possible type orders and combinations are as follows:
 Correct
 * CID - PIN
 * CID - PIC
-* PIC - CID
 * CID - OTP
+* PIC - CID
 * PIC - OTP
 
 Incorrect
@@ -67,26 +75,35 @@ Incorrect
 
 **NOTE** - The data sent with OTP can be sent as either an empty string - OTP request is made, or as the string the user entered - To send to OTP in order to authenticate it.
 
-## Responses from our system
+#### Response
 
-Our system will only respond to the ATM Simulation system. A response will be structured as a JSON object and will look like the following:
+##### Authenticated
 
 ```json
 {
  "Success": "True",
  "ClientID": 123,
  "TriesLeft": 3,
- "Timestemp": 15129837123,
- "Methods": [
- ]
+ "Timestemp": 15129837123
+}
+```
+
+##### Not Authenticated
+
+```json
+{
+ "Success": "False",
+ "ClientID": "",
+ "TriesLeft": 0,
+ "Timestemp": 15129837123
 }
 ```
 
 ## Requests to other systems
 
-Requests to other systems are purely internal and the need to show other people what we request is not necassary, but for the sake of completeness we will show what we are requesting to other systems. 
+Requests to other systems are purely internal and the need to show other people what we request is not necessary, but for the sake of completeness we will show what we are requesting to other systems. 
 
-**NOTE** - Since we are relying on other systems the requests may change during the course of this project and thus will add the requests once it is finalized.
+**NOTE** - Since we are relying on other systems the requests may change during the course of this project and thus will be added once it is finalized.
 
 
 ---

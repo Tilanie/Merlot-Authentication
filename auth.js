@@ -300,6 +300,11 @@ app.post('/authenticate', async function(request, response)
             a = JSON.parse('{ "Success" : false, "ClientID" : "" }');
         }
 
+        if(a.ClientID === ""){
+            console.log(a.message);
+            sess.destroy()
+        }
+
         responses[responses.length] = [];
 
         responses[responses.length-1]["Success"] = a["Success"];    // Success response
@@ -610,17 +615,23 @@ app.post('/authenticate', async function(request, response)
 
         if(ClientID !== ""){
             // send post request to block current user
+
+            options.dataToSend = JSON.stringify({
+                "option": "deactivate",
+                "clientId": ClientID
+            });
+
             options.hostname = "http://merlotcisg7.herokuapp.com/";
+            options.port = 443;
             options.path = "/";
             options.method = "POST";
             options.headers['Content-Type'] = "application/json";
+            options.headers['ContentLength'] = options.dataToSend.length;
 
-            options.dataToSend = '{' +
-                '  "option": "deactivate"' +
-                '  "clientId": "' + sess.ClientID + '",' +
-                '}';
-
-            await sendAuthenticationRequest(options, responseFunction);
+            await sendAuthenticationRequest(options, function (res) {
+                console.log(res.status);
+                console.log(res.message);
+            });
         }
 
         // debug msg
