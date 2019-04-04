@@ -726,7 +726,7 @@ app.post('/authenticate', async function(request, response)
         sess.destroy();
     }
     // if waiting for OTP
-    else if(sess.waitingforOTP === true)
+    else if(sess.waitingforOTP === true && sess.numTries < 3)
     {
         j = JSON.parse('{ "Message" : "Sent OTP request" }');
     }
