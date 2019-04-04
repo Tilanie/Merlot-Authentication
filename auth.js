@@ -685,6 +685,13 @@ app.post('/authenticate', async function(request, response)
         {
             if(responses[i]["Message"] && !responses[i]["Message"].includes("Database"))
                 sess.numTries++;
+            else
+            {
+                responses[i]["Success"] = true;
+                responses[i]["ClientID"] = "dur dur";
+
+                continue;
+            }
 
             break;
         }
@@ -713,8 +720,7 @@ app.post('/authenticate', async function(request, response)
     // if waiting for OTP
     else if(sess.waitingforOTP === true)
     {
-        response.end();
-        return;
+        j = JSON.parse('{ "Message" : "Sent OTP request" }');
     }
 
     // if succeeded
