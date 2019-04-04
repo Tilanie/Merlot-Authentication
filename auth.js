@@ -663,7 +663,7 @@ app.post('/authenticate', async function(request, response)
 
     // If problem with subsystem OR
     // If the client is deactivated/not found
-    if(sess.ClientID == undefined)
+    if(sess.ClientID == "")
     {
         j = getATMResponse(false, "", 0);
 
