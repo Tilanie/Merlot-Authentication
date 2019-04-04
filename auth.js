@@ -724,6 +724,8 @@ app.post('/authenticate', async function(request, response)
 
         response.json(j);
         response.end();
+
+        return;
     }
     // if waiting for OTP
     else if(sess.waitingforOTP === true)
