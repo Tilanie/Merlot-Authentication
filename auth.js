@@ -373,7 +373,8 @@ app.post('/authenticate', async function(request, response)
 
             responses[responses.length-1]["Message"] = a["Message"];    // Message
 
-            sess.ClientID = responses[responses.length-1]["ClientID"];
+            if(!sess.ClientID)
+                sess.ClientID = responses[responses.length-1]["ClientID"];
         }
 
         // debug msg
@@ -459,6 +460,9 @@ app.post('/authenticate', async function(request, response)
         if(sess.usedMethods.indexOf("CID") !== -1 || sess.usedMethods.indexOf("PIC") !== -1 || sess.usedMethods.indexOf("NFC") !== -1)
             canIdentify = true;
 
+        foundTypes["type"] = [];
+        foundTypes["data"] = [];
+
         // Run through the data sent and send off the authentications to correct modules
         for(let i = 0 ; i < data["type"].length; i++)
         {
@@ -467,7 +471,10 @@ app.post('/authenticate', async function(request, response)
             {
                 // add new type to the array
                 diffTypes++;
-                foundTypes[foundTypes.length] = data["type"][i];
+
+                foundTypes["type"][diffTypes-1] = data["type"][i];
+                foundTypes["data"][diffTypes-1] = data["data"][i];
+
                 logInfo("Found type " + data["type"][i], data["data"][i], "N/A", sess.ClientID);
 
                 if(data["type"][i] === "PIN")
@@ -497,49 +504,49 @@ app.post('/authenticate', async function(request, response)
             response.json(j);
             response.end();
 
-            if((data["type"].length === 2 && diffTypes !== 2))
+            if((foundTypes["type"].length === 2 && diffTypes !== 2))
                 sess.destroy();
 
             return;
         }
 
         // If the PIN is at index 0 and the length is greater than 1, then we know since we reached here that the card must be at index 1, so swap the two
-        if(data["type"][0] === "PIN" && data["type"].length > 1)
+        if(foundTypes["type"][0] === "PIN" && foundTypes["type"].length > 1)
         {
-            let temp = data["data"][0];
-            data["data"][0] = data["data"][1];
-            data["data"][1] = temp;
+            let temp = foundTypes["data"][0];
+            foundTypes["data"][0] = foundTypes["data"][1];
+            foundTypes["data"][1] = temp;
 
-            temp = data["type"][0];
-            data["type"][0] = data["type"][1];
-            data["type"][1] = temp;
+            temp = foundTypes["type"][0];
+            foundTypes["type"][0] = foundTypes["type"][1];
+            foundTypes["type"][1] = temp;
 
-            sess.cardID = data["type"][0];
+            sess.cardID = foundTypes["type"][0];
         }
 
         // If the OTP is at index 0 and the length is greater than 1, then we know since we reached here that the identification method must be at index 1, so swap the two
-        if(data["type"][0] === "OTP" && data["type"].length > 1)
+        if(foundTypes["type"][0] === "OTP" && foundTypes["type"].length > 1)
         {
-            let temp = data["data"][0];
-            data["data"][0] = data["data"][1];
-            data["data"][1] = temp;
+            let temp = foundTypes["data"][0];
+            foundTypes["data"][0] = foundTypes["data"][1];
+            foundTypes["data"][1] = temp;
 
-            temp = data["type"][0];
-            data["type"][0] = data["type"][1];
-            data["type"][1] = temp;
+            temp = foundTypes["type"][0];
+            foundTypes["type"][0] = foundTypes["type"][1];
+            foundTypes["type"][1] = temp;
 
-            sess.cardID = data["type"][0];
+            sess.cardID = foundTypes["type"][0];
         }
 
         console.log("ATM Request -> ");
-        console.log(data);
+        console.log(foundTypes);
 
         // Authenticate the given data
-        for(let i = 0; i < data["type"].length; i++)
+        for(let i = 0; i < foundTypes["type"].length; i++)
         {
             for(let k = 0; k < methods.length; k++)
             {
-                if(data["type"][i] === methods[k])
+                if(foundTypes["type"][i] === methods[k])
                 {
                     let path = './authentication_types/' +  methods[k] + '.js';
                     let method = require(path);
@@ -550,7 +557,7 @@ app.post('/authenticate', async function(request, response)
                     options.headers['Content-Type'] = method.returnCType();
                     options.headers['Content-Length'] = method.returnCLength();
 
-                    if(data["type"][i] === "OTP")
+                    if(foundTypes["type"][i] === "OTP")
                     {
                         // debug msg
                         console.log("Received OTP call from ATM" + sess.atmID + "!");
@@ -566,7 +573,7 @@ app.post('/authenticate', async function(request, response)
                         options.dataToSend = '{ "ClientID":"' + sess.ClientID + '",' +
                                              '"type": "generate"}';
                     }
-                    else if(data["type"][i] === "PIC")
+                    else if(foundTypes["type"][i] === "PIC")
                     {
                         /*
                             {
@@ -575,20 +582,20 @@ app.post('/authenticate', async function(request, response)
                             }
                          */
                         options.dataToSend = '{ "type": "authenticate",' +
-                            '"image": "' + data["data"][i] + '"}';
+                            '"image": "' + foundTypes["data"][i] + '"}';
 
                     }
-                    else if(data["type"][i] === "NFC" || data["type"][i] === "CID")
+                    else if(foundTypes["type"][i] === "NFC" || foundTypes["type"][i] === "CID")
                     {
-                        sess.cardID = data["data"][i];
+                        sess.cardID = foundTypes["data"][i];
                         /*
                             {
                                 "cardID": "XYZ"
                             }
                          */
-                        options.dataToSend = '{ "cardID": "' + data["data"][i] + '"}';
+                        options.dataToSend = '{ "cardID": "' + foundTypes["data"][i] + '"}';
                     }
-                    else if(data["type"][i] === "PIN")
+                    else if(foundTypes["type"][i] === "PIN")
                     {
                         /*
                             {
@@ -597,7 +604,7 @@ app.post('/authenticate', async function(request, response)
                             }
                          */
                         options.dataToSend = '{ "cardID": "' + sess.cardID  + '",' +
-                            '"pin": "' + data["data"][i] + '"}';
+                            '"pin": "' + foundTypes["data"][i] + '"}';
                     }
                     else
                     {
@@ -606,7 +613,7 @@ app.post('/authenticate', async function(request, response)
                                 "data" : "XYZ"
                             }
                          */
-                        options.dataToSend = '{ "data" : "' + data["data"][i] + '" }';
+                        options.dataToSend = '{ "data" : "' + foundTypes["data"][i] + '" }';
                     }
 
                     //console.log("Options -> ");
@@ -617,7 +624,15 @@ app.post('/authenticate', async function(request, response)
                     if(responses.length > 0)
                     {
                         if(responses[responses.length-1]["Success"] == 'true' || responses[responses.length-1]["Success"] == true)
-                            sess.usedMethods[sess.usedMethods.length] = data["type"][i];
+                        {
+                            if(foundTypes["type"][i] == "NFC" || foundTypes["type"][i] == "CID")
+                            {
+                                sess.usedMethods[sess.usedMethods.length] = "CID";
+                                sess.usedMethods[sess.usedMethods.length] = "NFC";
+                            }
+                            else
+                                sess.usedMethods[sess.usedMethods.length] = foundTypes["type"][i];
+                        }
                     }
                 }
             }
@@ -647,7 +662,6 @@ app.post('/authenticate', async function(request, response)
             if(responses[i]["Message"] && !responses[i]["Message"].includes("Database"))
                 sess.numTries++;
 
-            sess.numAuthenticated = 0;
             break;
         }
     }
@@ -663,7 +677,7 @@ app.post('/authenticate', async function(request, response)
 
     // If problem with subsystem OR
     // If the client is deactivated/not found
-    if(sess.ClientID == "")
+    if(sess.ClientID == null)
     {
         j = getATMResponse(false, "", 0);
 
@@ -672,16 +686,11 @@ app.post('/authenticate', async function(request, response)
         console.log("Destroying session");
         sess.destroy();
     }
-
     // if waiting for OTP
     else if(sess.waitingforOTP === true)
     {
         response.end();
         return;
-    }
-    else
-    {
-        j = getATMResponse(false, "", 3 - sess.numTries)
     }
 
     // if succeeded
@@ -729,6 +738,10 @@ app.post('/authenticate', async function(request, response)
         console.log("Destroying session");
         //Destroy the session
         sess.destroy();
+    }
+    else if(sess.numTries > 0)
+    {
+        j = getATMResponse(false, "", 3 - sess.numTries);
     }
 
     // debug msg
