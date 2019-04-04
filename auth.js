@@ -644,7 +644,11 @@ app.post('/authenticate', async function(request, response)
         }
         else
         {
-            sess.numTries++;
+            if(responses[i]["Message"] && !responses[i]["Message"].includes("Database"))
+                sess.numTries++;
+
+            sess.numAuthenticated = 0;
+            break;
         }
     }
 
@@ -668,6 +672,7 @@ app.post('/authenticate', async function(request, response)
         console.log("Destroying session");
         sess.destroy();
     }
+
     // if waiting for OTP
     else if(sess.waitingforOTP === true)
     {
