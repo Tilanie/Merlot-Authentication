@@ -136,22 +136,25 @@ async function sendAuthenticationRequest(options, callback)
         json: true
     };
 
-    console.log("\nSending request to -> " + url);
-    console.log("Data               -> " + options.dataToSend + "\n");
+    console.log("\n\nNEW REQUEST");
+    console.log("------------------------\n");
+    console.log("URL      -> " + url);
+    console.log("Data     -> " + options.dataToSend + "\n");
 
     var b  = false;
-    //logRequest(optionsToSend, -1, "N/A", -1);
+    logRequest(optionsToSend, -1, "N/A", -1);
     const intervalObj = setTimeout(() => {
 
             callback(null);
 
+            return;
         }, 10000);
 
     return await rp(optionsToSend)
             .then(function(parseBody)
             {
                 clearTimeout(intervalObj);
-                //console.log(parseBody);
+
                 callback(parseBody);
                 return;
             })
@@ -159,9 +162,9 @@ async function sendAuthenticationRequest(options, callback)
             {
                 clearTimeout(intervalObj);
 
-                //console.log(error);
-                callback(null);
                 logError(optionsToSend, -1, "N/A", -1);
+                //console.log("ERROR! \nstatusCode " + error["statusCode"]);
+                callback(null);
             });
 }
 
@@ -315,15 +318,16 @@ app.post('/authenticate', async function(request, response)
     {
         sess.atmID = data["ID"];
 
-        console.log("\n===============================");
+        console.log("\n====================================");
         console.log("New sessions with bank " + sess.atmID);
         console.log(sess.id);
-        console.log("===============================\n");
+        console.log("====================================\n");
 
         // Store number of tries for authentication and number of successful authentications (For TFA)
         sess.numTries = 0;
         sess.numAuthenticated = 0;
         sess.usedMethods = [];
+        sess.clientID = null;
     }
 
     // debug msg
@@ -340,16 +344,22 @@ app.post('/authenticate', async function(request, response)
     // Callback function for sendAuthenticationRequest()
     async function responseFunction(a)
     {
-        if(sess.ClientID == undefined && a == null)
+        if(a == null)
         {
-            console.log("Using dummy data");
-            var b = JSON.parse('{ "Success" : true, "ClientID" : "dummyID" }');
-            
+            // debug msg
+            //console.log("\nUsing dummy data!");
+            var b = JSON.parse('{ "Success" : true, "ClientID" : "dur dur" }');
+
             responses[responses.length] = [];
 
             responses[responses.length-1]["Success"] = b["Success"];    // Success response
 
             responses[responses.length-1]["ClientID"] = b["ClientID"];  // Customer ID
+
+            // debug msg
+            //console.log("\nAdded response");
+            //console.log(responses[responses.length-1]);
+            //console.log("");
 
             sess.ClientID = responses[responses.length-1]["ClientID"];
         }
@@ -366,6 +376,11 @@ app.post('/authenticate', async function(request, response)
             sess.ClientID = responses[responses.length-1]["ClientID"];
         }
 
+        // debug msg
+        console.log("Response -> ");
+        console.log(responses[responses.length-1]);
+
+        console.log("\n------------------------\n");
     }
 
     // If it is a returning OTP request, handle it
@@ -599,9 +614,6 @@ app.post('/authenticate', async function(request, response)
 
                     await sendAuthenticationRequest(options, responseFunction);
 
-                    console.log("Response -> ");
-                    console.log(responses);
-
                     if(responses.length > 0)
                     {
                         if(responses[responses.length-1]["Success"] == 'true' || responses[responses.length-1]["Success"] == true)
@@ -613,35 +625,31 @@ app.post('/authenticate', async function(request, response)
     }
 
     // Count the number of authentications that succeeded and that failed
-    let success = true;
+    for(let i = 0; i < responses.length; i++)
+    {
+        console.log(responses[i]);
+
+        if(responses[i]["Success"] == 'true' || responses[i]["Success"] == true)
+        {
+            sess.numAuthenticated++;
+
+            if(responses[i]["ClientID"] != undefined && sess.ClientID != null && sess.ClientID != responses[i]["ClientID"])
+            {
+                console.log("Sess.ClientID: " + sess.ClientID + " != " + responses[i]["ClientID"]);
+                sess.numAuthenticated--;
+            }
+
+            if(!sess.ClientID)
+                sess.ClientID = responses[i]["ClientID"];
+        }
+        else
+        {
+            sess.numTries++;
+        }
+    }
 
     // debug msg
     console.log("\nClient ID -> " + sess.ClientID);
-    console.log("Responses -> " + responses);
-
-    for(let i = 0; i < responses.length; i++)
-    {
-        if(responses[i]["Success"] == 'false' || responses[i]["Success"] == 'false')
-        {
-            success = false;
-            sess.numTries++;
-
-            break;
-        }
-        else if(responses[i]["Success"] == 'true' || responses[i]["Success"] == 'true')
-        {
-            sess.numAuthenticated++;
-            if(responses[i]["ClientID"])
-            {
-                sess.ClientID = responses[i]["ClientID"];
-            }
-            else if(responses[i]["ClientID"] && sess.ClientID && toString(sess.ClientID) != toString(responses[i]["ClientID"]))
-            {
-                console.log("Sess.ClientID: " + sess.clientID + " != " + responses[i]["ClientID"]);
-                sess.numAuthenticated--;
-            }
-        }
-    }
 
     if(sess.waitingforOTP)
         sess.numAuthenticated--;
@@ -663,7 +671,7 @@ app.post('/authenticate', async function(request, response)
     // if waiting for OTP
     else if(sess.waitingforOTP === true)
     {
-        j = getATMResponse(false, "", 3 - sess.numTries)
+        j = getATMResponse(true, "", 3 - sess.numTries)
     }
     else
     {
