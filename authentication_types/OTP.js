@@ -8,7 +8,7 @@ module.exports = {
     return 1;
   },
   returnhostname: function () {
-    return "otp.pathname";
+    return "https://merlototp.herokuapp.com";
   },
   returnport : function()
   {
@@ -16,7 +16,7 @@ module.exports = {
   },
   returnpath : function()
   {
-  	return "/todos";
+  	return "/";
   },
   returnmethod : function()
   {
