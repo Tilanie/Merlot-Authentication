@@ -69,7 +69,8 @@ Possible type orders and combinations are as follows:
 * PIC - CID
 * PIC - OTP
 
-##### Incorrect
+##### These are special cases and will be swapped on our side
+
 * PIN - CID
 * OTP - CID
 * OTP - PIC
@@ -89,7 +90,7 @@ Possible type orders and combinations are as follows:
 }
 ```
 
-##### Not Authenticated
+##### Not Authenticated or User Deactivated
 
 ```json
 {

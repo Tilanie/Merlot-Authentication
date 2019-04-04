@@ -111,8 +111,9 @@ async function sendAuthenticationRequest(options, callback)
         json: true
     };
 
-    console.log("Sending request to -> " + url + " \nwith data:");
-    console.log(options.dataToSend);
+    console.log("Sending request to -> " + url);
+    console.log("Data               -> " + options.dataToSend);
+
     var b  = false;
     logRequest(optionsToSend, -1, "N/A", -1);
     const intervalObj = setTimeout(() => {
@@ -197,6 +198,7 @@ app.post("/newMethod",async function(req,res){
 // --------------------------------------------------------------------------------------
 // Request Structure
 // --------------------------------------------------------------------------------------
+// response json
 let j;
 
 const options = {
@@ -228,6 +230,8 @@ app.get('/display', function(request, response)
      ]
     };
 
+    // debug msg
+    console.log("Displaying data to ATM simulation");
     console.log(displayData);
 
     response.json(displayData);
@@ -269,7 +273,9 @@ app.post('/authenticate', async function(request, response)
     let sess = request.session;
 
     let data = request.body;
+
     // debug msg
+    console.log("Data received from ATM -> ");
     console.log(data);
 
     // If the session is new then start new session.
@@ -289,7 +295,7 @@ app.post('/authenticate', async function(request, response)
     }
 
     // debug msg
-    console.log("\nAuthenticate on GET from bank -> " + sess.atmID + "\n");
+    console.log("Authenticate on POST from bank -> " + sess.atmID + "\n");
 
     let pinFound = false;
     let cardFound = false;
@@ -317,14 +323,6 @@ app.post('/authenticate', async function(request, response)
         }
         else if(a)
         {
-            console.log("aD " + sess.clientID);
-            responses[responses.length] = [];
-
-            // return tries left = 0 to ATM simulation
-            if(a.ClientID === ""){
-                console.log(a.message);
-                sess.destroy()
-            }
 
             responses[responses.length] = [];
 
@@ -356,6 +354,7 @@ app.post('/authenticate', async function(request, response)
             j = getATMResponse(false, "", 3 - sess.numTries);
 
             // debug msg
+            console.log("ATM response");
             console.log(j);
 
             response.json(j);
@@ -444,6 +443,7 @@ app.post('/authenticate', async function(request, response)
             j = getATMResponse(false, "", 3 - sess.numTries);
 
             // debug msg
+            console.log("ATM response");
             console.log(j);
 
             response.json(j);
@@ -545,7 +545,6 @@ app.post('/authenticate', async function(request, response)
                                 "pin": "xzy"
                             }
                          */
-                        console.log("Here");
                         options.dataToSend = '{ "cardID": "' + sess.cardID  + '",' +
                             '"pin": "' + data["data"][i] + '"}';
                     }
@@ -571,11 +570,12 @@ app.post('/authenticate', async function(request, response)
     // Count the number of authentications that succeeded and that failed
     let success = true;
 
-    console.log(sess.ClientID);
+    // debug msg
+    console.log("Client ID -> " + sess.ClientID);
 
     for(let i = 0; i < responses.length; i++)
     {
-        console.log(responses[i]);
+        console.log("Responses -> " + responses[i]);
         if(responses[i]["Success"] == 'false' || responses[i]["Success"] == 'false')
         {
             success = false;
@@ -601,13 +601,21 @@ app.post('/authenticate', async function(request, response)
     if(sess.waitingforOTP)
         sess.numAuthenticated--;
 
-    console.log("Client ID in sess -> " + sess.ClientID)
-
     // debug msg
     console.log("Session numAuthenticated -> " + sess.numAuthenticated + "\n");
 
+    // If problem with subsystem OR
+    // If the client is deactivated/not found
+    if(sess.ClientID === ""){
+        j = getATMResponse(false, "", 0);
+
+        // debug msg
+        console.log("Found no client / deactivated client / problem with subsystem");
+        console.log("Destroying session");
+        sess.destroy();
+    }
     // if waiting for OTP
-    if(sess.waitingforOTP === true)
+    else if(sess.waitingforOTP === true)
     {
         j = getATMResponse(false, "", 3 - sess.numTries)
     }
@@ -619,7 +627,7 @@ app.post('/authenticate', async function(request, response)
     // if succeeded
     if(sess.numAuthenticated >= 2)
     {
-        j = getATMResponse(true, sess.ClientID, 3 - sess.numTries)
+        j = getATMResponse(true, sess.ClientID, 3 - sess.numTries);
 
         // debug msg
         console.log("Destroying session");
@@ -664,6 +672,7 @@ app.post('/authenticate', async function(request, response)
     }
 
     // debug msg
+    console.log("ATM Response");
     console.log(j);
 
     response.json(j);
