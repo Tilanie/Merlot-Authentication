@@ -689,6 +689,7 @@ app.post('/authenticate', async function(request, response)
             {
                 responses[i]["Success"] = true;
                 responses[i]["ClientID"] = "dur dur";
+                sess.ClientID = responses[i]["ClientID"];
 
                 continue;
             }
