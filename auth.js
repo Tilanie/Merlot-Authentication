@@ -762,7 +762,7 @@ app.post('/authenticate', async function(request, response)
                 "clientId": sess.ClientID
             });
 
-            options.hostname = "http://merlotcisg7.herokuapp.com/";
+            options.hostname = "http://merlotcisg7.herokuapp.com";
             options.port = 443;
             options.path = "/";
             options.method = "POST";
