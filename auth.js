@@ -676,7 +676,8 @@ app.post('/authenticate', async function(request, response)
     // if waiting for OTP
     else if(sess.waitingforOTP === true)
     {
-        j = getATMResponse(true, "", 3 - sess.numTries)
+        response.end();
+        return;
     }
     else
     {
