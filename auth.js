@@ -716,6 +716,13 @@ app.post('/authenticate', async function(request, response)
         console.log("Found no client / deactivated client / problem with subsystem\n");
         console.log("Destroying session");
         sess.destroy();
+
+        // debug msg
+        console.log("\nATM Response");
+        console.log(j);
+
+        response.json(j);
+        response.end();
     }
     // if waiting for OTP
     else if(sess.waitingforOTP === true)
