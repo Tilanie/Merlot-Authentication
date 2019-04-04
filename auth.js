@@ -689,7 +689,7 @@ app.post('/authenticate', async function(request, response)
             {
                 sess.numTries++;
 
-                if(responses[i]["Message"].includes("deactivates"))
+                if(responses[i]["Message"].includes("deactivated"))
                     deactivated = true;
             }
             else
