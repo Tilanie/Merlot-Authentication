@@ -1,45 +1,39 @@
-{"logType":"info","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Log size limit reached, sending log to reporting subsystem","success":true,"timestamp":1554363165647}
-{"logType":"info","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Log size limit reached, sending log to reporting subsystem","success":true,"timestamp":1554363165647}
-{"logType":"info","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Log size limit reached, sending log to reporting subsystem","success":true,"timestamp":1554363165647}
-{"logType":"info","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Log size limit reached, sending log to reporting subsystem","success":true,"timestamp":1554363165647}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"52","pin":"8487"},"json":true},"success":true,"timestamp":1554363166840}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554363401162}
-{"logType":"info","cardID":52,"cardType":"N/A","description":"Found type CID","success":true,"timestamp":1554363401163}
-{"logType":"info","cardID":8487,"cardType":"N/A","description":"Found type PIN","success":true,"timestamp":1554363401163}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"52"},"json":true},"success":true,"timestamp":1554363401164}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"52","pin":"8487"},"json":true},"success":true,"timestamp":1554363402426}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554363430189}
-{"logType":"info","cardID":9444,"cardType":"N/A","description":"Found type PIN","success":true,"timestamp":1554363430189}
-{"logType":"info","cardID":70,"cardType":"N/A","description":"Found type CID","success":true,"timestamp":1554363430189}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"70"},"json":true},"success":true,"timestamp":1554363430190}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"70","pin":"9444"},"json":true},"success":true,"timestamp":1554363431061}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554363527274}
-{"logType":"info","cardID":1,"cardType":"N/A","description":"Found type CID","success":true,"timestamp":1554363527275}
-{"logType":"info","cardID":1234,"cardType":"N/A","description":"Found type PIN","success":true,"timestamp":1554363527275}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"1"},"json":true},"success":true,"timestamp":1554363527276}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"1","pin":"1234"},"json":true},"success":true,"timestamp":1554363528519}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554363677300}
-{"logType":"info","cardID":1,"cardType":"N/A","description":"Found type CID","success":true,"timestamp":1554363677301}
-{"logType":"info","cardID":1234,"cardType":"N/A","description":"Found type PIN","success":true,"timestamp":1554363677301}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"1"},"json":true},"success":true,"timestamp":1554363677302}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"1","pin":"1234"},"json":true},"success":true,"timestamp":1554363678539}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554363746102}
-{"logType":"info","cardID":69,"cardType":"N/A","description":"Found type CID","success":true,"timestamp":1554363746102}
-{"logType":"info","cardID":8886,"cardType":"N/A","description":"Found type PIN","success":true,"timestamp":1554363746102}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69"},"json":true},"success":true,"timestamp":1554363746103}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69","pin":"8886"},"json":true},"success":true,"timestamp":1554363747356}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554364390309}
-{"logType":"info","cardID":69,"cardType":"N/A","description":"Found type CID","success":true,"timestamp":1554364390310}
-{"logType":"info","cardID":8886,"cardType":"N/A","description":"Found type PIN","success":true,"timestamp":1554364390310}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69"},"json":true},"success":true,"timestamp":1554364390311}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69","pin":"8886"},"json":true},"success":true,"timestamp":1554364391547}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554364419681}
-{"logType":"info","cardID":8886,"cardType":"N/A","description":"Found type PIN","success":true,"timestamp":1554364419682}
-{"logType":"info","cardID":69,"cardType":"N/A","description":"Found type CID","success":true,"timestamp":1554364419682}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69"},"json":true},"success":true,"timestamp":1554364419683}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69","pin":"8886"},"json":true},"success":true,"timestamp":1554364420887}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554364582397}
-{"logType":"info","cardID":69,"cardType":"N/A","description":"Found type CID","success":true,"timestamp":1554364582398}
-{"logType":"info","cardID":8886,"cardType":"N/A","description":"Found type PIN","success":true,"timestamp":1554364582398}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69"},"json":true},"success":true,"timestamp":1554364582399}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69","pin":"8886"},"json":true},"success":true,"timestamp":1554364583580}
+{"logType":"info","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Log size limit reached, sending log to reporting subsystem","success":true,"timestamp":1554382100259}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"undefined/uploadLog","body":{"logs":[]},"json":true},"success":true,"timestamp":1554382100259}
+{"logType":"error","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"undefined/uploadLog","body":{"logs":[]},"json":true},"success":false,"timestamp":1554382100260}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69","pin":"8886"},"json":true},"success":true,"timestamp":1554382101740}
+{"logType":"error","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69","pin":"8886"},"json":true},"success":false,"timestamp":1554382132622}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554382215597}
+{"logType":"info","cardID":"8886","cardType":"N/A","description":"Found type PIN","success":true,"timestamp":1554382215598}
+{"logType":"info","cardID":"69","cardType":"N/A","description":"Found type NFC","success":true,"timestamp":1554382215598}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69"},"json":true},"success":true,"timestamp":1554382215599}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69","pin":"8886"},"json":true},"success":true,"timestamp":1554382217010}
+{"logType":"error","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69","pin":"8886"},"json":true},"success":false,"timestamp":1554382247745}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554382329108}
+{"logType":"info","cardID":"8886","cardType":"N/A","description":"Found type PIN","success":true,"timestamp":1554382329109}
+{"logType":"info","cardID":"69","cardType":"N/A","description":"Found type NFC","success":true,"timestamp":1554382329109}
+{"logType":"error","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69","pin":"8886"},"json":true},"success":false,"timestamp":1554382362688}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554382375310}
+{"logType":"info","cardID":"8886","cardType":"N/A","description":"Found type PIN","success":true,"timestamp":1554382375311}
+{"logType":"info","cardID":"69","cardType":"N/A","description":"Found type NFC","success":true,"timestamp":1554382375311}
+{"logType":"error","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69"},"json":true},"success":false,"timestamp":1554382376480}
+{"logType":"error","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69","pin":"8886"},"json":true},"success":false,"timestamp":1554382377205}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554382452855}
+{"logType":"info","cardID":"8886","cardType":"N/A","description":"Found type PIN","success":true,"timestamp":1554382452856}
+{"logType":"info","cardID":"69","cardType":"N/A","description":"Found type NFC","success":true,"timestamp":1554382452856}
+{"logType":"error","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69"},"json":true},"success":false,"timestamp":1554382454229}
+{"logType":"error","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69","pin":"8886"},"json":true},"success":false,"timestamp":1554382454962}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554382513044}
+{"logType":"info","cardID":"8886","cardType":"N/A","description":"Found type PIN","success":true,"timestamp":1554382513045}
+{"logType":"info","cardID":"69","cardType":"N/A","description":"Found type NFC","success":true,"timestamp":1554382513045}
+{"logType":"error","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69"},"json":true},"success":false,"timestamp":1554382514084}
+{"logType":"error","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69","pin":"8886"},"json":true},"success":false,"timestamp":1554382514809}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554382561284}
+{"logType":"info","cardID":"8886","cardType":"N/A","description":"Found type PIN","success":true,"timestamp":1554382561285}
+{"logType":"info","cardID":"69","cardType":"N/A","description":"Found type NFC","success":true,"timestamp":1554382561285}
+{"logType":"error","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69"},"json":true},"success":false,"timestamp":1554382562516}
+{"logType":"error","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69","pin":"8886"},"json":true},"success":false,"timestamp":1554382563259}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554382694735}
+{"logType":"info","cardID":"8886","cardType":"N/A","description":"Found type PIN","success":true,"timestamp":1554382694736}
+{"logType":"info","cardID":"69","cardType":"N/A","description":"Found type NFC","success":true,"timestamp":1554382694736}
+{"logType":"error","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"69","pin":"8886"},"json":true},"success":false,"timestamp":1554382726672}

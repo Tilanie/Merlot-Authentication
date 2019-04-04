@@ -136,27 +136,32 @@ async function sendAuthenticationRequest(options, callback)
         json: true
     };
 
-    console.log("Sending request to -> " + url);
-    console.log("Data               -> " + options.dataToSend);
+    console.log("\nSending request to -> " + url);
+    console.log("Data               -> " + options.dataToSend + "\n");
 
     var b  = false;
-    logRequest(optionsToSend, -1, "N/A", -1);
+    //logRequest(optionsToSend, -1, "N/A", -1);
     const intervalObj = setTimeout(() => {
 
             callback(null);
 
         }, 10000);
+
     return await rp(optionsToSend)
-            .then(function(parseBody) {
+            .then(function(parseBody)
+            {
+                clearTimeout(intervalObj);
                 //console.log(parseBody);
                 callback(parseBody);
                 return;
-
             })
-            .catch(function(error) {
-                //console.log(error);
-                //callback(null);
+            .catch(function(error)
+            {
+                clearTimeout(intervalObj);
 
+                //console.log(error);
+                callback(null);
+                logError(optionsToSend, -1, "N/A", -1);
             });
 }
 
@@ -337,9 +342,9 @@ app.post('/authenticate', async function(request, response)
     {
         if(sess.ClientID == undefined && a == null)
         {
-            console.log("summyD " + sess.clientID);
-
-            var b = JSON.parse('{ "Success" : false, "ClientID" : "dummyData" }');
+            console.log("Using dummy data");
+            var b = JSON.parse('{ "Success" : true, "ClientID" : "dummyID" }');
+            
             responses[responses.length] = [];
 
             responses[responses.length-1]["Success"] = b["Success"];    // Success response
@@ -350,7 +355,6 @@ app.post('/authenticate', async function(request, response)
         }
         else if(a)
         {
-
             responses[responses.length] = [];
 
             responses[responses.length-1]["Success"] = a["Success"];    // Success response
@@ -512,7 +516,7 @@ app.post('/authenticate', async function(request, response)
             sess.cardID = data["type"][0];
         }
 
-        console.log("Data -> ");
+        console.log("ATM Request -> ");
         console.log(data);
 
         // Authenticate the given data
@@ -590,15 +594,16 @@ app.post('/authenticate', async function(request, response)
                         options.dataToSend = '{ "data" : "' + data["data"][i] + '" }';
                     }
 
-                    console.log("Options -> ");
-                    console.log(options);
+                    //console.log("Options -> ");
+                    //console.log(options);
 
                     await sendAuthenticationRequest(options, responseFunction);
 
-                    console.log("Responses -> ");
+                    console.log("Response -> ");
                     console.log(responses);
 
-                    if(responses.length > 0){
+                    if(responses.length > 0)
+                    {
                         if(responses[responses.length-1]["Success"] == 'true' || responses[responses.length-1]["Success"] == true)
                             sess.usedMethods[sess.usedMethods.length] = data["type"][i];
                     }
@@ -611,8 +616,9 @@ app.post('/authenticate', async function(request, response)
     let success = true;
 
     // debug msg
-    console.log("Client ID -> " + sess.ClientID);
+    console.log("\nClient ID -> " + sess.ClientID);
     console.log("Responses -> " + responses);
+
     for(let i = 0; i < responses.length; i++)
     {
         if(responses[i]["Success"] == 'false' || responses[i]["Success"] == 'false')
@@ -645,11 +651,12 @@ app.post('/authenticate', async function(request, response)
 
     // If problem with subsystem OR
     // If the client is deactivated/not found
-    if(sess.ClientID == undefined){
+    if(sess.ClientID == undefined)
+    {
         j = getATMResponse(false, "", 0);
 
         // debug msg
-        console.log("Found no client / deactivated client / problem with subsystem");
+        console.log("Found no client / deactivated client / problem with subsystem\n");
         console.log("Destroying session");
         sess.destroy();
     }
@@ -711,7 +718,7 @@ app.post('/authenticate', async function(request, response)
     }
 
     // debug msg
-    console.log("ATM Response");
+    console.log("\nATM Response");
     console.log(j);
 
     response.json(j);
