@@ -718,13 +718,6 @@ app.post('/authenticate', async function(request, response)
         console.log("Destroying session");
         sess.destroy();
 
-        // debug msg
-        console.log("\nATM Response");
-        console.log(j);
-
-        response.json(j);
-        response.end();
-
         return;
     }
     // if waiting for OTP
@@ -778,10 +771,6 @@ app.post('/authenticate', async function(request, response)
         console.log("Destroying session");
         //Destroy the session
         sess.destroy();
-    }
-    else if(sess.numTries > 0)
-    {
-        j = getATMResponse(false, "", 3 - sess.numTries);
     }
 
     // debug msg
