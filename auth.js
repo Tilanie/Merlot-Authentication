@@ -781,7 +781,7 @@ app.post('/authenticate', async function(request, response)
     }
     else
     {
-        j = getATMResponse(false, "", 3 - sess.numTries);
+        j = getATMResponse(false, "", 0);
     }
 
     // debug msg
