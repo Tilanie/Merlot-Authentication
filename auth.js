@@ -338,7 +338,7 @@ app.post('/authenticate', async function(request, response)
     console.log(data);
 
     // If the session is new then start new session.
-    if(!sess.atmID && !sess.waitingforOTP)
+    if(!sess.atmID && !sess.waitingforOTP && !sess.numTries)
     {
         sess.atmID = data["ID"];
 
@@ -724,24 +724,14 @@ app.post('/authenticate', async function(request, response)
         console.log("Found no client / deactivated client / problem with subsystem\n");
         console.log("Destroying session");
         sess.destroy();
-
-        // debug msg
-        console.log("\nATM Response");
-        console.log(j);
-
-        response.json(j);
-        response.end();
-
-        return;
     }
     // if waiting for OTP
     else if(sess.waitingforOTP === true)
     {
         j = JSON.parse('{ "Message" : "Sent OTP request" }');
     }
-
     // if succeeded
-    if(sess.numAuthenticated >= 2)
+    else if(sess.numAuthenticated >= 2)
     {
         j = getATMResponse(true, sess.ClientID, 3 - sess.numTries);
 
