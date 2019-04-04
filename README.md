@@ -15,8 +15,8 @@ Our application is hosted at - https://merlot-auth.herokuapp.com/authenticate
 
 Two methods of authentication at a time
 
-```javascript
-var data = {
+```json
+{
     "ID": 1,
     "type":
     [
@@ -33,8 +33,8 @@ var data = {
 
 One method of authentication at a time
 
-```javascript
-var data = {
+```json
+{
     "ID": 1,
     "type":
     [
