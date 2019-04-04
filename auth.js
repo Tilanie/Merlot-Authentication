@@ -148,13 +148,15 @@ async function sendAuthenticationRequest(options, callback)
         }, 10000);
     return await rp(optionsToSend)
             .then(function(parseBody) {
-                console.log(parseBody);
+                //console.log(parseBody);
                 callback(parseBody);
                 return;
 
             })
             .catch(function(error) {
-                console.log(error);
+                //console.log(error);
+                //callback(null);
+
             });
 }
 
@@ -354,6 +356,8 @@ app.post('/authenticate', async function(request, response)
             responses[responses.length-1]["Success"] = a["Success"];    // Success response
 
             responses[responses.length-1]["ClientID"] = a["ClientID"];  // Customer ID
+
+            responses[responses.length-1]["Message"] = a["Message"];    // Message
 
             sess.ClientID = responses[responses.length-1]["ClientID"];
         }
@@ -608,10 +612,9 @@ app.post('/authenticate', async function(request, response)
 
     // debug msg
     console.log("Client ID -> " + sess.ClientID);
-
+    console.log("Responses -> " + responses);
     for(let i = 0; i < responses.length; i++)
     {
-        console.log("Responses -> " + responses[i]);
         if(responses[i]["Success"] == 'false' || responses[i]["Success"] == 'false')
         {
             success = false;
@@ -619,7 +622,7 @@ app.post('/authenticate', async function(request, response)
 
             break;
         }
-        else if(responses[i]["Success"] == 'true' || responses[i]["Success"] == true)
+        else if(responses[i]["Success"] == 'true' || responses[i]["Success"] == 'true')
         {
             sess.numAuthenticated++;
             if(responses[i]["ClientID"])
@@ -642,7 +645,7 @@ app.post('/authenticate', async function(request, response)
 
     // If problem with subsystem OR
     // If the client is deactivated/not found
-    if(sess.ClientID === ""){
+    if(sess.ClientID == undefined){
         j = getATMResponse(false, "", 0);
 
         // debug msg
