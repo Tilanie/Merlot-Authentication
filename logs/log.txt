@@ -27,3 +27,8 @@
 {"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554414175645}
 {"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlototp.herokuapp.com/","body":{"ClientID":"10","type":"validate","pin":"4773"},"json":true},"success":true,"timestamp":1554414175646}
 {"logType":"info","cardID":-1,"cardType":"N/A","clientID":10,"description":"Session destroyed","success":true,"timestamp":1554414176959}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554416526520}
+{"logType":"info","cardID":"405","cardType":"N/A","description":"Found type NFC","success":true,"timestamp":1554416526521}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"405"},"json":true},"success":true,"timestamp":1554416526522}
+{"logType":"info","cardID":"9793","cardType":"N/A","description":"Found type PIN","success":true,"timestamp":1554416526521}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"405","pin":"9793"},"json":true},"success":true,"timestamp":1554416527629}

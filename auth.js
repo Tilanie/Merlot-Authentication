@@ -663,6 +663,8 @@ app.post('/authenticate', async function(request, response)
         }
     }
 
+    let deactivated = false;
+
     // Count the number of authentications that succeeded and that failed
     for(let i = 0; i < responses.length; i++)
     {
@@ -684,7 +686,12 @@ app.post('/authenticate', async function(request, response)
         else
         {
             if(responses[i]["Message"] && !responses[i]["Message"].includes("Database"))
+            {
                 sess.numTries++;
+
+                if(responses[i]["Message"].includes("deactivates"))
+                    deactivated = true;
+            }
             else
             {
                 responses[i]["Success"] = true;
@@ -779,9 +786,13 @@ app.post('/authenticate', async function(request, response)
         //Destroy the session
         sess.destroy();
     }
-    else
+    else if(deactivated)
     {
         j = getATMResponse(false, "", 0);
+    }
+    else
+    {
+        j = getATMResponse(false, "", 3 - sess.numTries);
     }
 
     // debug msg
