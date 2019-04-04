@@ -274,6 +274,30 @@ app.get('/display', function(request, response)
 
 });
 
+app.post('/display', function(request, response)
+{
+    var displayData = {
+        "CID": [
+            "PIN",
+            "OTP",
+            "PIC"
+        ],
+        "PIC": [
+            "PIN",
+            "OTP",
+            "CID"
+        ]
+    };
+
+    // debug msg
+    console.log("Displaying data to ATM simulation");
+    console.log(displayData);
+
+    response.json(displayData);
+    response.end();
+
+});
+
 // --------------------------------------------------------------------------------------
 // Get authenticate
 // --------------------------------------------------------------------------------------
