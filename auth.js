@@ -508,6 +508,9 @@ app.post('/authenticate', async function(request, response)
             sess.cardID = data["type"][0];
         }
 
+        console.log("Data -> ");
+        console.log(data);
+
         // Authenticate the given data
         for(let i = 0; i < data["type"].length; i++)
         {
@@ -583,10 +586,18 @@ app.post('/authenticate', async function(request, response)
                         options.dataToSend = '{ "data" : "' + data["data"][i] + '" }';
                     }
 
+                    console.log("Options -> ");
+                    console.log(options);
+
                     await sendAuthenticationRequest(options, responseFunction);
 
-                    if(responses[responses.length-1]["Success"] == 'true' || responses[responses.length-1]["Success"] == true)
-                        sess.usedMethods[sess.usedMethods.length] = data["type"][i];
+                    console.log("Responses -> ");
+                    console.log(responses);
+
+                    if(responses.length > 0){
+                        if(responses[responses.length-1]["Success"] == 'true' || responses[responses.length-1]["Success"] == true)
+                            sess.usedMethods[sess.usedMethods.length] = data["type"][i];
+                    }
                 }
             }
         }
