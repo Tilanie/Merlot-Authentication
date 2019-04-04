@@ -692,6 +692,10 @@ app.post('/authenticate', async function(request, response)
                 if(responses[i]["Message"].includes("deactivated"))
                     deactivated = true;
             }
+            else if(!responses[i]["Message"])
+            {
+                sess.numTries++;
+            }
             else
             {
                 responses[i]["Success"] = true;
@@ -750,12 +754,12 @@ app.post('/authenticate', async function(request, response)
         console.log("Number of tries exceeded specified amount. This customer has been blocked.");
         logInfo("Customer exceeded number of authentication attempts. Account suspended.", -1, "N/A", sess.ClientID);
 
-        if(ClientID !== ""){
+        if(sess.ClientID !== ""){
             // send post request to block current user
 
             options.dataToSend = JSON.stringify({
                 "option": "deactivate",
-                "clientId": ClientID
+                "clientId": sess.ClientID
             });
 
             options.hostname = "http://merlotcisg7.herokuapp.com/";
@@ -766,8 +770,11 @@ app.post('/authenticate', async function(request, response)
             options.headers['ContentLength'] = options.dataToSend.length;
 
             await sendAuthenticationRequest(options, function (res) {
-                console.log(res.status);
-                console.log(res.message);
+                if(res)
+                {
+                    console.log(res.status);
+                    console.log(res.message);
+                }
             });
         }
 

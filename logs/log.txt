@@ -1,5 +1,35 @@
-{"logType":"info","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Log size limit reached, sending log to reporting subsystem","success":true,"timestamp":1554417429429}
-{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"undefined/uploadLog","body":{"logs":[]},"json":true},"success":true,"timestamp":1554417429430}
-{"logType":"error","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"undefined/uploadLog","body":{"logs":[]},"json":true},"success":false,"timestamp":1554417429434}
-{"logType":"error","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"undefined/uploadLog","body":{"logs":[]},"json":true},"success":false,"timestamp":1554417429434}
-{"logType":"info","cardID":-1,"cardType":"N/A","clientID":10,"description":"Session destroyed","success":true,"timestamp":1554417430343}
+{"logType":"info","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Log size limit reached, sending log to reporting subsystem","success":true,"timestamp":1554418209847}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"undefined/uploadLog","body":{"logs":[]},"json":true},"success":true,"timestamp":1554418209851}
+{"logType":"error","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"undefined/uploadLog","body":{"logs":[]},"json":true},"success":false,"timestamp":1554418209855}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554418227394}
+{"logType":"info","cardID":"3128","cardType":"N/A","clientID":6,"description":"Found type PIN","success":true,"timestamp":1554418227394}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"414","pin":"3128"},"json":true},"success":true,"timestamp":1554418227394}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554418234505}
+{"logType":"info","cardID":"3128","cardType":"N/A","clientID":6,"description":"Found type OTP","success":true,"timestamp":1554418234506}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlototp.herokuapp.com/","body":{"ClientID":"6","type":"generate"},"json":true},"success":true,"timestamp":1554418234507}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554418237578}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlototp.herokuapp.com/","body":{"ClientID":"6","type":"validate","pin":"3128"},"json":true},"success":true,"timestamp":1554418237579}
+{"logType":"info","cardID":-1,"cardType":"N/A","clientID":6,"description":"Customer exceeded number of authentication attempts. Account suspended.","success":true,"timestamp":1554418238310}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"http://merlotcisg7.herokuapp.com//","body":{"option":"deactivate","clientId":6},"json":true},"success":true,"timestamp":1554418238310}
+{"logType":"error","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"http://merlotcisg7.herokuapp.com//","body":{"option":"deactivate","clientId":6},"json":true},"success":false,"timestamp":1554418238677}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554418264680}
+{"logType":"info","cardID":"414","cardType":"N/A","description":"Found type NFC","success":true,"timestamp":1554418264681}
+{"logType":"info","cardID":"3128","cardType":"N/A","description":"Found type PIN","success":true,"timestamp":1554418264681}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"414"},"json":true},"success":true,"timestamp":1554418264681}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"414","pin":"3128"},"json":true},"success":true,"timestamp":1554418265709}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554418267150}
+{"logType":"info","cardID":"3128","cardType":"N/A","clientID":6,"description":"Found type PIN","success":true,"timestamp":1554418267151}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"414","pin":"3128"},"json":true},"success":true,"timestamp":1554418267152}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554418271585}
+{"logType":"info","cardID":"3128","cardType":"N/A","clientID":6,"description":"Found type OTP","success":true,"timestamp":1554418271585}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlototp.herokuapp.com/","body":{"ClientID":"6","type":"generate"},"json":true},"success":true,"timestamp":1554418271586}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554418275485}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlototp.herokuapp.com/","body":{"ClientID":"6","type":"validate","pin":"3128"},"json":true},"success":true,"timestamp":1554418275486}
+{"logType":"info","cardID":-1,"cardType":"N/A","clientID":6,"description":"Customer exceeded number of authentication attempts. Account suspended.","success":true,"timestamp":1554418276267}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"http://merlotcisg7.herokuapp.com//","body":{"option":"deactivate","clientId":6},"json":true},"success":true,"timestamp":1554418276267}
+{"logType":"error","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"http://merlotcisg7.herokuapp.com//","body":{"option":"deactivate","clientId":6},"json":true},"success":false,"timestamp":1554418276637}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":"Received authentication request: [object Object]","success":true,"timestamp":1554418286561}
+{"logType":"info","cardID":"414","cardType":"N/A","description":"Found type NFC","success":true,"timestamp":1554418286562}
+{"logType":"info","cardID":"3128","cardType":"N/A","description":"Found type PIN","success":true,"timestamp":1554418286562}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"414"},"json":true},"success":true,"timestamp":1554418286562}
+{"logType":"request","cardID":-1,"cardType":"N/A","clientID":-1,"description":{"method":"POST","uri":"https://merlot-card-authentication.herokuapp.com/authenticateNFC","body":{"cardID":"414","pin":"3128"},"json":true},"success":true,"timestamp":1554418287553}
