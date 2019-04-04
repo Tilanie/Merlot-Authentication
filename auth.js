@@ -1100,17 +1100,3 @@ if (port == null || port === "") {
 app.listen(port, function () {
     console.log("Server is running at " + port);
 });
-
-// ======================================================================================
-// Specify the port to use
-// ======================================================================================
-// if the application is run on Heroku use the port Heroku needs
-// if the application is run locally choose desired port
-let port = process.env.PORT;
-if (port == null || port === "") {
-    port = 8000;
-}
-
-app.listen(port, function () {
-    console.log("Server is running at " + port);
-});
