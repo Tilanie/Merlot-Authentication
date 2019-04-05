@@ -338,7 +338,7 @@ app.post('/authenticate', async function(request, response)
     console.log(data);
 
     // If the session is new then start new session.
-    if(!sess.atmID && !sess.waitingforOTP && !sess.numTries)
+    if(!sess.atmID && sess.atmID != 0)
     {
         sess.atmID = data["ID"];
 
