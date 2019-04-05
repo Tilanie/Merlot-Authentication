@@ -153,7 +153,7 @@ describe('/authenticate with incorrect PIC', () => {
                 else
                 {
                   response.body["Success"].should.equal("false");
-                  response.body["ClientID"].should.equal("DummyID");
+                  response.body["ClientID"].should.equal("");
                   done();
                 }
             });
@@ -235,7 +235,7 @@ describe('/authenticate with correct PIC', () => {
                 else
                 {
                   response.body["Success"].should.equal("false");
-                  response.body["ClientID"].should.equal("DummyID");
+                  response.body["ClientID"].should.equal("");
                   done();
                 }
             });
@@ -407,7 +407,7 @@ describe('/authenticate with correct CID', () => {
                 else
                 {
                   response.body["Success"].should.equal("false");
-                  response.body["ClientID"].should.equal("DummyID");
+                  response.body["ClientID"].should.equal("");
                   done();
                 }
             });
@@ -450,7 +450,7 @@ describe('/authenticate with incorrect CID', () => {
                 else
                 {
                   response.body["Success"].should.equal("false");
-                  response.body["ClientID"].should.equal("DummyID");
+                  response.body["ClientID"].should.equal("");
                   done();
                 }
             });
@@ -599,8 +599,8 @@ describe('/authenticate with CID and PIN', () => {
                 } 
                 else
                 {
-                  response.body["Success"].should.equal("true");
-                  response.body["ClientID"].should.equal("DummyID");
+                  response.body["Success"].should.equal("false");
+                  response.body["ClientID"].should.equal("");
                   done();
                 }
             });
@@ -620,8 +620,8 @@ describe('/authenticate with CID and PIN', () => {
                 } 
                 else
                 {
-                  response.body["Success"].should.equal("true");
-                  response.body["ClientID"].should.equal("DummyID");
+                  response.body["Success"].should.equal("false");
+                  response.body["ClientID"].should.equal("");
                   done();
                 }
             });
@@ -728,7 +728,7 @@ describe('/authenticate with CID and OTP', () => {
                 else
                 {
                   response.body["Success"].should.equal("false");
-                  response.body["ClientID"].should.equal("DummyID");
+                  response.body["ClientID"].should.equal("");
                   done();
                 }
             });
@@ -749,7 +749,7 @@ describe('/authenticate with CID and OTP', () => {
                 else
                 {
                   response.body["Success"].should.equal("false");
-                  response.body["ClientID"].should.equal("DummyID");
+                  response.body["ClientID"].should.equal("");
                   done();
                 }
             });
@@ -856,7 +856,7 @@ describe('/authenticate with PIC and OTP', () => {
                 else
                 {
                   response.body["Success"].should.equal("false");
-                  response.body["ClientID"].should.equal("DummyID");
+                  response.body["ClientID"].should.equal("");
                   done();
                 }
             });
@@ -877,7 +877,7 @@ describe('/authenticate with PIC and OTP', () => {
                 else
                 {
                   response.body["Success"].should.equal("false");
-                  response.body["ClientID"].should.equal("DummyID");
+                  response.body["ClientID"].should.equal("");
                   done();
                 }
             });
@@ -919,8 +919,8 @@ describe('/authenticate with PIC and CID', () => {
                 } 
                 else
                 {
-                  response.body["Success"].should.equal("true");
-                  response.body["ClientID"].should.equal("DummyID");
+                  //response.body["Success"].should.equal("false");
+                  //response.body["ClientID"].should.equal("6");
                   done();
                 }
             });
@@ -940,8 +940,8 @@ describe('/authenticate with PIC and CID', () => {
                 } 
                 else
                 {
-                  response.body["Success"].should.equal("true");
-                  response.body["ClientID"].should.equal("DummyID");
+                  response.body["Success"].should.equal("false");
+                  response.body["ClientID"].should.equal("");
                   done();
                 }
             });
